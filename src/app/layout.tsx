@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
+import Navmobile from "./components/navmobile";
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -15,7 +18,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
 	title: "UTA Datathon 2025",
-	description: "Website for UTA Datathon 2025",
+	description: "The official website for UTA Datathon",
 };
 
 export default function RootLayout({
@@ -24,11 +27,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="en" className="">
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				{children}
+				<div className="min-h-screen flex flex-col">
+					<Navbar />
+					{children}
+					<Footer />
+				</div>
+				<Navmobile />
 			</body>
 		</html>
 	);
