@@ -1,0 +1,19 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth"; // Add this line
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnPuuPA6zJI_m_Mb-2K9MJiZV_XoF9qkI",
+  authDomain: "datathon2025-4b999.firebaseapp.com",
+  projectId: "datathon2025-4b999",
+  storageBucket: "datathon2025-4b999.appspot.com",
+  messagingSenderId: "412231169788",
+  appId: "1:412231169788:web:9c4494f4aab789cd6a4979",
+  measurementId: "G-FBVMVJXZ4N"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app); // Initialize Firebase Authentication
+
+export { auth }; // Export auth for use in other components
