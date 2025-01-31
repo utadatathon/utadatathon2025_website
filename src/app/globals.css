@@ -3,45 +3,102 @@
 @tailwind utilities;
 
 :root {
-	--background: #f8fafc;
-	--foreground: #020617;
+  --background: #f8fafc;
+  --foreground: #020617;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--background: #020617;
-		--foreground: #f8fafc;
-	}
+  :root {
+    --background: #020617;
+    --foreground: #f8fafc;
+  }
 }
 
 body {
-	color: var(--foreground);
-	background: var(--background);
-	font-family: Arial, Helvetica, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 .video-container {
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
-  }
-  
-  .background-video {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100vw;
-	height: 100vh;
-	object-fit: cover;
-	z-index: -1;
-  }
-  
-  .content {
-	position: relative;
-	z-index: 1;
-	color: white;
-	text-align: center;
-	font-size: 2rem;
-  }
-  
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registration-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  color: black;
+  max-height: 80vh; /* Set a max height for the card */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: black;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: black;
+  background-color: white;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  color: red;
+  margin-bottom: 1rem;
+}
