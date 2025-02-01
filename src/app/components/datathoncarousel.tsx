@@ -8,15 +8,15 @@ import "swiper/css/navigation";
 const AboutDatathonCarousel = () => {
     const carouselItems = [
       {
-        image: "/images/datathon1.jpg", // Replace with your image paths
+        image: "/datathonimage1.jpg", // Replace with your image paths
         text: "Join the biggest Datathon at UTA!",
       },
       {
-        image: "/images/datathon2.jpg",
+        image: "/datathonimage2.jpg",
         text: "Learn, compete, and network with the best.",
       },
       {
-        image: "/images/datathon3.jpg",
+        image: "/datathonimage3.jpg",
         text: "Win exciting prizes and recognition.",
       },
     ];
