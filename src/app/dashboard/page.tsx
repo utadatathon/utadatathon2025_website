@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/configuration"; 
 import AboutDatathonCarousel from "../components/datathoncarousel";
+import styles from "./dashboard.module.css";
 
 const DashboardPage = () => {
   const [status, setStatus] = useState("under review");
@@ -26,7 +27,7 @@ const DashboardPage = () => {
   return (
     <div className="grow">
       <p>Dashboard Page</p>
-      <div className="status-box">
+      <div className= {styles.statusBox}>
         <h3>Application Status</h3>
         <p>{status}</p>
       </div>

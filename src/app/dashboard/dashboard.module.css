@@ -1,0 +1,40 @@
+.status-box {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  
+  .about-datathon {
+    margin-top: 20px;
+  }
+  
+  .about-datathon img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  /* Swiper-specific styles */
+  .mySwiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
