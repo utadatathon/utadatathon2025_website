@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 :root {
 	--background: #f8fafc;
@@ -44,4 +48,44 @@ body {
 	text-align: center;
 	font-size: 2rem;
   }
+
+  .font-press-start {
+    font-family: 'Press Start 2P', cursive;
+  }
+
+  @keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -2px); }
+    60% { transform: translate(-2px, -3px); }
+    80% { transform: translate(2px, 3px); }
+  }
+  
+  @keyframes rgbSplit {
+    0%, 100% { text-shadow: 0 0 0 red, 0 0 0 blue; }
+    25% { text-shadow: -3px 0 red, 3px 0 blue; }
+    50% { text-shadow: 3px 0 red, -3px 0 blue; }
+    75% { text-shadow: -2px 0 red, 2px 0 blue; }
+  }
+  
+  .animate-glitch {
+    animation: glitch 2.5s infinite linear, rgbSplit 2.5s infinite linear;
+    background: black;
+    display: inline-block;
+    padding: 5px;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+  
+  .animate-pulse {
+      animation: pulse 2s infinite;
+  }
+
   
