@@ -12,8 +12,8 @@ export default function Home() {
       </video>
       <div className="content">
         <div className="space-y-5 mt-10 font-press-start text-center">
-          <h1 className="animate-glitch text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-green-400">
-            UTA DATATHON
+          <h1 className="animate-glitch text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-200">
+            UTA DATATHON 2025
           </h1>
           <p className="animate-pulse text-green-500 text-lg sm:text-xl md:text-2xl lg:text-3xl">
             APR 12 - 13
