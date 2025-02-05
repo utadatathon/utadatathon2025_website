@@ -2,8 +2,15 @@
 "use client";
 import React from "react";
 
+import { useRouter } from "next/navigation";
+
 export default function Home() {
-  const handleClick = () => {};
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/registration"); // Navigate to the registration page
+  };
+
   return (
     <div className="video-container">
       <video autoPlay loop muted playsInline className="background-video">
@@ -11,7 +18,8 @@ export default function Home() {
         Your browser does not support the video tag.
       </video>
       <div className="content">
-        <div className="space-y-5 mt-10 font-press-start text-center">
+        <div className="content-text">
+          <div className="space-y-5 mt-10 font-press-start text-center">
           <h1 className="animate-glitch text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-200">
             UTA DATATHON 2025
           </h1>
@@ -24,6 +32,7 @@ export default function Home() {
           >
             CLICK HERE TO REGISTER
           </button>
+          </div>
         </div>
       </div>
     </div>
