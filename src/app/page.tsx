@@ -1,5 +1,23 @@
 'use client';
 import { useEffect, useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBnPuuPA6zJI_m_Mb-2K9MJiZV_XoF9qkI",
+  authDomain: "datathon2025-4b999.firebaseapp.com",
+  projectId: "datathon2025-4b999",
+  storageBucket: "datathon2025-4b999.firebasestorage.app",
+  messagingSenderId: "412231169788",
+  appId: "1:412231169788:web:9c4494f4aab789cd6a4979",
+  measurementId: "G-FBVMVJXZ4N"
+};
+
+// Initialize Firebase services
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 interface IUserModel {
   name: string;
@@ -45,8 +63,9 @@ export default function Home() {
   });
 
   const [schools, setSchools] = useState<string[]>([]);
-  const [countries, setCountries] = useState<string[]>(["United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "India", "China", "Japan", "Brazil"]);
+  const [countries] = useState<string[]>(["United States", "Canada", "United Kingdom", "Australia", "Germany", "France", "India", "China", "Japan", "Brazil"]);
   const [message, setMessage] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     async function fetchSchools() {
@@ -67,6 +86,7 @@ export default function Home() {
         setSchools(['University of Texas at Arlington', ...csvSchools.filter(school => school !== 'University of Texas at Arlington')]);
       } catch (error) {
         console.error("Failed to fetch schools:", error);
+        setSchools(['University of Texas at Arlington']); // Fallback option
       }
     }
 
@@ -80,7 +100,7 @@ export default function Home() {
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0]) {
       setData(prev => ({ ...prev, resume: event.target.files![0] }));
     }
   };
@@ -99,21 +119,92 @@ export default function Home() {
     }
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!data.name || !data.age || !data.email || !data.phone || !data.schoolName || !data.levelOfStudy || !data.countryOfResidence || !data.tshirtSize || !data.fieldOfStudy || !data.linkedinUrl || !data.githubUrl || !data.resume || !data.dietaryRestrictions || !data.gender || !data.raceEthnicity) {
-      setMessage("Please fill all the required fields");
-      return;
+  const validateForm = () => {
+    // Check for empty required fields
+    const requiredFields = Object.entries(data).filter(([key]) => 
+      key !== 'mlhEmails' // mlhEmails is optional
+    );
+    
+    for (const [key, value] of requiredFields) {
+      if (!value && value !== false) {
+        setMessage(`Please fill out the ${key.replace(/([A-Z])/g, ' $1').toLowerCase()} field`);
+        return false;
+      }
     }
-    if (!validateUrl(data.linkedinUrl) || !validateUrl(data.githubUrl)) {
-      setMessage("Please enter valid LinkedIn and GitHub URLs");
-      return;
+
+    // Validate URLs
+    if (!validateUrl(data.linkedinUrl)) {
+      setMessage("Please enter a valid LinkedIn URL");
+      return false;
     }
+    if (!validateUrl(data.githubUrl)) {
+      setMessage("Please enter a valid GitHub URL");
+      return false;
+    }
+
+    // Validate checkboxes
     if (!data.mlhCodeOfConduct || !data.mlhPrivacyPolicy) {
       setMessage("You must agree to the MLH Code of Conduct and Privacy Policy");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    if (!validateForm()) {
       return;
     }
-    setMessage("Form submitted successfully!");
+
+    setIsSubmitting(true);
+    setMessage("Submitting...");
+
+    try {
+      // Upload resume to Firebase Storage
+      let resumeUrl = '';
+      if (data.resume) {
+        const storageRef = ref(storage, `resumes/${data.email}-${data.resume.name}`);
+        await uploadBytes(storageRef, data.resume);
+        resumeUrl = storageRef.fullPath;
+      }
+
+      // Save form data to Firestore
+      const docRef = await addDoc(collection(db, "registrations"), {
+        ...data,
+        resume: resumeUrl, // Store the storage path instead of the File object
+        timestamp: new Date().toISOString()
+      });
+
+      setMessage("Registration submitted successfully!");
+      // Reset form
+      setData({
+        name: "",
+        age: "",
+        email: "",
+        phone: "",
+        schoolName: "",
+        levelOfStudy: "",
+        countryOfResidence: "",
+        tshirtSize: "",
+        fieldOfStudy: "",
+        linkedinUrl: "",
+        githubUrl: "",
+        resume: null,
+        dietaryRestrictions: "",
+        gender: "",
+        raceEthnicity: "",
+        mlhCodeOfConduct: false,
+        mlhPrivacyPolicy: false,
+        mlhEmails: false,
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setMessage("Error submitting form. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -126,7 +217,8 @@ export default function Home() {
         <div className="registration-card">
           <form onSubmit={handleFormSubmit} className="form-container">
             <h3>Register Here</h3>
-            {message && <p className="message">{message}</p>}
+            {message && <p className={`message ${message.includes("Error") ? "error" : "success"}`}>{message}</p>}
+            
             <div className="form-group">
               <label htmlFor="name">Full Name *</label>
               <input
@@ -138,6 +230,7 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="age">Age *</label>
               <input
@@ -149,10 +242,11 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="phone">Phone *</label>
               <input
-                type="text"
+                type="tel"
                 id="phone"
                 value={data.phone}
                 onChange={handleInputChange}
@@ -160,6 +254,7 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="email">Email Address *</label>
               <input
@@ -171,6 +266,7 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="schoolName">School Name *</label>
               <select
@@ -180,11 +276,13 @@ export default function Home() {
                 className="form-input"
                 required
               >
+                <option value="">Select</option>
                 {schools.map(school => (
                   <option key={school} value={school}>{school}</option>
                 ))}
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="levelOfStudy">Level of Study *</label>
               <select
@@ -203,6 +301,7 @@ export default function Home() {
                 <option value="PhD">PhD</option>
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="countryOfResidence">Country of Residence *</label>
               <select
@@ -212,11 +311,13 @@ export default function Home() {
                 className="form-input"
                 required
               >
+                <option value="">Select</option>
                 {countries.map(country => (
                   <option key={country} value={country}>{country}</option>
                 ))}
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="tshirtSize">T-shirt Size *</label>
               <select
@@ -235,6 +336,7 @@ export default function Home() {
                 <option value="XXL">XXL</option>
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="fieldOfStudy">Field of Study *</label>
               <select
@@ -262,10 +364,11 @@ export default function Home() {
                 <option value="Prefer not to answer">Prefer not to answer</option>
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="linkedinUrl">LinkedIn URL *</label>
               <input
-                type="text"
+                type="url"
                 id="linkedinUrl"
                 value={data.linkedinUrl}
                 onChange={handleInputChange}
@@ -273,10 +376,11 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="githubUrl">GitHub URL *</label>
               <input
-                type="text"
+                type="url"
                 id="githubUrl"
                 value={data.githubUrl}
                 onChange={handleInputChange}
@@ -284,6 +388,7 @@ export default function Home() {
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="resume">Resume *</label>
               <input
@@ -291,9 +396,11 @@ export default function Home() {
                 id="resume"
                 onChange={handleFileChange}
                 className="form-input"
+                accept=".pdf,.doc,.docx"
                 required
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="dietaryRestrictions">Dietary Restrictions *</label>
               <select
@@ -304,13 +411,16 @@ export default function Home() {
                 required
               >
                 <option value="">Select</option>
+                <option value="None">None</option>
                 <option value="Vegetarian">Vegetarian</option>
                 <option value="Vegan">Vegan</option>
-                <option value="Celiac Disease">Celiac Disease</option>
-                <option value="Allergies">Allergies</option>
+                <option value="Gluten-Free">Gluten-Free</option>
                 <option value="Halal">Halal</option>
+                <option value="Kosher">Kosher</option>
+                <option value="Other">Other</option>
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="gender">Gender *</label>
               <select
@@ -324,9 +434,11 @@ export default function Home() {
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Non-Binary">Non-Binary</option>
+                <option value="Other">Other</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
+
             <div className="form-group">
               <label htmlFor="raceEthnicity">Race/Ethnicity *</label>
               <select
@@ -338,8 +450,8 @@ export default function Home() {
               >
                 <option value="">Select</option>
                 <option value="Asian">Asian</option>
-                <option value="Black">Black</option>
-                <option value="Hispanic">Hispanic</option>
+                <option value="Black/African American">Black/African American</option>
+                <option value="Hispanic/Latino">Hispanic/Latino</option>
                 <option value="White">White</option>
                 <option value="Other">Other</option>
                 <option value="Prefer not to say">Prefer not to say</option>
