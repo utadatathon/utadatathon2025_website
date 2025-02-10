@@ -153,3 +153,36 @@ body {
   color: red;
   margin-bottom: 1rem;
 }
+
+/* Ensure dropdown fields show an arrow */
+select {
+  appearance: auto; /* Ensure native dropdown styles */
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: black; /* Make sure text inside dropdown is black */
+}
+
+/* Ensure input field text is black */
+input, textarea {
+  color: black; /* Set text color inside inputs */
+  background-color: white; /* Ensure background contrast */
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Adjust dropdown height to match input fields */
+select, input {
+  height: 40px;
+}
+
+/* Ensure dropdown arrows are visible */
+select::-ms-expand {
+  display: block; /* Ensure the arrow is visible in Edge */
+}

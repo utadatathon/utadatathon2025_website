@@ -6,21 +6,24 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export default function Register() {
+  const countries = [
+    "United States", "Canada", "United Kingdom", "Australia", "Germany", 
+    "France", "India", "China", "Japan", "Brazil", "Mexico", "Spain", "Italy",
+    "South Korea", "Netherlands", "Sweden", "Switzerland", "South Africa"
+  ];
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
-    countryOfResidence: "",
+    countryOfResidence: "United States",
     levelOfStudy: "",
-    age: "",
-    phone: "",
-    schoolName: "University of Texas at Arlington",
     tshirtSize: "",
     fieldOfStudy: "",
     linkedinUrl: "",
     githubUrl: "",
-    resume: null as File | null,
     dietaryRestrictions: "",
+    allergies: "",
     gender: "",
     raceEthnicity: "",
     mlhCodeOfConduct: false,
@@ -34,13 +37,6 @@ export default function Register() {
     const { id, value } = event.target;
     setFormData(prev => ({ ...prev, [id]: value }));
     setMessage("");
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      setFormData(prev => ({ ...prev, resume: files[0] as File }));
-    }
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,25 +60,7 @@ export default function Register() {
 
       // Save user details (excluding password) to Firestore
       const userRef = doc(collection(db, "users"), user.uid);
-      await setDoc(userRef, {
-        name: formData.name,
-        email: formData.email,
-        countryOfResidence: formData.countryOfResidence,
-        levelOfStudy: formData.levelOfStudy,
-        age: formData.age || null,
-        phone: formData.phone || null,
-        schoolName: formData.schoolName,
-        tshirtSize: formData.tshirtSize || null,
-        fieldOfStudy: formData.fieldOfStudy || null,
-        linkedinUrl: formData.linkedinUrl || null,
-        githubUrl: formData.githubUrl || null,
-        dietaryRestrictions: formData.dietaryRestrictions || null,
-        gender: formData.gender || null,
-        raceEthnicity: formData.raceEthnicity || null,
-        mlhCodeOfConduct: formData.mlhCodeOfConduct,
-        mlhPrivacyPolicy: formData.mlhPrivacyPolicy,
-        mlhEmails: formData.mlhEmails,
-      });
+      await setDoc(userRef, { ...formData });
 
       setMessage("Registration successful!");
     } catch (error: any) {
@@ -115,43 +93,72 @@ export default function Register() {
 
             {/* Mandatory Fields */}
             <div className="form-group">
-              <label htmlFor="name">First and Last Name *</label>
+              <label htmlFor="name">Full Name *</label>
               <input type="text" id="name" value={formData.name} onChange={handleInputChange} required />
             </div>
             <div className="form-group">
               <label htmlFor="countryOfResidence">Country of Residence *</label>
-              <input type="text" id="countryOfResidence" value={formData.countryOfResidence} onChange={handleInputChange} required />
+              <select id="countryOfResidence" value={formData.countryOfResidence} onChange={handleInputChange} required>
+                {countries.map(country => (
+                  <option key={country} value={country}>{country}</option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
               <label htmlFor="levelOfStudy">Level of Study *</label>
               <input type="text" id="levelOfStudy" value={formData.levelOfStudy} onChange={handleInputChange} required />
             </div>
 
-            {/* Optional Fields */}
+            {/* Additional Fields */}
             <div className="form-group">
-              <label htmlFor="age">Age</label>
-              <input type="text" id="age" value={formData.age} onChange={handleInputChange} />
+              <label htmlFor="tshirtSize">T-Shirt Size</label>
+              <select id="tshirtSize" value={formData.tshirtSize} onChange={handleInputChange}>
+                <option value="">Select</option>
+                {["XS", "S", "M", "L", "XL", "XXL"].map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input type="text" id="phone" value={formData.phone} onChange={handleInputChange} />
+              <label htmlFor="fieldOfStudy">Field of Study</label>
+              <select id="fieldOfStudy" value={formData.fieldOfStudy} onChange={handleInputChange}>
+                <option value="">Select</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Business">Business</option>
+                <option value="Humanities">Humanities</option>
+                <option value="Fine Arts">Fine Arts</option>
+                <option value="Health Science">Health Science</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
             <div className="form-group">
-              <label htmlFor="resume">Resume</label>
-              <input type="file" id="resume" onChange={handleFileChange} />
+              <label htmlFor="linkedinUrl">LinkedIn URL</label>
+              <input type="text" id="linkedinUrl" value={formData.linkedinUrl} onChange={handleInputChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="githubUrl">GitHub URL</label>
+              <input type="text" id="githubUrl" value={formData.githubUrl} onChange={handleInputChange} />
             </div>
 
-            {/* Agreement Checkboxes */}
-            <div className="form-group">
+            {/* MLH Agreement Checkboxes */}
+            <div className="form-group checkbox-group">
               <label>
                 <input type="checkbox" id="mlhCodeOfConduct" checked={formData.mlhCodeOfConduct} onChange={handleCheckboxChange} required />
-                I agree to the MLH Code of Conduct *
+                I have read and agree to the MLH Code of Conduct. *
               </label>
             </div>
-            <div className="form-group">
+            <div className="form-group checkbox-group">
               <label>
                 <input type="checkbox" id="mlhPrivacyPolicy" checked={formData.mlhPrivacyPolicy} onChange={handleCheckboxChange} required />
-                I agree to the MLH Privacy Policy *
+                I authorize you to share my application/registration information with Major League Hacking for event administration.
+              </label>
+            </div>
+            <div className="form-group checkbox-group">
+              <label>
+                <input type="checkbox" id="mlhEmails" checked={formData.mlhEmails} onChange={handleCheckboxChange} />
+                I authorize MLH to send me occasional emails about relevant events and opportunities.
               </label>
             </div>
 
