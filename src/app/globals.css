@@ -186,3 +186,83 @@ select, input {
 select::-ms-expand {
   display: block; /* Ensure the arrow is visible in Edge */
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  color: white;
+}
+
+.form-container label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 5px;
+  color: black;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  outline: none;
+  box-shadow: 0 0 5px #00ff99;
+}
+
+.form-container button {
+  background: #007bff;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.form-container button:hover {
+  background: #0056b3;
+}
+
+.form-container hr {
+  border: 0;
+  height: 1px;
+  background: #aaa;
+  margin: 10px 0;
+}
+
+.form-container input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+.scrollable-form {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.form-group-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-group-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}
