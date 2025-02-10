@@ -60,8 +60,8 @@ export default function Register() {
   
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = event.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-    setMessage("");
+    setFormData(prev => ({ ...prev, [id]: value.trim() || "" })); // Ensure empty string if value is missing
+    setMessage(""); 
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +84,7 @@ export default function Register() {
 
     // Check if any required field is empty or still at "Select"
     for (const field of requiredFields) {
-      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData] === "Select") {
+      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData] === "") {
       setMessage("Please fill out all required fields.");
       return;
       }
@@ -122,7 +122,7 @@ export default function Register() {
           .map(line => line.split(",")[1]?.trim()) // Get school names
           .filter((school, index, self) => school && self.indexOf(school) === index && school !== "University of Texas at Arlington"); // Ensure uniqueness
   
-        setSchools(["University of Texas at Arlington", "Select", ...csvSchools]); // UTA first, then "Select"
+        setSchools(["University of Texas at Arlington", ...csvSchools]); // UTA first, then "Select"
       } catch (error) {
         console.error("Failed to fetch schools:", error);
       }
@@ -155,6 +155,7 @@ export default function Register() {
             <div className="form-group">
               <label>School Name *</label>
                 <select id="schoolName" value={formData.schoolName} onChange={handleInputChange} required>
+                  <option value="">Select</option>
                   {schools.map(school => (
                   <option key={school} value={school}>{school}</option>
                   ))}
