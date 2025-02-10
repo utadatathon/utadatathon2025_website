@@ -78,35 +78,29 @@ export default function Register() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Validate required fields
+    console.log("Current form data:", formData); // Debugging log
+  
     const requiredFields = ["email", "password", "name", "age", "schoolName", "levelOfStudy", "countryOfResidence", "tshirtSize"];
-
-    // Check if any required field is empty or still at "Select"
     for (const field of requiredFields) {
-      if (!formData[field as keyof typeof formData] || formData[field as keyof typeof formData] === "") {
-      setMessage("Please fill out all required fields.");
-      return;
+      const fieldValue = formData[field as keyof typeof formData];
+      if (!fieldValue || (typeof fieldValue === "string" && fieldValue.trim() === "")) {
+        console.log(`Missing field: ${field}, Value: ${fieldValue}`);
+        setMessage("Please fill out all required fields.");
+        return;
       }
     }
-
-    // Validate age (must be 18+)
-    if (parseInt(formData.age) < 18) {
-      setMessage("You must be at least 18 years old to register.");
-      return;
-    }
-
+  
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
-
       await sendEmailVerification(user);
-
       const userRef = doc(collection(db, "users"), user.uid);
       await setDoc(userRef, { ...formData });
-
+  
       setMessage("Registration successful!");
-    } catch (error: any) {
+    } 
+    
+    catch (error: any) {
       setMessage(error.message);
     }
   };
@@ -162,8 +156,8 @@ export default function Register() {
                 </select>
             </div>
             <div className="form-group">
-              <label htmlFor="fieldOfStudy">Level of Study</label>
-              <select id="fieldOfStudy" value={formData.fieldOfStudy} onChange={handleInputChange}>
+              <label htmlFor="fieldOfStudy">Level of Study *</label>
+              <select id="fieldOfStudy" value={formData.fieldOfStudy} onChange={handleInputChange} required>
                 <option value="">Select</option>
                 <option value="Computer Science">Freshman</option>
                 <option value="Engineering">Sophomore</option>
@@ -183,7 +177,7 @@ export default function Register() {
             </div>
             <div className="form-group">
               <label htmlFor="tshirtSize">T-Shirt Size *</label>
-              <select id="tshirtSize" value={formData.tshirtSize} onChange={handleInputChange}>
+              <select id="tshirtSize" value={formData.tshirtSize} onChange={handleInputChange} required>
                 <option value="">Select</option>
                 {["XS", "S", "M", "L", "XL", "XXL"].map(size => (
                   <option key={size} value={size}>{size}</option>
