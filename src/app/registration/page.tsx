@@ -1,8 +1,25 @@
-'use client';
+"use client";
 import { useEffect, useState } from "react";
+import {
+    db,
+    storage,
+    auth,
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    collection,
+    addDoc,
+    query,
+    where,
+    getDocs,
+    serverTimestamp
+  } from "../../../firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth';
+import SuccessScreen from '../components/SuccessScreen';
 
 interface IUserModel {
-  name: string;
+  firstname: string;
+  lastname: string;
   age: string;
   email: string;
   phone: string;
@@ -23,8 +40,16 @@ interface IUserModel {
 }
 
 export default function Home() {
+  // Auth states
+  const [user, setUser] = useState<User | null>(null);
+  const [authEmail, setAuthEmail] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  // Form states
   const [data, setData] = useState<IUserModel>({
-    name: "",
+    firstname: "",
+    lastname: "",
     age: "",
     email: "",
     phone: "",
@@ -44,7 +69,33 @@ export default function Home() {
     mlhEmails: false,
   });
 
-  // Use a constant for static country values instead of useState
+  const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  // Auth effect
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Auth handler
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (isRegistering) {
+        await createUserWithEmailAndPassword(auth, authEmail, authPassword);
+      } else {
+        await signInWithEmailAndPassword(auth, authEmail, authPassword);
+      }
+    } catch (error) {
+      console.error('Auth error:', error);
+      setMessage("Authentication failed");
+    }
+  };
+
+  // A static list of countries
   const countries = [
     "United States",
     "Canada",
@@ -55,107 +106,218 @@ export default function Home() {
     "India",
     "China",
     "Japan",
-    "Brazil"
+    "Brazil",
   ];
 
+  // Schools state and fetch effect
   const [schools, setSchools] = useState<string[]>([]);
-  const [message, setMessage] = useState<string>("");
-
   useEffect(() => {
     async function fetchSchools() {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/MLH/mlh-policies/main/schools.csv');
+        const response = await fetch(
+          "https://raw.githubusercontent.com/MLH/mlh-policies/main/schools.csv"
+        );
         const text = await response.text();
         const csvSchools = text
-          .split('\n')
+          .split("\n")
           .slice(1)
-          .map(line => {
-            const columns = line.split(',');
+          .map((line) => {
+            const columns = line.split(",");
             if (columns.length >= 3) {
               return {
                 name: columns[1].trim(),
-                country: columns[2].trim()
+                country: columns[2].trim(),
               };
             }
             return null;
           })
-          .filter(school => school !== null && school.country === "United States")
-          .map(school => school!.name);
-
-        setSchools(['University of Texas at Arlington', ...csvSchools.filter(school => school !== 'University of Texas at Arlington')]);
+          .filter(
+            (school) => school !== null && school.country === "United States"
+          )
+          .map((school) => school!.name);
+        
+        setSchools([
+          "University of Texas at Arlington",
+          ...csvSchools.filter(
+            (school) => school !== "University of Texas at Arlington"
+          ),
+        ]);
       } catch (error) {
         console.error("Failed to fetch schools:", error);
       }
     }
-
     fetchSchools();
   }, []);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  // Form handlers
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = event.target;
-    setData(prev => ({ ...prev, [id]: value }));
+    setData((prev) => ({ ...prev, [id]: value }));
     setMessage("");
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {
-      setData(prev => ({ ...prev, resume: files[0] }));
+      setData((prev) => ({ ...prev, resume: files[0] }));
     }
   };
+
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = event.target;
-    setData(prev => ({ ...prev, [id]: checked }));
+    setData((prev) => ({ ...prev, [id]: checked }));
   };
 
-  const validateUrl = (url: string) => {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
+  //const validateUrl = (url: string) => {
+    //try {
+      //new URL(url);
+      //return true;
+   // } catch {
+    //  return false;
+   // }
+  //};
+
+  const [submitted, setSubmitted] = useState(false);
+
+// 3. Add check for existing registration
+useEffect(() => {
+  const checkRegistration = async () => {
+    if (user) {
+      const q = query(collection(db, "registrations"), where("userId", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        setSubmitted(true);
+      }
     }
   };
+  
+  checkRegistration();
+}, [user]);
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+
+
+const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!data.name || !data.age || !data.email || !data.phone || !data.schoolName || !data.levelOfStudy || !data.countryOfResidence || !data.tshirtSize || !data.fieldOfStudy || !data.linkedinUrl || !data.githubUrl || !data.resume || !data.dietaryRestrictions || !data.gender || !data.raceEthnicity) {
-      setMessage("Please fill all the required fields");
-      return;
+    setLoading(true);
+  
+    try {
+      if (!user) {
+        setMessage("Please sign in to submit");
+        return;
+      }
+  
+      // Check for existing registration
+      const q = query(collection(db, "registrations"), where("userId", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        setMessage("You have already submitted a registration");
+        return;
+      }
+  
+      let resumeUrl = "";
+      if (data.resume) {
+        const resumeRef = ref(storage, `resumes/${user.uid}/${Date.now()}-${data.resume.name}`);
+        await uploadBytes(resumeRef, data.resume);
+        resumeUrl = await getDownloadURL(resumeRef);
+      }
+  
+      await addDoc(collection(db, "registrations"), {
+        ...data,
+        userId: user.uid,
+        userEmail: user.email,
+        resume: resumeUrl,
+        timestamp: serverTimestamp(),
+      });
+  
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setMessage("Error submitting form.");
+    } finally {
+      setLoading(false);
     }
-    if (!validateUrl(data.linkedinUrl) || !validateUrl(data.githubUrl)) {
-      setMessage("Please enter valid LinkedIn and GitHub URLs");
-      return;
-    }
-    if (!data.mlhCodeOfConduct || !data.mlhPrivacyPolicy) {
-      setMessage("You must agree to the MLH Code of Conduct and Privacy Policy");
-      return;
-    }
-    setMessage("Form submitted successfully!");
   };
+  
 
   return (
     <div className="video-container">
+         {submitted ? (
+      <SuccessScreen />
+    ) : (
+      <>
       <video autoPlay loop muted playsInline className="background-video">
         <source src="/videos/background.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div className="content">
-        <div className="registration-card">
-          <form onSubmit={handleFormSubmit} className="form-container">
+        {!user ? (
+          <div className="auth-card">
+            <h3>{isRegistering ? 'Register' : 'Sign In'}</h3>
+            <form onSubmit={handleAuth}>
+              <div className="form-group">
+                <input
+                  type="email"
+                  value={authEmail}
+                  onChange={(e) => setAuthEmail(e.target.value)}
+                  placeholder="Email"
+                  className="form-input"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  value={authPassword}
+                  onChange={(e) => setAuthPassword(e.target.value)}
+                  placeholder="Password"
+                  className="form-input"
+                  required
+                />
+              </div>
+              <button type="submit" className="submit-button">
+                {isRegistering ? 'Register' : 'Sign In'}
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setIsRegistering(!isRegistering)}
+                className="toggle-auth-button"
+              >
+                {isRegistering ? 'Have an account? Sign In' : 'Need an account? Register'}
+              </button>
+            </form>
+          </div>
+        ) : (
+          <div className="registration-card">
             <h3>Register Here</h3>
             {message && <p className="message">{message}</p>}
+            <form onSubmit={handleFormSubmit} className="form-container">
+            {/* First Name */}
             <div className="form-group">
-              <label htmlFor="name">Full Name *</label>
+              <label htmlFor="firstname">First Name *</label>
               <input
                 type="text"
-                id="name"
-                value={data.name}
+                id="firstname"
+                value={data.firstname}
                 onChange={handleInputChange}
                 className="form-input"
                 required
               />
             </div>
+            {/* Last Name */}
+            <div className="form-group">
+              <label htmlFor="lastname">Last Name *</label>
+              <input
+                type="text"
+                id="lastname"
+                value={data.lastname}
+                onChange={handleInputChange}
+                className="form-input"
+                required
+              />
+            </div>
+            {/* Age */}
             <div className="form-group">
               <label htmlFor="age">Age *</label>
               <input
@@ -167,6 +329,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* Phone */}
             <div className="form-group">
               <label htmlFor="phone">Phone *</label>
               <input
@@ -178,6 +341,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* Email */}
             <div className="form-group">
               <label htmlFor="email">Email Address *</label>
               <input
@@ -189,6 +353,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* School Name */}
             <div className="form-group">
               <label htmlFor="schoolName">School Name *</label>
               <select
@@ -198,11 +363,15 @@ export default function Home() {
                 className="form-input"
                 required
               >
-                {schools.map(school => (
-                  <option key={school} value={school}>{school}</option>
+                <option value="">Select your school</option>
+                {schools.map((school) => (
+                  <option key={school} value={school}>
+                    {school}
+                  </option>
                 ))}
               </select>
             </div>
+            {/* Level of Study */}
             <div className="form-group">
               <label htmlFor="levelOfStudy">Level of Study *</label>
               <select
@@ -221,6 +390,7 @@ export default function Home() {
                 <option value="PhD">PhD</option>
               </select>
             </div>
+            {/* Country of Residence */}
             <div className="form-group">
               <label htmlFor="countryOfResidence">Country of Residence *</label>
               <select
@@ -230,11 +400,15 @@ export default function Home() {
                 className="form-input"
                 required
               >
-                {countries.map(country => (
-                  <option key={country} value={country}>{country}</option>
+                <option value="">Select your country</option>
+                {countries.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
                 ))}
               </select>
             </div>
+            {/* T-shirt Size */}
             <div className="form-group">
               <label htmlFor="tshirtSize">T-shirt Size *</label>
               <select
@@ -253,6 +427,7 @@ export default function Home() {
                 <option value="XXL">XXL</option>
               </select>
             </div>
+            {/* Field of Study */}
             <div className="form-group">
               <label htmlFor="fieldOfStudy">Field of Study *</label>
               <select
@@ -280,6 +455,7 @@ export default function Home() {
                 <option value="Prefer not to answer">Prefer not to answer</option>
               </select>
             </div>
+            {/* LinkedIn URL */}
             <div className="form-group">
               <label htmlFor="linkedinUrl">LinkedIn URL *</label>
               <input
@@ -291,6 +467,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* GitHub URL */}
             <div className="form-group">
               <label htmlFor="githubUrl">GitHub URL *</label>
               <input
@@ -302,6 +479,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* Resume Upload */}
             <div className="form-group">
               <label htmlFor="resume">Resume *</label>
               <input
@@ -312,6 +490,7 @@ export default function Home() {
                 required
               />
             </div>
+            {/* Dietary Restrictions */}
             <div className="form-group">
               <label htmlFor="dietaryRestrictions">Dietary Restrictions *</label>
               <select
@@ -329,6 +508,7 @@ export default function Home() {
                 <option value="Halal">Halal</option>
               </select>
             </div>
+            {/* Gender */}
             <div className="form-group">
               <label htmlFor="gender">Gender *</label>
               <select
@@ -345,6 +525,7 @@ export default function Home() {
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
+            {/* Race/Ethnicity */}
             <div className="form-group">
               <label htmlFor="raceEthnicity">Race/Ethnicity *</label>
               <select
@@ -363,6 +544,7 @@ export default function Home() {
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
+            {/* MLH Code of Conduct */}
             <div className="form-group">
               <label>
                 <input
@@ -375,6 +557,7 @@ export default function Home() {
                 I have read and agree to the MLH Code of Conduct. *
               </label>
             </div>
+            {/* MLH Privacy Policy */}
             <div className="form-group">
               <label>
                 <input
@@ -387,6 +570,7 @@ export default function Home() {
                 I authorize you to share my application/registration information with Major League Hacking for event administration, ranking, and MLH administration in-line with the MLH Privacy Policy. *
               </label>
             </div>
+            {/* MLH Emails (Optional) */}
             <div className="form-group">
               <label>
                 <input
@@ -398,10 +582,15 @@ export default function Home() {
                 I authorize MLH to send me occasional emails about relevant events, career opportunities, and community announcements.
               </label>
             </div>
-            <button type="submit" className="submit-button">Submit</button>
+            <button type="submit" className="submit-button" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </button>
           </form>
         </div>
+        )}
+        </div>
+        </>
+    )}
       </div>
-    </div>
   );
 }
