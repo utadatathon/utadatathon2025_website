@@ -1,6 +1,6 @@
 [
     {
-      "origin": ["http://localhost:3000","https://utadatathon.com"],
+      "origin": ["http://localhost:3000","http://utadatathon.com","https://famous-lily-a54f63.netlify.app/"],
       "method": ["GET", "POST", "PUT", "DELETE"],
       "maxAgeSeconds": 3600,
       "responseHeader": ["Content-Type"]
