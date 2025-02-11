@@ -5,8 +5,11 @@ import {
 } from "../../../firebase";
 import { 
   sendPasswordResetEmail,
-  signInWithPopup
+  signInWithPopup,
+  sendEmailVerification
 } from 'firebase/auth';
+
+import VerificationStatus from './VerificationStatus';
 
 interface AuthProps {
   authEmail: string;
@@ -17,7 +20,9 @@ interface AuthProps {
   setIsRegistering: (isRegistering: boolean) => void;
   handleAuth: (e: React.FormEvent) => Promise<void>;
   message: string;
+  setMessage: (message: string) => void;
 }
+
 
 const AuthComponent: React.FC<AuthProps> = ({
   authEmail,
@@ -27,7 +32,8 @@ const AuthComponent: React.FC<AuthProps> = ({
   isRegistering,
   setIsRegistering,
   handleAuth,
-  message
+  message,
+  setMessage
 }) => {
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
@@ -54,11 +60,22 @@ const AuthComponent: React.FC<AuthProps> = ({
     } catch (error) {
       console.error('Google sign-in error:', error);
     }
+  
   };
-
+  const handleResendVerification = async () => {
+    if (auth.currentUser && !auth.currentUser.emailVerified) {
+      try {
+        await sendEmailVerification(auth.currentUser);
+        setMessage("Verification email resent. Please check your inbox.");
+      } catch (error) {
+        console.error("Error sending verification email:", error);
+        setMessage("Failed to resend verification email. Please try again later.");
+      }
+    }
+  };
   if (isResettingPassword) {
     return (
-      <div className="w-full max-w-md bg-white/70 backdrop-blur rounded-lg shadow-lg p-8">
+      <div className="w-full max-w-md bg-white/95 backdrop-blur rounded-lg shadow-lg p-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Reset Password</h2>
         </div>
@@ -124,7 +141,12 @@ const AuthComponent: React.FC<AuthProps> = ({
               {isRegistering ? 'Create an account' : 'Sign in to your account'}
             </h2>
           </div>
-
+          {auth.currentUser && (
+            <VerificationStatus
+              user={auth.currentUser}
+              onResendVerification={handleResendVerification}
+            />
+          )}
           <form onSubmit={handleAuth} className="space-y-6">
             <div className="space-y-4">
               <div>
@@ -137,7 +159,7 @@ const AuthComponent: React.FC<AuthProps> = ({
                   value={authEmail}
                   onChange={(e) => setAuthEmail(e.target.value)}
                   required
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-black"
                   placeholder="Email"
                 />
               </div>
@@ -152,7 +174,7 @@ const AuthComponent: React.FC<AuthProps> = ({
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
                   required
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 text-black"
                   placeholder="Password"
                 />
               </div>

@@ -14,9 +14,10 @@ import {
     getDocs,
     serverTimestamp
   } from "../../../firebase";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User, sendEmailVerification } from 'firebase/auth';
 import SuccessScreen from '../components/SuccessScreen';
 import AuthComponent from '../components/AuthComponent'; 
+import VerificationStatus from "../components/VerificationStatus";
 
 interface IUserModel {
   firstname: string;
@@ -198,7 +199,18 @@ useEffect(() => {
 }, [user]);
 
 
-
+const handleResendVerification = async () => {
+    if (user && !user.emailVerified) {
+      try {
+        await sendEmailVerification(user);
+        setMessage("Verification email resent. Please check your inbox.");
+      } catch (error) {
+        console.error("Error sending verification email:", error);
+        setMessage("Failed to resend verification email. Please try again later.");
+      }
+    }
+  };
+  
 const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
@@ -216,7 +228,15 @@ const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         setMessage("You have already submitted a registration");
         return;
       }
-  
+
+  // Check if email is verified
+  if (!user.emailVerified) {
+    setMessage("Please verify your email before submitting the form. Check your inbox for the verification link.");
+    // Optionally resend verification email
+    await sendEmailVerification(user);
+    return;
+  }
+
       let resumeUrl = "";
       if (data.resume) {
         const resumeRef = ref(storage, `resumes/${user.uid}/${Date.now()}-${data.resume.name}`);
@@ -263,11 +283,18 @@ const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
               setIsRegistering={setIsRegistering}
               handleAuth={handleAuth}
               message={message}
+              setMessage={setMessage}
             />
         ) : (
           <div className="registration-card">
             <h3>Register Here</h3>
             {message && <p className="message">{message}</p>}
+            {user && (
+              <VerificationStatus
+                user={user}
+                onResendVerification={handleResendVerification}
+              />
+            )}
             <form onSubmit={handleFormSubmit} className="form-container">
             {/* First Name */}
             <div className="form-group">
