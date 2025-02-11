@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { 
   auth, 
-  provider, 
-  signOut 
+  provider
 } from "../../../firebase";
 import { 
-  sendPasswordResetEmail, 
-  signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
-  sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithPopup
 } from 'firebase/auth';
 
