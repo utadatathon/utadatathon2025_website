@@ -16,6 +16,7 @@ import {
   } from "../../../firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth';
 import SuccessScreen from '../components/SuccessScreen';
+import AuthComponent from '../components/AuthComponent'; 
 
 interface IUserModel {
   firstname: string;
@@ -243,51 +244,26 @@ const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 
   return (
     <div className="video-container">
-         {submitted ? (
+    {submitted ? (
       <SuccessScreen />
     ) : (
       <>
-      <video autoPlay loop muted playsInline className="background-video">
-        <source src="/videos/background.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div className="content">
-        {!user ? (
-          <div className="auth-card">
-            <h3>{isRegistering ? 'Register' : 'Sign In'}</h3>
-            <form onSubmit={handleAuth}>
-              <div className="form-group">
-                <input
-                  type="email"
-                  value={authEmail}
-                  onChange={(e) => setAuthEmail(e.target.value)}
-                  placeholder="Email"
-                  className="form-input"
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  value={authPassword}
-                  onChange={(e) => setAuthPassword(e.target.value)}
-                  placeholder="Password"
-                  className="form-input"
-                  required
-                />
-              </div>
-              <button type="submit" className="submit-button">
-                {isRegistering ? 'Register' : 'Sign In'}
-              </button>
-              <button 
-                type="button" 
-                onClick={() => setIsRegistering(!isRegistering)}
-                className="toggle-auth-button"
-              >
-                {isRegistering ? 'Have an account? Sign In' : 'Need an account? Register'}
-              </button>
-            </form>
-          </div>
+        <video autoPlay loop muted playsInline className="background-video">
+          <source src="/videos/background.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="content">
+          {!user ? (
+            <AuthComponent
+              authEmail={authEmail}
+              authPassword={authPassword}
+              setAuthEmail={setAuthEmail}
+              setAuthPassword={setAuthPassword}
+              isRegistering={isRegistering}
+              setIsRegistering={setIsRegistering}
+              handleAuth={handleAuth}
+              message={message}
+            />
         ) : (
           <div className="registration-card">
             <h3>Register Here</h3>
