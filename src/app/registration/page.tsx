@@ -29,9 +29,9 @@ interface IUserModel {
   countryOfResidence: string;
   tshirtSize: string;
   fieldOfStudy: string;
-  linkedinUrl: string;
-  githubUrl: string;
-  resume: File | null;
+  linkedinUrl?: string;
+  githubUrl?: string;
+  resume?: File | null;
   dietaryRestrictions: string;
   gender: string;
   raceEthnicity: string;
@@ -433,37 +433,34 @@ const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
             </div>
             {/* LinkedIn URL */}
             <div className="form-group">
-              <label htmlFor="linkedinUrl">LinkedIn URL *</label>
+              <label htmlFor="linkedinUrl">LinkedIn URL </label>
               <input
                 type="text"
                 id="linkedinUrl"
                 value={data.linkedinUrl}
                 onChange={handleInputChange}
                 className="form-input"
-                required
               />
             </div>
             {/* GitHub URL */}
             <div className="form-group">
-              <label htmlFor="githubUrl">GitHub URL *</label>
+              <label htmlFor="githubUrl">GitHub URL</label>
               <input
                 type="text"
                 id="githubUrl"
                 value={data.githubUrl}
                 onChange={handleInputChange}
                 className="form-input"
-                required
               />
             </div>
             {/* Resume Upload */}
             <div className="form-group">
-              <label htmlFor="resume">Resume *</label>
+              <label htmlFor="resume">Resume </label>
               <input
                 type="file"
                 id="resume"
                 onChange={handleFileChange}
                 className="form-input"
-                required
               />
             </div>
             {/* Dietary Restrictions */}

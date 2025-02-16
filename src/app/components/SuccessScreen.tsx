@@ -1,19 +1,10 @@
 import React from 'react';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../../firebase';
-import { useRouter } from 'next/navigation';
+
 
 const SuccessScreen = () => {
-  const router = useRouter();
+  
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.push('/');
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+
 
   return (
     <div className="video-container">
@@ -23,15 +14,7 @@ const SuccessScreen = () => {
       </video>
       
       <div className="content flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-4 right-4">
-          <button
-            onClick={handleLogout}
-            className="transition rounded-full shadow-lg px-6 py-2 font-bold bg-red-800 hover:bg-red-600 hover:text-white hover:outline-none hover:scale-105"
-          >
-            Sign Out
-          </button>
-        </div>
-
+       
         <div className="w-full max-w-md bg-white/70 backdrop-blur rounded-lg shadow-2xl p-8 text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Thank You for Registering!
