@@ -57,7 +57,7 @@ const SearchableSchoolDropdown: React.FC<SearchableSchoolDropdownProps> = ({
         };
         
         // Get all schools
-        let schoolNames = processSchools(text);
+        const schoolNames = processSchools(text);
         
         // Add UTA manually if not in the list or to ensure it's included
         if (!schoolNames.some(s => s.toLowerCase().includes("texas at arlington"))) {
@@ -228,7 +228,7 @@ const SearchableSchoolDropdown: React.FC<SearchableSchoolDropdownProps> = ({
             </ul>
           ) : (
             <div className="px-3 py-2 text-gray-700">
-              No schools found. Try different search terms or select "University of Texas at Arlington"
+              No schools found. Try different search terms or select &quot;University of Texas at Arlington&quot;
               <div className="mt-2">
                 <button
                   onClick={() => handleSchoolSelect("University of Texas at Arlington")}
