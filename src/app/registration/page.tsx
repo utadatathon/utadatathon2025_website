@@ -1,3 +1,4 @@
+// src/app/registration/page.tsx
 "use client";
 import { useEffect, useState } from "react";
 import {
@@ -17,6 +18,7 @@ import {
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, User } from 'firebase/auth';
 import SuccessScreen from '../components/SuccessScreen';
 import AuthComponent from '../components/AuthComponent'; 
+import SearchableSchoolDropdown from '../components/SerchableSchoolDropdown';
 
 interface IUserModel {
   firstname: string;
@@ -110,46 +112,6 @@ export default function Home() {
     "Brazil",
   ];
 
-  // Schools state and fetch effect
-  const [schools, setSchools] = useState<string[]>([]);
-  useEffect(() => {
-    async function fetchSchools() {
-      try {
-        const response = await fetch(
-          "https://raw.githubusercontent.com/MLH/mlh-policies/main/schools.csv"
-        );
-        const text = await response.text();
-        const csvSchools = text
-          .split("\n")
-          .slice(1)
-          .map((line) => {
-            const columns = line.split(",");
-            if (columns.length >= 3) {
-              return {
-                name: columns[1].trim(),
-                country: columns[2].trim(),
-              };
-            }
-            return null;
-          })
-          .filter(
-            (school) => school !== null && school.country === "United States"
-          )
-          .map((school) => school!.name);
-        
-        setSchools([
-          "University of Texas at Arlington",
-          ...csvSchools.filter(
-            (school) => school !== "University of Texas at Arlington"
-          ),
-        ]);
-      } catch (error) {
-        console.error("Failed to fetch schools:", error);
-      }
-    }
-    fetchSchools();
-  }, []);
-
   // Form handlers
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -171,35 +133,24 @@ export default function Home() {
     setData((prev) => ({ ...prev, [id]: checked }));
   };
 
-  //const validateUrl = (url: string) => {
-    //try {
-      //new URL(url);
-      //return true;
-   // } catch {
-    //  return false;
-   // }
-  //};
-
   const [submitted, setSubmitted] = useState(false);
 
-// 3. Add check for existing registration
-useEffect(() => {
-  const checkRegistration = async () => {
-    if (user) {
-      const q = query(collection(db, "registrations"), where("userId", "==", user.uid));
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        setSubmitted(true);
+  // Check for existing registration
+  useEffect(() => {
+    const checkRegistration = async () => {
+      if (user) {
+        const q = query(collection(db, "registrations"), where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+        if (!querySnapshot.empty) {
+          setSubmitted(true);
+        }
       }
-    }
-  };
-  
-  checkRegistration();
-}, [user]);
+    };
+    
+    checkRegistration();
+  }, [user]);
 
-
-
-const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
   
@@ -329,23 +280,15 @@ const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
                 required
               />
             </div>
-            {/* School Name */}
+            {/* School Name - Searchable Dropdown */}
             <div className="form-group">
               <label htmlFor="schoolName">School Name *</label>
-              <select
+              <SearchableSchoolDropdown
                 id="schoolName"
                 value={data.schoolName}
                 onChange={handleInputChange}
-                className="form-input"
-                required
-              >
-                <option value="">Select your school</option>
-                {schools.map((school) => (
-                  <option key={school} value={school}>
-                    {school}
-                  </option>
-                ))}
-              </select>
+                required={true}
+              />
             </div>
             {/* Level of Study */}
             <div className="form-group">
