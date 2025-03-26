@@ -37,7 +37,7 @@ export default function Navbar() {
     
     // Cleanup subscription
     return () => unsubscribe();
-  }, []);
+  }, [adminEmails]);
 
   // Create dynamic links based on admin status
   const dynamicLinks = isAdmin 

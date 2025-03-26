@@ -19,6 +19,7 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthState
 import SuccessScreen from '../components/SuccessScreen';
 import AuthComponent from '../components/AuthComponent'; 
 import SearchableSchoolDropdown from '../components/SerchableSchoolDropdown';
+import Background from '../components/Background'
 
 interface IUserModel {
   firstname: string;
@@ -195,14 +196,12 @@ export default function Home() {
 
   return (
     <div className="video-container">
+      <Background />
     {submitted ? (
       <SuccessScreen />
     ) : (
       <>
-        <video autoPlay loop muted playsInline className="background-video">
-          <source src="/videos/background.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        
         <div className="content">
           {!user ? (
             <AuthComponent

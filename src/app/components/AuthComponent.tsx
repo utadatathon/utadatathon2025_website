@@ -8,11 +8,6 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 
-//signInWithEmailAndPassword, 
-//createUserWithEmailAndPassword, 
-//sendEmailVerification,
-//signOut 
-
 interface AuthProps {
   authEmail: string;
   authPassword: string;
@@ -63,49 +58,45 @@ const AuthComponent: React.FC<AuthProps> = ({
 
   if (isResettingPassword) {
     return (
-      <div className="w-full max-w-md bg-white/70 backdrop-blur rounded-lg shadow-lg p-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Reset Password</h2>
-        </div>
+      <div className="auth-container password-reset-container">
+        <h3>Reset Password</h3>
         
         {resetEmailSent ? (
-          <div className="text-center">
-            <p className="text-green-600 mb-4">Password reset email sent! Check your inbox.</p>
+          <div className="reset-success">
+            <p>Password reset email sent! Check your inbox.</p>
             <button
               onClick={() => {
                 setIsResettingPassword(false);
                 setResetEmailSent(false);
               }}
-              className="text-blue-600 hover:text-blue-500"
+              className="auth-link-button"
             >
               Back to login
             </button>
           </div>
         ) : (
-          <form onSubmit={handleForgotPassword} className="space-y-6">
-            <div>
-              <label htmlFor="reset-email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
+          <form onSubmit={handleForgotPassword} className="auth-form">
+            <div className="form-group">
+              <label htmlFor="reset-email">Email address</label>
               <input
                 id="reset-email"
                 type="email"
                 value={authEmail}
                 onChange={(e) => setAuthEmail(e.target.value)}
-                className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                className="auth-input"
                 required
               />
             </div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="auth-button"
             >
               Send Reset Link
             </button>
             <button
               type="button"
               onClick={() => setIsResettingPassword(false)}
-              className="w-full text-center text-sm text-blue-600 hover:text-blue-500"
+              className="auth-link-button mt-4"
             >
               Back to login
             </button>
@@ -116,106 +107,79 @@ const AuthComponent: React.FC<AuthProps> = ({
   }
 
   return (
-    <div className="video-container">
-      <video autoPlay loop muted playsInline className="background-video">
-        <source src="/videos/background.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className="auth-container">
+      <h3>{isRegistering ? 'Create Account' : 'Sign In'}</h3>
       
-      <div className="content flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md bg-white/70 backdrop-blur rounded-lg shadow-lg p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">
-              {isRegistering ? 'Create an account' : 'Sign in to your account'}
-            </h2>
-          </div>
-
-          <form onSubmit={handleAuth} className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={authEmail}
-                  onChange={(e) => setAuthEmail(e.target.value)}
-                  required
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  placeholder="Email"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  value={authPassword}
-                  onChange={(e) => setAuthPassword(e.target.value)}
-                  required
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  placeholder="Password"
-                />
-              </div>
-            </div>
-
-            {message && (
-              <div className="bg-red-50 border-l-4 border-red-400 p-4 my-4">
-                <p className="text-red-700">{message}</p>
-              </div>
-            )}
-
-            <button
-              type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              {isRegistering ? 'Register' : 'Sign In'}
-            </button>
-
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleGoogleSignIn}
-              className="w-full flex justify-center items-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
-                   alt="Google" 
-                   className="w-5 h-5 mr-2" />
-              Sign in with Google
-            </button>
-          </form>
-
-          <div className="mt-6 space-y-4">
-            <button
-              onClick={() => setIsRegistering(!isRegistering)}
-              className="w-full text-center text-sm text-blue-600 hover:text-blue-500"
-            >
-              {isRegistering
-                ? 'Already have an account? Sign in'
-                : "Need an account? Register"}
-            </button>
-            {!isRegistering && (
-              <button
-                onClick={() => setIsResettingPassword(true)}
-                className="w-full text-center text-sm text-blue-600 hover:text-blue-500"
-              >
-                Forgot password?
-              </button>
-            )}
-          </div>
+      {message && <div className="auth-message">{message}</div>}
+      
+      <form onSubmit={handleAuth} className="auth-form">
+        <div className="form-group">
+          <label htmlFor="email">Email address</label>
+          <input
+            id="email"
+            type="email"
+            value={authEmail}
+            onChange={(e) => setAuthEmail(e.target.value)}
+            required
+            className="auth-input"
+            placeholder="Email"
+          />
         </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={authPassword}
+            onChange={(e) => setAuthPassword(e.target.value)}
+            required
+            className="auth-input"
+            placeholder="Password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="auth-button"
+        >
+          {isRegistering ? 'Register' : 'Sign In'}
+        </button>
+
+        <div className="auth-divider">
+          <span>Or continue with</span>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="google-button"
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+               alt="Google" 
+               className="google-icon" />
+          Sign in with Google
+        </button>
+      </form>
+
+      <div className="auth-links">
+        <button
+          onClick={() => setIsRegistering(!isRegistering)}
+          className="auth-link-button"
+        >
+          {isRegistering
+            ? 'Already have an account? Sign in'
+            : "Need an account? Register"}
+        </button>
+        
+        {!isRegistering && (
+          <button
+            onClick={() => setIsResettingPassword(true)}
+            className="auth-link-button"
+          >
+            Forgot password?
+          </button>
+        )}
       </div>
     </div>
   );

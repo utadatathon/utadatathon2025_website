@@ -1,0 +1,197 @@
+/* Admin Container */
+.admin-container {
+  @apply min-h-screen bg-gray-900 text-gray-100 p-6;
+}
+
+.admin-content {
+  @apply max-w-7xl mx-auto space-y-6;
+}
+
+/* Header Styles */
+.admin-header {
+  @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8;
+}
+
+.admin-title {
+  @apply text-3xl font-bold text-white;
+}
+
+.admin-subtitle {
+  @apply text-gray-400 mt-1;
+}
+
+.admin-actions {
+  @apply flex flex-wrap gap-2;
+}
+
+/* Button Styles */
+.admin-button {
+  @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900;
+}
+
+.admin-button-primary {
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.admin-button-secondary {
+  @apply bg-gray-700 text-gray-200 hover:bg-gray-600 focus:ring-gray-500;
+}
+
+.admin-button-purple {
+  @apply bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500;
+}
+
+.admin-button-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Message Alert */
+.message-alert {
+  @apply p-4 mb-6 rounded-lg border text-sm;
+}
+
+.message-alert-success {
+  @apply bg-green-900/50 border-green-700 text-green-100;
+}
+
+.message-alert-error {
+  @apply bg-red-900/50 border-red-700 text-red-100;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  @apply flex justify-center items-center p-8;
+}
+
+.loading-spinner-inner {
+  @apply w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin;
+}
+
+/* Analytics Cards */
+.analytics-card {
+  @apply bg-gray-800/50 p-6 rounded-lg border border-gray-700;
+}
+
+.analytics-card-title {
+  @apply text-lg font-semibold text-white mb-4;
+}
+
+.analytics-card-value {
+  @apply text-2xl font-bold text-white;
+}
+
+/* Charts */
+.chart-container {
+  @apply h-[400px] relative;
+}
+
+/* Registration List */
+.registration-list {
+  @apply space-y-4;
+}
+
+.registration-item {
+  @apply bg-gray-800/50 rounded-lg border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200;
+}
+
+.registration-item-header {
+  @apply flex justify-between items-start mb-4;
+}
+
+.registration-item-name {
+  @apply text-lg font-semibold text-white;
+}
+
+.registration-item-email {
+  @apply text-sm text-gray-400;
+}
+
+.registration-item-details {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.registration-item-label {
+  @apply text-sm text-gray-400;
+}
+
+.registration-item-value {
+  @apply text-sm text-gray-200 ml-2;
+}
+
+/* Status Badge */
+.status-badge {
+  @apply px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.status-accepted {
+  @apply bg-green-900/50 text-green-100 border border-green-700;
+}
+
+.status-rejected {
+  @apply bg-red-900/50 text-red-100 border border-red-700;
+}
+
+.status-pending {
+  @apply bg-yellow-900/50 text-yellow-100 border border-yellow-700;
+}
+
+.status-review {
+  @apply bg-blue-900/50 text-blue-100 border border-blue-700;
+}
+
+.status-waitlisted {
+  @apply bg-purple-900/50 text-purple-100 border border-purple-700;
+}
+
+/* Detail View */
+.registration-detail {
+  @apply bg-gray-800/50 rounded-lg border border-gray-700 p-6;
+}
+
+.detail-section {
+  @apply mb-8 last:mb-0;
+}
+
+.detail-section-title {
+  @apply text-xl font-semibold text-white mb-4;
+}
+
+.detail-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.detail-item {
+  @apply space-y-1;
+}
+
+.detail-label {
+  @apply text-sm text-gray-400 block;
+}
+
+.detail-value {
+  @apply text-base text-gray-200;
+}
+
+/* Chart Customizations */
+.chart-title {
+  @apply text-lg font-semibold text-white mb-4;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .admin-header {
+    @apply flex-col items-stretch;
+  }
+  
+  .admin-actions {
+    @apply flex-col;
+  }
+  
+  .admin-button {
+    @apply w-full;
+  }
+  
+  .detail-grid {
+    @apply grid-cols-1;
+  }
+} 

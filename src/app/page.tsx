@@ -1,76 +1,189 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import Background from "./components/Background";
+import Header from "./components/Header";
+import CountdownTimer from "./components/CountdownTimer";
+import GhostTrail from "./components/GhostTrail";
+import DetailsSection from "./components/DetailsSection";
+import FAQsSection from "./components/FAQsSection";
+import MeetTheTeamSection from "./components/MeetTheTeamSection";
+import SponsorsSection from "./components/SponsorsSection";
+import Link from 'next/link';
 
 export default function Home() {
-  const router = useRouter();
-  
-  const handleClick = () => {
-    router.push("/registration"); // Navigate to the registration page
-  };
-  
   return (
-    <div className="relative min-h-screen flex flex-col">
-      {/* MLH Badge */}
-      <a 
-        id="mlh-trust-badge" 
-        style={{
-          display: "block",
-          maxWidth: "100px",
-          minWidth: "60px",
-          position: "fixed",
-          right: "50px",
-          top: 0,
-          width: "10%",
-          zIndex: 10000
-        }} 
-        href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=white" 
-        target="_blank"
-      >
-        <img 
-          src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-white.svg" 
-          alt="Major League Hacking 2025 Hackathon Season" 
-          style={{width: "100%"}}
-        />
-      </a>
-      
-      {/* Main Content */}
-      <div className="video-container flex-grow">
-        <video autoPlay loop muted playsInline className="background-video">
-          <source src="/videos/background.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+    <>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        .main-title {
+          font-family: 'Press Start 2P', monospace;
+          text-align: center;
+          font-size: 6rem;
+          background: linear-gradient(180deg, 
+            #fff4b8 0%,
+            #ffd773 20%, 
+            #ff9f38 40%,
+            #ff7a1f 60%,
+            #ff4f1f 80%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0px 2px 0px #000)
+                 drop-shadow(0px -2px 0px #000)
+                 drop-shadow(2px 0px 0px #000)
+                 drop-shadow(-2px 0px 0px #000)
+                 drop-shadow(6px 6px 0px #661a00);
+          transform: perspective(500px) rotateX(10deg);
+          letter-spacing: 4px;
+          padding: 20px 0;
+          margin-top: 2rem;
+        }
+
+        .year-title {
+          font-family: 'Press Start 2P', monospace;
+          text-align: center;
+          font-size: 4rem;
+          background: linear-gradient(180deg, 
+            #fff4b8 0%,
+            #ffd773 20%, 
+            #ff9f38 40%,
+            #ff7a1f 60%,
+            #ff4f1f 80%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0px 2px 0px #000)
+                 drop-shadow(0px -2px 0px #000)
+                 drop-shadow(2px 0px 0px #000)
+                 drop-shadow(-2px 0px 0px #000)
+                 drop-shadow(4px 4px 0px #661a00);
+          transform: perspective(500px) rotateX(10deg);
+          letter-spacing: 3px;
+          padding: 10px 0;
+          margin-bottom: 3rem;
+        }
+
+        h2 {
+          text-align: center;
+          font-size: 2rem;
+          margin: 4rem 0 2rem;
+          color: #a3e4ff;
+          text-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+        }
+
+        .retro-button {
+          font-family: 'Press Start 2P', monospace;
+          background: #000;
+          color: #a3e4ff;
+          border: 2px solid #00f7ff;
+          padding: 1rem 2rem;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          box-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          margin: 0.5rem;
+        }
+
+        .retro-button:hover {
+          background: #00f7ff;
+          color: #000;
+          transform: translateY(-2px);
+          box-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
+        }
+
+        .buttons {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+          .main-title {
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            padding: 10px 0;
+            margin-top: 6rem;
+          }
+
+          .year-title {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            padding: 5px 0;
+            margin-bottom: 4rem;
+          }
+
+          .buttons {
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+            margin-bottom: 4rem;
+          }
+          
+          .retro-button {
+            width: 100%;
+            max-width: 300px;
+            margin: 0.75rem 0;
+          }
+
+          h2 {
+            font-size: 1.5rem;
+            margin: 3rem 0 1.5rem;
+          }
+        }
+
+        @media (max-width: 350px) {
+          .main-title {
+            font-size: 2rem;
+          }
+
+          .year-title {
+            font-size: 1.5rem;
+          }
+
+          .retro-button {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+          }
+        }
+      `}</style>
+
+      <div className="home-container">
+        <GhostTrail/>
+        <Background />
+        <Header />
         <div className="content">
-          <div className="content-text">
-            <div className="space-y-5 mt-10 font-press-start text-center">
-              <h1 className="animate-glitch text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-200">
-                UTA DATATHON 2025
-              </h1>
-              <p className="animate-pulse text-green-500 text-lg sm:text-xl md:text-2xl lg:text-3xl">
-                APR 12 - 13
-              </p>
-              <button
-                onClick={handleClick}
-                className="border-2 text-green-500 border-green-500 px-4 py-3 font-bold text-sm sm:text-xl md:text-xl lg:text-2xl hover:text-green-300 hover:border-green-300 hover:border-4 transition-transform transform hover:scale-105 ease-in-out duration-200"
-              >
-                CLICK HERE TO REGISTER
-              </button>
+          <div className="text-center">
+            <h1 className="main-title">UTA DATATHON</h1>
+            <h2 className="year-title">2025</h2>
+            <div className="countdown">
+              <CountdownTimer targetDate="2025-04-12T00:00:00Z" />
+            </div>
+            <div className="buttons">
+              <Link href="/registration" className="retro-button">Apply Now</Link>
+              <a href="https://discord.gg/YrV6CTMR2k" target="_blank" rel="noopener noreferrer" className="retro-button">Discord</a>
+              <a href="https://devpost.com/your-devpost" target="_blank" rel="noopener noreferrer" className="retro-button">Dev Post</a>
             </div>
           </div>
         </div>
+
+        <h2>Details</h2>
+        <DetailsSection />
+     
+        <h2>Frequently Asked Questions</h2>
+        <FAQsSection />
+        <h2>Meet the Team</h2>
+        <MeetTheTeamSection />
+        <h2>Sponsors</h2>
+        <SponsorsSection />
       </div>
-      
-      {/* Footer with MLH Code of Conduct */}
-      <footer className="py-4 text-center bg-black bg-opacity-70 text-white">
-        <Link 
-          href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
-          target="_blank"
-          className="text-green-500 hover:text-green-300 underline"
-        >
-          MLH Code of Conduct
-        </Link>
-      </footer>
-    </div>
+    </>
   );
 }
