@@ -27,7 +27,7 @@ export default function MeetTheTeamSection() {
       name: "Challenges Team",
       members: [
         { name: "Clivin Geju", role: "Challenges Lead", image: "images/team/clivin.jpg"  },
-        { name: "Abhijit Challapalli", role: "Senior Challenges Advisor", image: "images/team/abhi.tiff"  },
+        { name: "Abhijit Challapalli", role: "Senior Challenges Advisor", image: "images/team/abhi.jpeg"  },
         { name: "Zecil Jain", role: "Challenge Reviewer", image: "images/team/zecil.jpg"  },
         { name: "Jay Shah", role: "Challenge Reviewer", image: "images/team/jay.jpg"  }
       ],
