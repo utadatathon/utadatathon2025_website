@@ -5,7 +5,7 @@ export default function SponsorsSection() {
   const sponsors = [
     { name: "MLH", logo: "/images/sponsors/mlh.png" },
     { name: "Standout Stickers", logo: "/images/sponsors/stand.png" },
-    { name: "CSE Dept", logo: "/images/sponsors/cse.jpg" },
+    { name: "CSE Dept", logo: "/images/sponsors/cse.png" },
     { name: "SCAI", logo: "/images/sponsors/scai.png" }
   ];
 
@@ -13,10 +13,10 @@ export default function SponsorsSection() {
     <div className="sponsors-section">
       <style jsx>{`
         .sponsors-section {
+          max-width: 1100px;
           padding: 2rem;
-          background: rgba(0, 0, 0, 0.5);
+          background: linear-gradient(135deg, #1a1a1a 0%, rgba(255, 255, 255, 0.35) 50%, #333333 100%);
           border-radius: 8px;
-          margin: 2rem 0;
         }
 
         .sponsors {
@@ -25,7 +25,6 @@ export default function SponsorsSection() {
           align-items: center;
           flex-wrap: wrap;
           gap: 4rem;
-          max-width: 1200px;
           margin: 0 auto;
         }
 
@@ -53,6 +52,8 @@ export default function SponsorsSection() {
         @media (max-width: 480px) {
           .sponsors {
             gap: 2rem;
+            display: flex;
+            flex-direction: column;
           }
 
           .sponsors img {
@@ -64,12 +65,9 @@ export default function SponsorsSection() {
       <div className="sponsors">
         {sponsors.map((sponsor, index) => (
           <div key={index} className="sponsor-image">
-            <Image 
+            <img 
               src={sponsor.logo} 
               alt={sponsor.name}
-              width={200}
-              height={100}
-              style={{ height: '100px', width: 'auto' }}
               onError={(e) => {
                 console.error(`Error loading image: ${sponsor.logo}`);
                 e.currentTarget.style.display = 'none';
