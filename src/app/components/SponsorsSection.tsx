@@ -1,12 +1,36 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function SponsorsSection() {
-  const sponsors = [
-    { name: "MLH", logo: "/images/sponsors/mlh.png" },
-    { name: "Standout Stickers", logo: "/images/sponsors/stand.png" },
-    { name: "CSE Dept", logo: "/images/sponsors/cse.jpg" },
-    { name: "SCAI", logo: "/images/sponsors/scai.png" }
+// Define an interface for sponsor objects
+interface Sponsor {
+  name: string;
+  logo: string;
+  url: string;
+}
+
+export default function SponsorsSection(): JSX.Element {
+  const sponsors: Sponsor[] = [
+    { 
+      name: "MLH", 
+      logo: "/images/sponsors/mlh.png",
+      url: "https://mlh.io"
+    },
+    { 
+      name: "Standout Stickers", 
+      logo: "/images/sponsors/stand.png",
+      url: "https://standoutstickers.com"
+    },
+    { 
+      name: "CSE Dept", 
+      logo: "/images/sponsors/cse.jpg",
+      url: "https://www.uta.edu/academics/schools-colleges/engineering/academics/departments/cse"
+    },
+    { 
+      name: "SCAI", 
+      logo: "/images/sponsors/scai.png",
+      url: "https://www.instagram.com/scai_uta/"
+    }
   ];
 
   return (
@@ -36,7 +60,7 @@ export default function SponsorsSection() {
           transition: transform 0.3s ease;
         }
 
-        .sponsors img:hover {
+        .sponsors a:hover img {
           transform: scale(1.1);
         }
 
@@ -63,19 +87,26 @@ export default function SponsorsSection() {
 
       <div className="sponsors">
         {sponsors.map((sponsor, index) => (
-          <div key={index} className="sponsor-image">
-            <Image 
-              src={sponsor.logo} 
-              alt={sponsor.name}
-              width={200}
-              height={100}
-              style={{ height: '100px', width: 'auto' }}
-              onError={(e) => {
-                console.error(`Error loading image: ${sponsor.logo}`);
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          </div>
+          <Link 
+            key={index} 
+            href={sponsor.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <div className="sponsor-image">
+              <Image 
+                src={sponsor.logo} 
+                alt={sponsor.name}
+                width={200}
+                height={100}
+                style={{ height: '100px', width: 'auto' }}
+                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                  console.error(`Error loading image: ${sponsor.logo}`);
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </div>

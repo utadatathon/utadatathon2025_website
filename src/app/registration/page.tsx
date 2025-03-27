@@ -421,6 +421,7 @@ export default function Home() {
                 <option value="Celiac Disease">Celiac Disease</option>
                 <option value="Allergies">Allergies</option>
                 <option value="Halal">Halal</option>
+                <option value="None">None</option>
               </select>
             </div>
             {/* Gender */}

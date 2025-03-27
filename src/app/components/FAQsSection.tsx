@@ -23,13 +23,13 @@ export default function FAQsSection() {
     {
       id:4,
       question: "How long does the event last?",
-      answer: "The event typically lasts for a weekend.",
+      answer: "It is a 24hr event and will be held on April 12-13.",
     },
     {
       id:5,
       question: "Do I need to have a team?",
       answer:
-        "No, you can participate individually or form a team during the event.",
+        "No, you can participate individually or form a team of 4 during the event.",
     },
     {
       id:6,
@@ -46,12 +46,12 @@ export default function FAQsSection() {
       id:8,
       question: "What are the prizes?",
       answer:
-        "Prizes include cash awards and recognition from industry leaders.",
+        "We have upto $2000 in Prizes and will be revealed on the day of datathon.",
     },
     {
       id:9,
       question: "Can I attend virtually?",
-      answer: "Yes, virtual attendance options are available.",
+      answer: "No, you can only attend in person.",
     },
     {
       id:10,
