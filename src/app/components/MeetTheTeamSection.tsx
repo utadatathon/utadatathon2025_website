@@ -15,7 +15,7 @@ export default function MeetTheTeamSection() {
     {
       name: "Development Team",
       members: [
-        { name: "Prathmesh Patil", role: "Developement Lead", image: "/team/man.png" },
+        { name: "Prathmesh Patil", role: "Developement Lead", image: "images/team/user.png" },
         { name: "Samarth Jagtap", role: "Development Co-Lead", image: "images/team/samarth.jpg"  },
         { name: "Inshaad Merchant", role: "Developer", image: "images/team/inshaad.jpg"  },
         { name: "Araohat Kokate", role: "Developer", image: "images/team/araohat.jpg"  },
@@ -27,7 +27,7 @@ export default function MeetTheTeamSection() {
       name: "Challenges Team",
       members: [
         { name: "Clivin Geju", role: "Challenges Lead", image: "images/team/clivin.jpg"  },
-        { name: "Abhijit Challapalli", role: "Senior Challenges Advisor", image: "images/team/abhi.tiff"  },
+        { name: "Abhijit Challapalli", role: "Senior Challenges Advisor", image: "images/team/abhi.jpeg"  },
         { name: "Zecil Jain", role: "Challenge Reviewer", image: "images/team/zecil.jpg"  },
         { name: "Jay Shah", role: "Challenge Reviewer", image: "images/team/jay.jpg"  }
       ],
@@ -71,7 +71,7 @@ export default function MeetTheTeamSection() {
           <div className="members">
             {team.members.map((member, memberIndex) => (
               <div key={memberIndex} className="member">
-                <img src={member.image} alt={member.name} className="member-image" />
+                <img src={member.image} alt={member.name} className="member-image"/>
                 <h4>{member.name}</h4>
                 <p>{member.role}</p>
               </div>
