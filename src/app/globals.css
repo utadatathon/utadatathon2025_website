@@ -23,6 +23,7 @@ body {
 
 .home-container {
   min-height: 200vh;
+  margin-top: 80;
 }
 
 .content {

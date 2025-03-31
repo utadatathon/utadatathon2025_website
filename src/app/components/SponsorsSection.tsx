@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 // Define an interface for sponsor objects
@@ -23,7 +22,7 @@ export default function SponsorsSection(): JSX.Element {
     },
     { 
       name: "CSE Dept", 
-      logo: "/images/sponsors/cse.jpg",
+      logo: "/images/sponsors/cse.png",
       url: "https://www.uta.edu/academics/schools-colleges/engineering/academics/departments/cse"
     },
     { 
@@ -37,10 +36,11 @@ export default function SponsorsSection(): JSX.Element {
     <div className="sponsors-section">
       <style jsx>{`
         .sponsors-section {
+          max-width: 1100px;
           padding: 2rem;
-          background: rgba(0, 0, 0, 0.5);
+          background: linear-gradient(135deg, #1a1a1a 0%, rgba(255, 255, 255, 0.35) 50%, #333333 100%);
           border-radius: 8px;
-          margin: 2rem 0;
+          // margin: 2rem 0;
         }
 
         .sponsors {
@@ -49,7 +49,6 @@ export default function SponsorsSection(): JSX.Element {
           align-items: center;
           flex-wrap: wrap;
           gap: 4rem;
-          max-width: 1200px;
           margin: 0 auto;
         }
 
@@ -94,12 +93,9 @@ export default function SponsorsSection(): JSX.Element {
             rel="noopener noreferrer"
           >
             <div className="sponsor-image">
-              <Image 
+              <img 
                 src={sponsor.logo} 
                 alt={sponsor.name}
-                width={200}
-                height={100}
-                style={{ height: '100px', width: 'auto' }}
                 onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                   console.error(`Error loading image: ${sponsor.logo}`);
                   e.currentTarget.style.display = 'none';

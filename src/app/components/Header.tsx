@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ const Header = () => {
   const [openNavigation, setOpenNavigation] = useState(false);
 
   // Admin emails list
-  const adminEmails = ["thesamarthjagtap@gmail.com", "rubab.shahzad@uta.edu", "lyndsey.dewitt@uta.edu", "sxr0682@mavs.uta.edu"];
+  const adminEmails = useMemo(() => ["thesamarthjagtap@gmail.com", "rubab.shahzad@uta.edu", "lyndsey.dewitt@uta.edu", "sxr0682@mavs.uta.edu"],[]);
 
   // Base navigation links
   const navlinks = [
