@@ -16,45 +16,46 @@ const Header = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [openNavigation, setOpenNavigation] = useState(false);
 
-  // Admin emails list
-  const adminEmails = ["thesamarthjagtap@gmail.com", "rubab.shahzad@uta.edu", "lyndsey.dewitt@uta.edu", "sxr0682@mavs.uta.edu"];
-
   // Base navigation links
   const navlinks = [
     { href: "/", name: "Home" },
     { href: "/dashboard", name: "Dashboard" },
     { href: "/schedule", name: "Schedule" },
-    { href: "/faqs", name: "FAQs" }
+    { href: "/faqs", name: "FAQs" },
   ];
 
   useEffect(() => {
+    // Admin emails list
+    const adminEmails = [
+      "thesamarthjagtap@gmail.com",
+      "rubab.shahzad@uta.edu",
+      "lyndsey.dewitt@uta.edu",
+      "sxr0682@mavs.uta.edu",
+    ];
+
     // Set up auth state listener
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
-      if (currentUser && adminEmails.includes(currentUser.email || "")) {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
+      setIsAdmin(currentUser ? adminEmails.includes(currentUser.email || "") : false);
     });
-    
+
     // Cleanup subscription
     return () => unsubscribe();
-  }, [adminEmails]);
+  }, []);
 
   // Create dynamic links based on admin status
-  const dynamicLinks = isAdmin 
+  const dynamicLinks = isAdmin
     ? [...navlinks, { href: "/admin", name: "Admin" }]
     : navlinks;
 
   const toggleNavigation = () => {
-    setOpenNavigation(!openNavigation);
+    setOpenNavigation((prev) => !prev);
   };
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      router.push('/');
+      router.push("/");
     } catch (error) {
       console.error("Sign out error:", error);
     }
@@ -62,20 +63,23 @@ const Header = () => {
 
   return (
     <>
-      <a 
-        id="mlh-trust-badge" 
-        href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=blue" 
+      {/* MLH Trust Badge */}
+      <a
+        id="mlh-trust-badge"
+        href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2025-season&utm_content=blue"
         target="_blank"
         rel="noopener noreferrer"
         className="mlh-badge"
       >
-        <img 
-          src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-blue.svg" 
-          alt="Major League Hacking 2025 Hackathon Season" 
+        <img
+          src="https://s3.amazonaws.com/logged-assets/trust-badge/2025/mlh-trust-badge-2025-blue.svg"
+          alt="Major League Hacking 2025 Hackathon Season"
         />
       </a>
-      
+
+      {/* Header */}
       <header className={`header ${openNavigation ? "open" : ""}`}>
+        {/* Logo */}
         <div className="logo">
           <Link href="/">
             <Image
@@ -86,18 +90,19 @@ const Header = () => {
               priority
               className="logo-img"
               style={{
-                filter: 'brightness(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))',
-                transition: 'all 0.3s ease'
+                filter: "brightness(1.2) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5))",
+                transition: "all 0.3s ease",
               }}
             />
           </Link>
         </div>
-        
+
+        {/* Navigation */}
         <nav className="nav">
           <ul className={`nav-links ${openNavigation ? "nav-open" : "nav-closed"}`}>
             {dynamicLinks.map((link) => (
               <li key={link.name}>
-                <Link 
+                <Link
                   href={link.href}
                   className={clsx("transition", {
                     "font-bold": link.href === pathname,
@@ -120,19 +125,26 @@ const Header = () => {
                   </button>
                 </>
               ) : (
-                <Link href="../registration">
+                <Link href="/registration">
                   <button className="register-btn">Sign In</button>
                 </Link>
               )}
             </li>
           </ul>
         </nav>
-        
+
+        {/* Mobile Menu Button */}
         <button onClick={toggleNavigation} className="menu-btn">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
       </header>

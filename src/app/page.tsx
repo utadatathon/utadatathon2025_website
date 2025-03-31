@@ -1,13 +1,14 @@
 "use client";
+import dynamic from 'next/dynamic';
 import Background from "./components/Background";
 import Header from "./components/Header";
 import CountdownTimer from "./components/CountdownTimer";
 import GhostTrail from "./components/GhostTrail";
 import DetailsSection from "./components/DetailsSection";
-import FAQsSection from "./components/FAQsSection";
-import MeetTheTeamSection from "./components/MeetTheTeamSection";
-import SponsorsSection from "./components/SponsorsSection";
 import Link from 'next/link';
+const FAQsSection = dynamic(() => import('./components/FAQsSection'));
+const MeetTheTeamSection = dynamic(() => import('./components/MeetTheTeamSection'));
+const SponsorsSection = dynamic(() => import('./components/SponsorsSection'))
 
 export default function Home() {
   return (
