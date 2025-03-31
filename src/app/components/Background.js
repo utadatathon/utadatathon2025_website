@@ -42,7 +42,7 @@ export default function Background() {
         dot.y += dot.speed;
         if (dot.y > canvas.height) dot.y = 0;
       });
-      animationFrameId = requestAnimationFrame(drawDots);
+      animationFrameId.current = requestAnimationFrame(drawDots);
     };
 
     resizeCanvas();
@@ -51,7 +51,9 @@ export default function Background() {
 
     return () => {
       window.removeEventListener("resize", resizeCanvas);
-      cancelAnimationFrame(animationFrameId.current);
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
     };
   }, []);
 

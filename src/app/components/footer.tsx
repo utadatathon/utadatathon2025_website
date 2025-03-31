@@ -13,7 +13,7 @@ export default function Footer() {
 					href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md" 
 					target="_blank" 
 					rel="noopener noreferrer"
-					className="text-xs text-slate-400 hover:text-slate-300 transition-colors"
+					className="text-xs text-slate-400 hover:text-slate-3q00 transition-colors"
 				>
 					MLH Code of Conduct
 				</a>
