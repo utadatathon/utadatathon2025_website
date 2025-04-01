@@ -146,7 +146,7 @@ const scheduleData: DaySchedule[] = [
 ];
 
 export default function Schedule() {
-  const [activeDay, setActiveDay] = useState("All Days");
+  const [activeDay, setActiveDay] = useState("Day 1");
 
   return (
     <div className="schedule-container">
@@ -299,7 +299,7 @@ export default function Schedule() {
       <h1 className="retro-title">DATATHON 2025 SCHEDULE</h1>
 
       <div className="day-selector">
-        {["All Days", ...scheduleData.map((day) => day.day)].map((day) => (
+        {[...scheduleData.map((day) => day.day)].map((day) => (
           <button
             key={day}
             className={`day-button ${activeDay === day ? "active" : ""}`}
@@ -311,52 +311,53 @@ export default function Schedule() {
       </div>
 
       <div className="schedule-content">
-        {(activeDay === "All Days"
-          ? scheduleData
-          : scheduleData.filter((d) => d.day === activeDay)
-        ).map((day) => (
-          <div key={day.day} className="schedule-day">
-            <h2 className="day-header">
-              {day.day} - {day.date}
-            </h2>
-            {day.events.map((event, i) => (
-              <div key={i} className="event-card" data-track={event.track}>
-                {event.track !== "hacking" && event.track !== "extras" && event.track !== "ceremony" && (
-                  <div
-                    className="event-track"
-                    style={{
-                      color: getTrackColor(event.track),
-                      border: `2px solid ${getTrackColor(event.track)}`,
-                    }}
-                  >
-                    {event.track.toLowerCase()}
+        {scheduleData
+          .filter((d) => d.day === activeDay)
+          .map((day) => (
+            <div key={day.day} className="schedule-day">
+              <h2 className="day-header">
+                {day.day} - {day.date}
+              </h2>
+              {day.events.map((event, i) => (
+                <div key={i} className="event-card" data-track={event.track}>
+                  {event.track !== "hacking" &&
+                    event.track !== "extras" &&
+                    event.track !== "ceremony" && (
+                      <div
+                        className="event-track"
+                        style={{
+                          color: getTrackColor(event.track),
+                          border: `2px solid ${getTrackColor(event.track)}`,
+                        }}
+                      >
+                        {event.track.toLowerCase()}
+                      </div>
+                    )}
+                  <div className="event-time">{event.time}</div>
+                  <div className="event-activity">
+                    {event.activity}
+                    {event.track === "hacking" && " ⚡"}
                   </div>
-                )}
-                <div className="event-time">{event.time}</div>
-                <div className="event-activity">
-                  {event.activity}
-                  {event.track === "hacking" && " ⚡"}
+                  {event.description && (
+                    <div className="event-description">{event.description}</div>
+                  )}
                 </div>
-                {event.description && (
-                  <div className="event-description">{event.description}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        ))}
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   );
 }
 
 function getTrackColor(track: string): string {
-  const colors: {[key: string] : string} = {
-    "hacking": "#ff0000",
-    "ceremony": "#00ff9d",
-    "food": "#ffd700",
-    "workshop": "#00a8ff",
+  const colors: { [key: string]: string } = {
+    hacking: "#ff0000",
+    ceremony: "#00ff9d",
+    food: "#ffd700",
+    workshop: "#00a8ff",
     "mini-event": "#ff6437",
-    "extras": "#888",
+    extras: "#888",
   };
   return colors[track] || "#888";
 }
