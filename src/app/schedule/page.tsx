@@ -1,102 +1,363 @@
 "use client";
-import Link from 'next/link';
+import { useState } from "react";
+
+interface Event {
+  time: string;
+  activity: string;
+  location: string;
+  description?: string;
+  track: "mini-event" | "workshop" | "food" | "ceremony" | "hacking" | "extras";
+}
+
+interface DaySchedule {
+  day: string;
+  date: string;
+  events: Event[];
+}
+
+const scheduleData: DaySchedule[] = [
+  {
+    day: "Day 1",
+    date: "Saturday, April 12, 2025",
+    events: [
+      {
+        time: "8:00 AM - 10:00 AM",
+        activity: "Registration & Check-in",
+        location: "",
+        track: "extras",
+      },
+      {
+        time: "10:00 AM - 11:00 AM",
+        activity: "Opening Ceremony",
+        location: "",
+        track: "ceremony",
+      },
+      {
+        time: "11:00 AM",
+        activity: "Hacking Begins",
+        location: "",
+        track: "hacking",
+      },
+      {
+        time: "11:30 AM - 1:00 PM",
+        activity: "Lunch",
+        location: "",
+        track: "food",
+      },
+      {
+        time: "1:00 PM - 2:00 PM",
+        activity: "Workshop #1",
+        location: "",
+        track: "workshop",
+      },
+      {
+        time: "2:00 PM - 3:00 PM",
+        activity: "Workshop #2 (MLH)",
+        location: "",
+        track: "workshop",
+      },
+      {
+        time: "3:30 PM - 4:30 PM",
+        activity: "Dr. Behzad Workshop",
+        description: "Data Diversity in Machine Learning: Data-Driven Insights",
+        location: "",
+        track: "workshop",
+      },
+      {
+        time: "4:30 PM - 5:00 PM",
+        activity: "Snacks",
+        location: "",
+        track: "food",
+      },
+      {
+        time: "5:00 PM - 6:00 PM",
+        activity: "Workshop #4",
+        location: "",
+        track: "workshop",
+      },
+      {
+        time: "6:15 PM - 7:15 PM",
+        activity: "Hungry Hungry Hippos",
+        location: "",
+        track: "mini-event",
+      },
+      {
+        time: "7:30 PM - 8:30 PM",
+        activity: "Dinner",
+        location: "",
+        track: "food",
+      },
+      {
+        time: "9:00 PM - 10:00 PM",
+        activity: "Scribbl.io",
+        location: "",
+        track: "mini-event",
+      },
+      {
+        time: "11:00 PM - 11:45 PM",
+        activity: "Late Night Coffee",
+        location: "",
+        track: "mini-event",
+      },
+    ],
+  },
+  {
+    day: "Day 2",
+    date: "Sunday, April 13, 2025",
+    events: [
+      {
+        time: "12:30 AM - 1:30 AM",
+        activity: "Late Night Among Us",
+        location: "Cafeteria",
+        track: "mini-event",
+      },
+      {
+        time: "8:00 AM - 9:00 AM",
+        activity: "Breakfast",
+        location: "",
+        track: "food",
+      },
+      {
+        time: "11:00 AM",
+        activity: "Hacking Ends & Judging Begins",
+        location: "",
+        track: "hacking",
+      },
+      {
+        time: "11:30 AM - 12:15 PM",
+        activity: "Lunch",
+        location: "",
+        track: "food",
+      },
+      {
+        time: "12:30 PM - 2:00 PM",
+        activity: "Bingo",
+        location: "",
+        track: "mini-event",
+      },
+      {
+        time: "3:00 PM - 4:00 PM",
+        activity: "Closing Ceremony",
+        location: "",
+        track: "ceremony",
+      },
+    ],
+  },
+];
 
 export default function Schedule() {
-	return (
-		<>
-			<style jsx global>{`
-				@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-				
-				.coming-soon-container {
-					min-height: 100vh;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					padding: 2rem;
-				}
+  const [activeDay, setActiveDay] = useState("Day 1");
 
-				.coming-soon-title {
-					font-family: 'Press Start 2P', monospace;
-					text-align: center;
-					font-size: 4rem;
-					background: linear-gradient(180deg, 
-						#fff4b8 0%,
-						#ffd773 20%, 
-						#ff9f38 40%,
-						#ff7a1f 60%,
-						#ff4f1f 80%);
-					-webkit-background-clip: text;
-					background-clip: text;
-					color: transparent;
-					filter: drop-shadow(0px 2px 0px #000)
-						 drop-shadow(0px -2px 0px #000)
-						 drop-shadow(2px 0px 0px #000)
-						 drop-shadow(-2px 0px 0px #000)
-						 drop-shadow(4px 4px 0px #661a00);
-					transform: perspective(500px) rotateX(10deg);
-					letter-spacing: 3px;
-					margin-bottom: 3rem;
-				}
+  return (
+    <div className="schedule-container">
+      <style jsx global>{`
+        @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Quicksand:wght@400;600&display=swap");
 
-				.retro-button {
-					font-family: 'Press Start 2P', monospace;
-					background: #000;
-					color: #a3e4ff;
-					border: 2px solid #00f7ff;
-					padding: 1rem 2rem;
-					font-size: 1.2rem;
-					cursor: pointer;
-					transition: all 0.3s ease;
-					text-transform: uppercase;
-					box-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
-					text-decoration: none;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					text-align: center;
-				}
+        .schedule-container {
+          padding: 150px 2rem 120px;
+          min-height: 100vh;
+          max-width: 1200px;
+          margin: 0 auto;
+          background: #0a0a1a;
+          color: #e2e8f0;
+          font-family: "Quicksand", sans-serif;
+        }
 
-				.retro-button:hover {
-					background: #00f7ff;
-					color: #000;
-					transform: translateY(-2px);
-					box-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
-				}
+        .retro-title {
+          text-align: center;
+          font-family: "Press Start 2P", cursive;
+          color: #ffa500;
+          font-size: 2rem;
+          margin-bottom: 2rem;
+          text-shadow: 2px 2px #000;
+        }
 
-				@media (max-width: 768px) {
-					.coming-soon-title {
-						font-size: 2.5rem;
-						letter-spacing: 2px;
-						padding: 10px 0;
-					}
+        .day-selector {
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-bottom: 2rem;
+        }
 
-					.retro-button {
-						padding: 0.8rem 1.5rem;
-						font-size: 1rem;
-						width: 100%;
-						max-width: 300px;
-					}
-				}
+        .day-button {
+          padding: 0.8rem 1.5rem;
+          border: 2px solid #00ff9d;
+          background: #000;
+          color: #00ff9d;
+          cursor: pointer;
+          font-family: "Press Start 2P", cursive;
+          font-size: 0.8rem;
+          transition: all 0.2s ease;
+          border-radius: 4px;
+        }
 
-				@media (max-width: 350px) {
-					.coming-soon-title {
-						font-size: 2rem;
-					}
+        .day-button.active {
+          background: #00ff9d;
+          color: #000;
+        }
 
-					.retro-button {
-						padding: 0.8rem 1.5rem;
-						font-size: 0.9rem;
-					}
-				}
-			`}</style>
+        .schedule-day {
+          margin-bottom: 3rem;
+          background: rgba(0, 0, 0, 0.3);
+          padding: 1.5rem;
+          border-radius: 8px;
+        }
 
-			<div className="coming-soon-container">
-				<h1 className="coming-soon-title">COMING SOON</h1>
-				<Link href="/registration" className="retro-button">
-					Apply Now
-				</Link>
-			</div>
-		</>
-	);
+        .day-header {
+          color: #00a8ff;
+          font-family: "Press Start 2P", cursive;
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .event-card {
+          position: relative;
+          margin: 1rem 0;
+          padding: 1.5rem;
+          border-left: 4px solid;
+          background: rgba(0, 0, 0, 0.2);
+        }
+
+        .event-track {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background: #000;
+          padding: 0.3rem 0.8rem;
+          font-family: "Press Start 2P", cursive;
+          font-size: 0.7rem;
+          border-radius: 0 4px 0 4px;
+        }
+
+        .event-time {
+          color: #00a8ff;
+          font-size: 0.95rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .event-activity {
+          font-size: 1.15rem;
+          margin-bottom: 0.5rem;
+          color: #fff;
+        }
+
+        .event-description {
+          color: #88ffcc;
+          margin-top: 0.8rem;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+
+        /* Track Colors */
+        [data-track="hacking"] {
+          border-color: #ff0000;
+        }
+        [data-track="ceremony"] {
+          border-color: #00ff9d;
+        }
+        [data-track="food"] {
+          border-color: #ffd700;
+        }
+        [data-track="workshop"] {
+          border-color: #00a8ff;
+        }
+        [data-track="mini-event"] {
+          border-color: #ff6437;
+        }
+        [data-track="extras"] {
+          border-color: #888;
+        }
+
+        @media (max-width: 768px) {
+          .schedule-container {
+            padding: 80px 1rem 100px;
+          }
+
+          .retro-title {
+            font-size: 1.5rem;
+          }
+
+          .day-button {
+            padding: 0.6rem 1rem;
+            font-size: 0.7rem;
+          }
+
+          .day-header {
+            font-size: 1rem;
+            line-height: 1.5;
+          }
+
+          .event-track {
+            border-radius: 0 2px 0 2px;
+            padding: 0.3rem 0.5rem;
+            font-size: 0.65rem;
+          }
+        }
+      `}</style>
+
+      <h1 className="retro-title">DATATHON 2025 SCHEDULE</h1>
+
+      <div className="day-selector">
+        {[...scheduleData.map((day) => day.day)].map((day) => (
+          <button
+            key={day}
+            className={`day-button ${activeDay === day ? "active" : ""}`}
+            onClick={() => setActiveDay(day)}
+          >
+            {day}
+          </button>
+        ))}
+      </div>
+
+      <div className="schedule-content">
+        {scheduleData
+          .filter((d) => d.day === activeDay)
+          .map((day) => (
+            <div key={day.day} className="schedule-day">
+              <h2 className="day-header">
+                {day.day} - {day.date}
+              </h2>
+              {day.events.map((event, i) => (
+                <div key={i} className="event-card" data-track={event.track}>
+                  {event.track !== "hacking" &&
+                    event.track !== "extras" &&
+                    event.track !== "ceremony" && (
+                      <div
+                        className="event-track"
+                        style={{
+                          color: getTrackColor(event.track),
+                          border: `2px solid ${getTrackColor(event.track)}`,
+                        }}
+                      >
+                        {event.track.toLowerCase()}
+                      </div>
+                    )}
+                  <div className="event-time">{event.time}</div>
+                  <div className="event-activity">
+                    {event.activity}
+                    {event.track === "hacking" && " ⚡"}
+                  </div>
+                  {event.description && (
+                    <div className="event-description">{event.description}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+}
+
+function getTrackColor(track: string): string {
+  const colors: { [key: string]: string } = {
+    hacking: "#ff0000",
+    ceremony: "#00ff9d",
+    food: "#ffd700",
+    workshop: "#00a8ff",
+    "mini-event": "#ff6437",
+    extras: "#888",
+  };
+  return colors[track] || "#888";
 }
