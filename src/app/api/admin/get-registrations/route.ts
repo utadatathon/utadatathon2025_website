@@ -24,6 +24,7 @@ const adminEmails = [
   'rubab.shahzad@uta.edu',
   'lyndsey.dewitt@uta.edu',
   'sxr0682@mavs.uta.edu',
+  'pratham153patil@gmail.com',
   // Add your email here
   // Add other admin emails here
 ];
