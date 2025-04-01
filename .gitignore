@@ -42,3 +42,5 @@ next-env.d.ts
 
 # firebase
 public/firebase%20notes
+scripts/serviceAccountKey.json
+/scripts/serviceAccountKey.json
