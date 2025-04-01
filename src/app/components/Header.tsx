@@ -17,7 +17,7 @@ const Header = () => {
   const [openNavigation, setOpenNavigation] = useState(false);
 
   // Admin emails list
-  const adminEmails = useMemo(() => ["thesamarthjagtap@gmail.com", "rubab.shahzad@uta.edu", "lyndsey.dewitt@uta.edu", "sxr0682@mavs.uta.edu"],[]);
+  const adminEmails = useMemo(() => ["thesamarthjagtap@gmail.com", "rubab.shahzad@uta.edu", "lyndsey.dewitt@uta.edu", "sxr0682@mavs.uta.edu", "pratham153patil@gmail.com"],[]);
 
   // Base navigation links
   const navlinks = [
