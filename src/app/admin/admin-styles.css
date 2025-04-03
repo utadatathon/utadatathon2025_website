@@ -76,128 +76,45 @@ body {
   color: white;
 }
 
-/* Registration Chart Styles */
+/* Chart Container */
 .registration-chart {
   background-color: #2d3748; /* Dark gray background */
   border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.chart-container {
-  height: 300px; /* Fixed height for the chart */
-  position: relative;
-  background-color: #1a202c; /* Darker gray for contrast */
-  border-radius: 6px;
-  padding: 1rem;
+.chart-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #f3f4f6; /* Light gray */
+  margin-bottom: 1rem;
 }
 
-.chart-y-axis {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 30px; /* Leave space for X-axis labels */
-  width: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #a0aec0; /* Light gray text */
-  font-size: 0.75rem; /* Small text size */
+/* Empty State */
+.chart-empty {
+  text-align: center;
+  color: #718096; /* Muted gray */
 }
 
-.chart-x-axis {
-  position: absolute;
-  left: 40px; /* Offset for Y-axis */
-  right: 10px; /* Padding on the right */
-  bottom: -5px; /* Adjust for better alignment */
+/* Tooltip Customization */
+.apexcharts-tooltip {
+  background-color: #1a202c !important; /* Dark tooltip background */
+  border-radius: 6px !important;
 }
 
-.chart-grid-line {
-  position: absolute;
-  width: calc(100% - 40px); /* Account for Y-axis width */
+/* Legend Styling */
+.apexcharts-legend-text {
+  color: #d1d5db !important; /* Light gray legend text */
 }
 
-.chart-svg {
-  width: calc(100% - 40px); /* Account for Y-axis width */
-}
-.chart-bar {
-  fill: rgba(99, 179, 237, 0.3);
-  transition: all 0.2s ease;
+/* Axis Labels */
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label {
+  color:#d1d5db !important; /* Light gray axis labels */
 }
 
-.chart-bar:hover {
-  fill: rgba(99, 179, 237, 0.6);
-}
-
-.chart-cumulative-line {
-  fill: none;
-  stroke: #48bb78;
-  stroke-width: 2;
-  stroke-linejoin: round;
-}
-
-.chart-dot {
-  fill: #48bb78;
-  transition: all 0.2s ease;
-}
-
-.chart-dot:hover {
-  r: 3;
-  fill: #38a169;
-}
-
-.chart-legend {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(45, 55, 72, 0.9);
-  padding: 0.75rem;
-  border-radius: 4px;
-  display: flex;
-  gap: 1rem;
-  backdrop-filter: blur(2px);
-}
-
-.chart-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.chart-legend-color {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
-}
-
-.legend-daily {
-  background: rgba(99, 179, 237, 0.3);
-}
-
-.legend-cumulative {
-  background: #48bb78;
-}
-
-.chart-tooltip {
-  position: absolute;
-  background: #2d3748;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  pointer-events: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid #4a5568;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.x-axis-label {
-  transform: rotate(-45deg);
-  transform-origin: top left;
-  white-space: nowrap;
-}
 
 
 /* Dashboard Stats Container */
