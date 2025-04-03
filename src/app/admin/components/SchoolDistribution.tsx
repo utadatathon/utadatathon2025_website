@@ -62,7 +62,6 @@ const SchoolDistribution: React.FC<SchoolDistributionProps> = ({ registrations }
 
   return (
     <div className="school-distribution">
-      <h3 className="school-distribution-title">School Distribution</h3>
       <div className="school-list">
         {schoolData.map((school, index) => (
           <div key={school.name} className="school-item">

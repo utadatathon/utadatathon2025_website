@@ -348,7 +348,7 @@ export default function AdminPage() {
             {/* Recent Registrations */}
             <div className="recent-registrations">
               <div className="section-header">
-                <h3 className="section-title">Recent Registrations</h3>
+                <h3 className="section-header">Recent Registrations</h3>
                 <button
                   onClick={() => setViewMode("list")}
                   className="section-button"
