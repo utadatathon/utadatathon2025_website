@@ -242,7 +242,9 @@ export default function AdminPage() {
         <div className="admin-header">
           <div>
             <h1 className="admin-title">Datathon Admin Panel</h1>
-            <p className="admin-subtitle">Manage registrations and view analytics</p>
+            <p className="admin-subtitle">
+              Manage registrations and view analytics
+            </p>
           </div>
 
           <div className="admin-buttons">
@@ -311,62 +313,58 @@ export default function AdminPage() {
                 <StudyLevelChart registrations={registrations} />
               </div>
 
-              <div className="bg-gray-700/50 p-4 rounded-lg">
-                <h3 className="text-xl font-semibold text-white mb-4">
-                  Data Export
-                </h3>
-                <div className="flex flex-col space-y-4">
+              <div className="chart-card">
+                <h3 className="chart-title">Data Export</h3>
+                <div className="export-buttons flex flex-col md:flex-row gap-4">
+                  {/* Export Emails Button */}
                   <button
                     onClick={exportToCSV}
                     disabled={loading || registrations.length === 0}
-                    className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
+                    className={`export-btn btn-blue ${
+                      loading || registrations.length === 0
+                        ? "btn-disabled"
+                        : ""
+                    }`}
                   >
-                    Export Emails Only (CSV)
+                    <span>Export Emails Only (CSV)</span>
                   </button>
 
+                  {/* Export All Data Button */}
                   <button
                     onClick={exportFullDataToCSV}
                     disabled={loading || registrations.length === 0}
-                    className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
+                    className={`export-btn btn-green ${
+                      loading || registrations.length === 0
+                        ? "btn-disabled"
+                        : ""
+                    }`}
                   >
-                    Export All Registration Data (CSV)
+                    <span>Export All Registration Data (CSV)</span>
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Recent Registrations */}
-            <div className="bg-gray-700/50 p-4 rounded-lg">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-semibold text-white">
-                  Recent Registrations
-                </h3>
+            <div className="recent-registrations">
+              <div className="section-header">
+                <h3 className="section-title">Recent Registrations</h3>
                 <button
                   onClick={() => setViewMode("list")}
-                  className="text-blue-400 hover:text-blue-300 text-sm"
+                  className="section-button"
                 >
                   View All →
                 </button>
               </div>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
+              <div className="table-container">
+                <table className="table">
                   <thead>
-                    <tr className="bg-gray-800">
-                      <th className="p-3 text-gray-200 border-b border-gray-600">
-                        Name
-                      </th>
-                      <th className="p-3 text-gray-200 border-b border-gray-600">
-                        Email
-                      </th>
-                      <th className="p-3 text-gray-200 border-b border-gray-600">
-                        School
-                      </th>
-                      <th className="p-3 text-gray-200 border-b border-gray-600">
-                        Registered
-                      </th>
-                      <th className="p-3 text-gray-200 border-b border-gray-600">
-                        Actions
-                      </th>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>School</th>
+                      <th>Registered</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -382,28 +380,21 @@ export default function AdminPage() {
                       })
                       .slice(0, 5)
                       .map((reg, index) => (
-                        <tr
-                          key={index}
-                          className="bg-gray-800/50 hover:bg-gray-700/50"
-                        >
-                          <td className="p-3 border-b border-gray-700 text-gray-300">{`${
-                            reg.firstname || ""
-                          } ${reg.lastname || ""}`}</td>
-                          <td className="p-3 border-b border-gray-700 text-gray-300">
-                            {reg.email || ""}
-                          </td>
-                          <td className="p-3 border-b border-gray-700 text-gray-300">
-                            {reg.schoolName || ""}
-                          </td>
-                          <td className="p-3 border-b border-gray-700 text-gray-300">
+                        <tr key={index} className="table-row">
+                          <td>{`${reg.firstname || ""} ${
+                            reg.lastname || ""
+                          }`}</td>
+                          <td>{reg.email || ""}</td>
+                          <td>{reg.schoolName || "N/A"}</td>
+                          <td>
                             {reg.timestamp
                               ? new Date(reg.timestamp).toLocaleDateString()
                               : "N/A"}
                           </td>
-                          <td className="p-3 border-b border-gray-700">
+                          <td>
                             <button
                               onClick={() => viewRegistrationDetail(reg)}
-                              className="text-blue-400 hover:text-blue-300"
+                              className="action-button"
                             >
                               View
                             </button>
@@ -419,21 +410,19 @@ export default function AdminPage() {
 
         {/* Registrations List View */}
         {viewMode === "list" && registrations.length > 0 && (
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-white">
-                All Registrations
-              </h2>
-              <div className="flex space-x-4">
+          <div className="registrations-list">
+            <div className="list-header">
+              <h2 className="list-title">All Registrations</h2>
+              <div className="list-actions">
                 <button
                   onClick={exportToCSV}
-                  className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+                  className="button-primary button-blue"
                 >
                   Export Emails
                 </button>
                 <button
                   onClick={exportFullDataToCSV}
-                  className="px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                  className="button-primary button-green"
                 >
                   Export All Data
                 </button>
@@ -441,65 +430,41 @@ export default function AdminPage() {
             </div>
 
             {/* Table of registrations */}
-            <div className="overflow-x-auto bg-gray-700/30 rounded-lg">
-              <table className="w-full text-left border-collapse">
+            <div className="table-container">
+              <table className="table">
                 <thead>
-                  <tr className="bg-gray-800">
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Name
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Email
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      School
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Level
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Field
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Registered
-                    </th>
-                    <th className="p-3 text-gray-200 border-b border-gray-600">
-                      Actions
-                    </th>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>School</th>
+                    <th>Level</th>
+                    <th>Field</th>
+                    <th>Registered</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {registrations.map((reg, index) => (
                     <tr
                       key={index}
-                      className={
-                        index % 2 === 0 ? "bg-gray-800/50" : "bg-gray-700/30"
-                      }
+                      className={`table-row ${
+                        index % 2 === 0 ? "row-even" : "row-odd"
+                      }`}
                     >
-                      <td className="p-3 border-b border-gray-700 text-gray-300">{`${
-                        reg.firstname || ""
-                      } ${reg.lastname || ""}`}</td>
-                      <td className="p-3 border-b border-gray-700 text-gray-300">
-                        {reg.email || ""}
-                      </td>
-                      <td className="p-3 border-b border-gray-700 text-gray-300">
-                        {reg.schoolName || ""}
-                      </td>
-                      <td className="p-3 border-b border-gray-700 text-gray-300">
-                        {reg.levelOfStudy || ""}
-                      </td>
-                      <td className="p-3 border-b border-gray-700 text-gray-300">
-                        {reg.fieldOfStudy || ""}
-                      </td>
-                      <td className="p-3 border-b border-gray-700 text-gray-300">
+                      <td>{`${reg.firstname || ""} ${reg.lastname || ""}`}</td>
+                      <td>{reg.email || ""}</td>
+                      <td>{reg.schoolName || "N/A"}</td>
+                      <td>{reg.levelOfStudy || "N/A"}</td>
+                      <td>{reg.fieldOfStudy || "N/A"}</td>
+                      <td>
                         {reg.timestamp
                           ? new Date(reg.timestamp).toLocaleDateString()
                           : "N/A"}
                       </td>
-                      <td className="p-3 border-b border-gray-700">
+                      <td>
                         <button
                           onClick={() => viewRegistrationDetail(reg)}
-                          className="text-blue-400 hover:text-blue-300"
+                          className="action-button"
                         >
                           View
                         </button>
@@ -514,149 +479,142 @@ export default function AdminPage() {
 
         {/* Individual Registration Detail View */}
         {viewMode === "detail" && selectedRegistration && (
-          <div className="space-y-6">
+          <div className="detail-view">
             {/* Detail view header */}
-            <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-white">
-                Registration Details
-              </h2>
+            <div className="detail-header">
+              <h2 className="detail-title">Registration Details</h2>
               <button
                 onClick={() => {
                   setViewMode(registrations.length > 0 ? "list" : "dashboard");
                   setSelectedRegistration(null);
                 }}
-                className="text-blue-400 hover:text-blue-300"
+                className="back-button"
               >
                 &larr; Back
               </button>
             </div>
 
             {/* Detail content */}
-            <div className="bg-gray-700/30 p-6 rounded-lg">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-4">
-                    Personal Information
-                  </h3>
-                  <dl className="space-y-2">
-                    <div>
-                      <dt className="text-sm text-gray-400">Name</dt>
-                      <dd className="text-gray-200">{`${
-                        selectedRegistration.firstname || ""
-                      } ${selectedRegistration.lastname || ""}`}</dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Email</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.email || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Phone</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.phone || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Age</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.age || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Gender</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.gender || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Country</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.countryOfResidence || "N/A"}
-                      </dd>
-                    </div>
+            <div className="detail-card">
+              <div className="detail-grid">
+                {/* Personal Information */}
+                <section>
+                  <h3 className="section-title">Personal Information</h3>
+                  <dl className="info-list">
+                    {[
+                      {
+                        label: "Name",
+                        value: `${selectedRegistration.firstname || ""} ${
+                          selectedRegistration.lastname || ""
+                        }`,
+                      },
+                      {
+                        label: "Email",
+                        value: selectedRegistration.email || "N/A",
+                      },
+                      {
+                        label: "Phone",
+                        value: selectedRegistration.phone || "N/A",
+                      },
+                      {
+                        label: "Age",
+                        value: selectedRegistration.age || "N/A",
+                      },
+                      {
+                        label: "Gender",
+                        value: selectedRegistration.gender || "N/A",
+                      },
+                      {
+                        label: "Country",
+                        value: selectedRegistration.countryOfResidence || "N/A",
+                      },
+                    ].map((item, index) => (
+                      <div key={index} className="info-item">
+                        <dt className="info-label">{item.label}</dt>
+                        <dd className="info-value">{item.value}</dd>
+                      </div>
+                    ))}
                   </dl>
-                </div>
+                </section>
 
-                <div>
-                  <h3 className="text-lg font-medium text-white mb-4">
-                    Academic Information
-                  </h3>
-                  <dl className="space-y-2">
-                    <div>
-                      <dt className="text-sm text-gray-400">School</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.schoolName || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Level of Study</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.levelOfStudy || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">Field of Study</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.fieldOfStudy || "N/A"}
-                      </dd>
-                    </div>
+                {/* Academic Information */}
+                <section>
+                  <h3 className="section-title">Academic Information</h3>
+                  <dl className="info-list">
+                    {[
+                      {
+                        label: "School",
+                        value: selectedRegistration.schoolName || "N/A",
+                      },
+                      {
+                        label: "Level of Study",
+                        value: selectedRegistration.levelOfStudy || "N/A",
+                      },
+                      {
+                        label: "Field of Study",
+                        value: selectedRegistration.fieldOfStudy || "N/A",
+                      },
+                    ].map((item, index) => (
+                      <div key={index} className="info-item">
+                        <dt className="info-label">{item.label}</dt>
+                        <dd className="info-value">{item.value}</dd>
+                      </div>
+                    ))}
                   </dl>
 
-                  <h3 className="text-lg font-medium text-white mt-6 mb-4">
-                    Event Information
-                  </h3>
-                  <dl className="space-y-2">
-                    <div>
-                      <dt className="text-sm text-gray-400">T-Shirt Size</dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.tshirtSize || "N/A"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-sm text-gray-400">
-                        Dietary Restrictions
-                      </dt>
-                      <dd className="text-gray-200">
-                        {selectedRegistration.dietaryRestrictions || "None"}
-                      </dd>
-                    </div>
-                    <dd className="text-gray-200">
-                      {selectedRegistration.resume &&
-                      typeof selectedRegistration.resume === "string" ? (
-                        <div>
-                          <a
-                            href={selectedRegistration.resume}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300 mr-4"
-                          >
-                            Download Resume
-                          </a>
-                          <button
-                            onClick={() => {
-                              // Open a modal or new window with the PDF viewer
-                              window.open(
-                                selectedRegistration.resume as string,
-                                "_blank",
-                                "noopener,noreferrer"
-                              );
-                            }}
-                            className="text-green-400 hover:text-green-300"
-                          >
-                            View Online
-                          </button>
-                        </div>
-                      ) : (
-                        "No resume uploaded"
-                      )}
-                    </dd>
+                  {/* Event Information */}
+                  <h3 className="section-title mt-6">Event Information</h3>
+                  <dl className="info-list">
+                    {[
+                      {
+                        label: "T-Shirt Size",
+                        value: selectedRegistration.tshirtSize || "N/A",
+                      },
+                      {
+                        label: "Dietary Restrictions",
+                        value:
+                          selectedRegistration.dietaryRestrictions || "None",
+                      },
+                    ].map((item, index) => (
+                      <div key={index} className="info-item">
+                        <dt className="info-label">{item.label}</dt>
+                        <dd className="info-value">{item.value}</dd>
+                      </div>
+                    ))}
 
-                    <div>
-                      <dt className="text-sm text-gray-400">
-                        Registration Date
-                      </dt>
-                      <dd className="text-gray-200">
+                    {/* Resume */}
+                    {selectedRegistration.resume &&
+                    typeof selectedRegistration.resume === "string" ? (
+                      <div className="resume-actions">
+                        <a
+                          href={selectedRegistration.resume}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="action-link"
+                        >
+                          Download Resume
+                        </a>
+                        <button
+                          onClick={() =>
+                            window.open(
+                              selectedRegistration.resume as string,
+                              "_blank",
+                              "noopener,noreferrer"
+                            )
+                          }
+                          className="action-button"
+                        >
+                          View Online
+                        </button>
+                      </div>
+                    ) : (
+                      <p className="info-value">No resume uploaded</p>
+                    )}
+
+                    {/* Registration Date */}
+                    <div className="info-item">
+                      <dt className="info-label">Registration Date</dt>
+                      <dd className="info-value">
                         {selectedRegistration.timestamp
                           ? new Date(
                               selectedRegistration.timestamp
@@ -665,7 +623,7 @@ export default function AdminPage() {
                       </dd>
                     </div>
                   </dl>
-                </div>
+                </section>
               </div>
             </div>
           </div>
