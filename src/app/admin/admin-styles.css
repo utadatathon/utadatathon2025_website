@@ -179,3 +179,85 @@ body {
 .stat-value {
  color:white
 }
+
+
+/* School Distribution Container */
+.school-distribution {
+  padding: 1rem;
+  background-color: #2d3748;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.school-distribution-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  margin-bottom: 1.5rem;
+}
+
+/* School Item */
+.school-item {
+  margin-bottom: 1rem;
+}
+
+.school-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.school-name {
+  color: #e5e7eb;
+  font-size: 0.875rem;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.school-stats {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+/* Progress Bar */
+.progress-container {
+  width: 100%;
+  height: 0.5rem;
+  background-color: #374151;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 0.25rem;
+  transition: width 0.3s ease;
+}
+
+/* Color Variants */
+.school-bar-blue { background-color: #3b82f6; }
+.school-bar-purple { background-color: #8b5cf6; }
+.school-bar-green { background-color: #10b981; }
+.school-bar-yellow { background-color: #f59e0b; }
+.school-bar-red { background-color: #ef4444; }
+.school-bar-gray { background-color: #6b7280; }
+
+/* Hover Effects */
+.school-item:hover .school-name {
+  color: #ffffff;
+}
+
+.school-item:hover .progress-bar {
+  filter: brightness(110%);
+}
+
+/* Empty State */
+.school-empty-state {
+  text-align: center;
+  color: #6b7280;
+  padding: 1rem;
+  font-size: 0.875rem;
+}

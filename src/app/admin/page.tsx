@@ -302,12 +302,12 @@ export default function AdminPage() {
             {/* Charts Section */}
             <div className="charts-grid">
               <div className="chart-card">
-                <h3 className="chart-title">Registration Timeline</h3>
+                {/* <h3 className="chart-title">Registration Timeline</h3> */}
                 <RegistrationChart registrations={registrations} />
               </div>
 
               <div className="chart-card">
-                <h3 className="chart-title">School Distribution</h3>
+                {/* <h3 className="chart-title">School Distribution</h3> */}
                 <SchoolDistribution registrations={registrations} />
               </div>
 
