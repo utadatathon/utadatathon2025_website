@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../../../firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
-import "./admin-styles.css";
+import './admin-styles.css';
 
 // Analytics components
 import DashboardStats from "./components/DashboardStats";
@@ -242,10 +242,9 @@ export default function AdminPage() {
         <div className="admin-header">
           <div>
             <h1 className="admin-title">Datathon Admin Panel</h1>
-            <p className="admin-subtitle">
-              Manage registrations and view analytics
-            </p>
+            <p className="admin-subtitle">Manage registrations and view analytics</p>
           </div>
+
           <div className="admin-buttons">
             <button
               onClick={() => setViewMode("dashboard")}
@@ -283,47 +282,44 @@ export default function AdminPage() {
           </div>
         )}
 
-        {message && (
-          <div
-            className={`admin-message ${
-              message.includes("Error") ? "message-error" : "message-success"
-            }`}
-          >
-            {message}
-          </div>
-        )}
-
         {/* Dashboard View with Analytics */}
         {viewMode === "dashboard" && registrations.length > 0 && (
-          <div className="dashboard-view">
-            {/* Key Stats */}
+          <div className="space-y-8">
+            {/* Key Stats at the top */}
             <DashboardStats data={registrations} />
 
-            {/* Charts Section */}
-            <div className="charts-grid">
-              <div className="chart-card">
-                {/* <h3 className="chart-title">Registration Timeline</h3> */}
+            {/* Charts section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="bg-gray-700/50 p-4 rounded-lg">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Registration Timeline
+                </h3>
                 <RegistrationChart registrations={registrations} />
               </div>
 
-              <div className="chart-card">
-                {/* <h3 className="chart-title">School Distribution</h3> */}
+              <div className="bg-gray-700/50 p-4 rounded-lg">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  School Distribution
+                </h3>
                 <SchoolDistribution registrations={registrations} />
               </div>
 
-              <div className="chart-card">
-                <h3 className="chart-title">Study Level Distribution</h3>
+              <div className="bg-gray-700/50 p-4 rounded-lg">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Study Level Distribution
+                </h3>
                 <StudyLevelChart registrations={registrations} />
               </div>
 
-              {/* Data Export Section */}
-              <div className="chart-card">
-                <h3 className="chart-title">Data Export</h3>
-                <div className="export-buttons">
+              <div className="bg-gray-700/50 p-4 rounded-lg">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  Data Export
+                </h3>
+                <div className="flex flex-col space-y-4">
                   <button
                     onClick={exportToCSV}
                     disabled={loading || registrations.length === 0}
-                    className="export-btn btn-blue"
+                    className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
                   >
                     Export Emails Only (CSV)
                   </button>
@@ -331,7 +327,7 @@ export default function AdminPage() {
                   <button
                     onClick={exportFullDataToCSV}
                     disabled={loading || registrations.length === 0}
-                    className="export-btn btn-green"
+                    className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 disabled:bg-gray-500 disabled:cursor-not-allowed transition-colors"
                   >
                     Export All Registration Data (CSV)
                   </button>

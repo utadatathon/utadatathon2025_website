@@ -100,7 +100,7 @@ const RegistrationChart: React.FC<RegistrationChartProps> = ({ registrations }) 
 
   return (
     <div className="registration-chart">
-      <h3 className="chart-title">Registration Trends</h3>
+      {/* <h3 className="chart-title">Registration Trends</h3> */}
       <ReactApexChart options={options} series={series} type="line" height={550} />
     </div>
   );

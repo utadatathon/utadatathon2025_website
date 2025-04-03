@@ -261,3 +261,102 @@ body {
   padding: 1rem;
   font-size: 0.875rem;
 }
+
+/* Study Level Chart Container */
+.study-level-chart {
+  background-color: #2d3748;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart Container */
+.chart-container {
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Donut Chart */
+.donut-chart {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.total-count {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f3f4f6;
+}
+
+.total-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* Legend */
+.level-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  margin-top: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.legend-label {
+  font-size: 0.875rem;
+  color: #e5e7eb;
+}
+
+.legend-count {
+  font-size: 0.875rem;
+  color: #9ca3af;
+  margin-left: auto;
+}
+
+/* Level Colors */
+.fill-freshman { fill: #34d399; }
+.fill-sophomore { fill: #10b981; }
+.fill-junior { fill: #059669; }
+.fill-senior { fill: #047857; }
+.fill-graduate { fill: #3b82f6; }
+.fill-phd { fill: #2563eb; }
+.fill-other { fill: #6b7280; }
+
+.bg-freshman { background-color: #34d399; }
+.bg-sophomore { background-color: #10b981; }
+.bg-junior { background-color: #059669; }
+.bg-senior { background-color: #047857; }
+.bg-graduate { background-color: #3b82f6; }
+.bg-phd { background-color: #2563eb; }
+.bg-other { background-color: #6b7280; }
+
+/* Empty State */
+.chart-empty {
+  text-align: center;
+  color: #6b7280;
+  padding: 2rem;
+}
