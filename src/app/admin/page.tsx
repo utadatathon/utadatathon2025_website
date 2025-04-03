@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../../../firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
-import './admin-styles.css';
+import "./admin-styles.css";
 
 // Analytics components
 import DashboardStats from "./components/DashboardStats";
