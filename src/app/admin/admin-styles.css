@@ -1,197 +1,264 @@
-/* Admin Container */
-.admin-container {
-  @apply min-h-screen bg-gray-900 text-gray-100 p-6;
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1a202c; 
 }
 
-.admin-content {
-  @apply max-w-7xl mx-auto space-y-6;
+.admin-panel {
+  min-height: 100vh;
+  background-color: #1a202c; 
+  padding: 16px;
+  margin-top: 150px;
+}
+
+.admin-container {
+  max-width: 80%;
+  margin: auto;
+  background-color: #2d3748;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 16px;
 }
 
 /* Header Styles */
 .admin-header {
-  @apply flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .admin-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
 }
 
 .admin-title {
-  @apply text-3xl font-bold text-white;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 }
 
 .admin-subtitle {
-  @apply text-gray-400 mt-1;
-}
-
-.admin-actions {
-  @apply flex flex-wrap gap-2;
+  color: #d1d5db; 
 }
 
 /* Button Styles */
-.admin-button {
-  @apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900;
+.admin-btn {
+  margin: 5px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: medium;
 }
 
-.admin-button-primary {
-  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+.btn-active {
+  background-color: #38a169;
 }
 
-.admin-button-secondary {
-  @apply bg-gray-700 text-gray-200 hover:bg-gray-600 focus:ring-gray-500;
+.btn-active:hover {
+  background-color: #2f855a;
+  transition: 300ms;
+  color: white;
 }
 
-.admin-button-purple {
-  @apply bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500;
+.btn-inactive {
+  background-color: #848484;
 }
 
-.admin-button-disabled {
-  @apply opacity-50 cursor-not-allowed;
+.btn-inactive:hover {
+  background-color: #676767;
+  transition: 300ms;
+  color: white;
 }
 
-/* Message Alert */
-.message-alert {
-  @apply p-4 mb-6 rounded-lg border text-sm;
+/* Registration Chart Styles */
+.registration-chart {
+  background-color: #2d3748; /* Dark gray background */
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.message-alert-success {
-  @apply bg-green-900/50 border-green-700 text-green-100;
-}
-
-.message-alert-error {
-  @apply bg-red-900/50 border-red-700 text-red-100;
-}
-
-/* Loading Spinner */
-.loading-spinner {
-  @apply flex justify-center items-center p-8;
-}
-
-.loading-spinner-inner {
-  @apply w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin;
-}
-
-/* Analytics Cards */
-.analytics-card {
-  @apply bg-gray-800/50 p-6 rounded-lg border border-gray-700;
-}
-
-.analytics-card-title {
-  @apply text-lg font-semibold text-white mb-4;
-}
-
-.analytics-card-value {
-  @apply text-2xl font-bold text-white;
-}
-
-/* Charts */
 .chart-container {
-  @apply h-[400px] relative;
+  height: 300px; /* Fixed height for the chart */
+  position: relative;
+  background-color: #1a202c; /* Darker gray for contrast */
+  border-radius: 6px;
+  padding: 1rem;
 }
 
-/* Registration List */
-.registration-list {
-  @apply space-y-4;
+.chart-y-axis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 30px; /* Leave space for X-axis labels */
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #a0aec0; /* Light gray text */
+  font-size: 0.75rem; /* Small text size */
 }
 
-.registration-item {
-  @apply bg-gray-800/50 rounded-lg border border-gray-700 p-4 cursor-pointer hover:bg-gray-700/50 transition-colors duration-200;
+.chart-x-axis {
+  position: absolute;
+  left: 40px; /* Offset for Y-axis */
+  right: 10px; /* Padding on the right */
+  bottom: -5px; /* Adjust for better alignment */
 }
 
-.registration-item-header {
-  @apply flex justify-between items-start mb-4;
+.chart-grid-line {
+  position: absolute;
+  width: calc(100% - 40px); /* Account for Y-axis width */
 }
 
-.registration-item-name {
-  @apply text-lg font-semibold text-white;
+.chart-svg {
+  width: calc(100% - 40px); /* Account for Y-axis width */
+}
+.chart-bar {
+  fill: rgba(99, 179, 237, 0.3);
+  transition: all 0.2s ease;
 }
 
-.registration-item-email {
-  @apply text-sm text-gray-400;
+.chart-bar:hover {
+  fill: rgba(99, 179, 237, 0.6);
 }
 
-.registration-item-details {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+.chart-cumulative-line {
+  fill: none;
+  stroke: #48bb78;
+  stroke-width: 2;
+  stroke-linejoin: round;
 }
 
-.registration-item-label {
-  @apply text-sm text-gray-400;
+.chart-dot {
+  fill: #48bb78;
+  transition: all 0.2s ease;
 }
 
-.registration-item-value {
-  @apply text-sm text-gray-200 ml-2;
+.chart-dot:hover {
+  r: 3;
+  fill: #38a169;
 }
 
-/* Status Badge */
-.status-badge {
-  @apply px-3 py-1 rounded-full text-xs font-medium;
+.chart-legend {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(45, 55, 72, 0.9);
+  padding: 0.75rem;
+  border-radius: 4px;
+  display: flex;
+  gap: 1rem;
+  backdrop-filter: blur(2px);
 }
 
-.status-accepted {
-  @apply bg-green-900/50 text-green-100 border border-green-700;
+.chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.status-rejected {
-  @apply bg-red-900/50 text-red-100 border border-red-700;
+.chart-legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
 }
 
-.status-pending {
-  @apply bg-yellow-900/50 text-yellow-100 border border-yellow-700;
+.legend-daily {
+  background: rgba(99, 179, 237, 0.3);
 }
 
-.status-review {
-  @apply bg-blue-900/50 text-blue-100 border border-blue-700;
+.legend-cumulative {
+  background: #48bb78;
 }
 
-.status-waitlisted {
-  @apply bg-purple-900/50 text-purple-100 border border-purple-700;
+.chart-tooltip {
+  position: absolute;
+  background: #2d3748;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4a5568;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-/* Detail View */
-.registration-detail {
-  @apply bg-gray-800/50 rounded-lg border border-gray-700 p-6;
+.x-axis-label {
+  transform: rotate(-45deg);
+  transform-origin: top left;
+  white-space: nowrap;
 }
 
-.detail-section {
-  @apply mb-8 last:mb-0;
+
+/* Dashboard Stats Container */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
 }
 
-.detail-section-title {
-  @apply text-xl font-semibold text-white mb-4;
+/* Stat Card */
+.stat-card {
+  background: #1f2937; /* Dark gray background */
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.detail-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.detail-item {
-  @apply space-y-1;
+/* Stat Title */
+.stat-title {
+  font-size: 0.875rem; /* Small font size */
+  font-weight: medium;
 }
 
-.detail-label {
-  @apply text-sm text-gray-400 block;
+/* Stat Value */
+.stat-value {
+  font-size: 2rem; /* Large font size */
+  font-weight: bold;
 }
 
-.detail-value {
-  @apply text-base text-gray-200;
+/* Color Themes */
+.stat-blue {
+  background-image: linear-gradient(to bottom right, #3b82f6, #2563eb);
 }
 
-/* Chart Customizations */
-.chart-title {
-  @apply text-lg font-semibold text-white mb-4;
+.stat-purple {
+  background-image: linear-gradient(to bottom right, #8b5cf6, #7c3aed);
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .admin-header {
-    @apply flex-col items-stretch;
-  }
-  
-  .admin-actions {
-    @apply flex-col;
-  }
-  
-  .admin-button {
-    @apply w-full;
-  }
-  
-  .detail-grid {
-    @apply grid-cols-1;
-  }
-} 
+.stat-green {
+  background-image: linear-gradient(to bottom right, #10b981, #059669);
+}
+
+.stat-yellow {
+  background-image: linear-gradient(to bottom right, #f59e0b, #d97706);
+}
+
+.stat-red {
+  background-image: linear-gradient(to bottom right, #ef4444, #dc2626);
+}
+
+/* Text Styling for Titles and Values */
+.stat-title {
+  color: rgba(255,255,255,0.8); /* Slightly muted white */
+}
+
+.stat-value {
+ color:white
+}
