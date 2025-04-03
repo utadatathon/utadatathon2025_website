@@ -1,5 +1,6 @@
 "use client";
 import React, { useMemo } from 'react';
+import '../admin-styles.css';
 
 interface Registration {
   schoolName?: string;
@@ -17,16 +18,13 @@ interface SchoolData {
 }
 
 const SchoolDistribution: React.FC<SchoolDistributionProps> = ({ registrations }) => {
-  // Process school data
   const schoolData = useMemo<SchoolData[]>(() => {
-    // Count registrations by school
     const schoolCounts = registrations.reduce<Record<string, number>>((acc, reg) => {
       const school = reg.schoolName || 'Unknown';
       acc[school] = (acc[school] || 0) + 1;
       return acc;
     }, {});
-    
-    // Convert to array and sort by count
+
     const sortedSchools = Object.entries(schoolCounts)
       .sort((a, b) => b[1] - a[1])
       .map(([name, count]) => ({
@@ -34,14 +32,11 @@ const SchoolDistribution: React.FC<SchoolDistributionProps> = ({ registrations }
         count,
         percentage: Math.round((count / registrations.length) * 100)
       }));
-    
-    // Get top schools and group the rest as "Other"
+
     const topSchools = sortedSchools.slice(0, 5);
     
     if (sortedSchools.length > 5) {
-      const otherSchools = sortedSchools.slice(5);
-      const otherCount = otherSchools.reduce((sum, school) => sum + school.count, 0);
-      
+      const otherCount = sortedSchools.slice(5).reduce((sum, school) => sum + school.count, 0);
       topSchools.push({
         name: 'Other Schools',
         count: otherCount,
@@ -51,41 +46,42 @@ const SchoolDistribution: React.FC<SchoolDistributionProps> = ({ registrations }
     
     return topSchools;
   }, [registrations]);
-  
-  // Generate colors for the bars
+
   const colors = [
-    'bg-blue-500',
-    'bg-purple-500',
-    'bg-green-500',
-    'bg-yellow-500',
-    'bg-red-500',
-    'bg-gray-500',
+    'school-bar-blue',
+    'school-bar-purple',
+    'school-bar-green',
+    'school-bar-yellow',
+    'school-bar-red',
+    'school-bar-gray'
   ];
-  
+
   if (schoolData.length === 0) {
-    return <div className="text-gray-400 p-4 text-center">No school data available</div>;
+    return <div className="school-empty-state">No school data available</div>;
   }
-  
+
   return (
-    <div className="space-y-4">
-      {schoolData.map((school, index) => (
-        <div key={school.name} className="space-y-1">
-          <div className="flex justify-between items-center text-sm">
-            <div className="truncate text-gray-300" title={school.name}>
-              {school.name}
+    <div className="school-distribution">
+      <div className="school-list">
+        {schoolData.map((school, index) => (
+          <div key={school.name} className="school-item">
+            <div className="school-header">
+              <span className="school-name" title={school.name}>
+                {school.name}
+              </span>
+              <span className="school-stats">
+                {school.count} ({school.percentage}%)
+              </span>
             </div>
-            <div className="text-gray-400">
-              {school.count} ({school.percentage}%)
+            <div className="progress-container">
+              <div 
+                className={`progress-bar ${colors[index % colors.length]}`}
+                style={{ width: `${school.percentage}%` }}
+              />
             </div>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2.5">
-            <div 
-              className={`${colors[index % colors.length]} h-2.5 rounded-full`} 
-              style={{ width: `${school.percentage}%` }}
-            ></div>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
