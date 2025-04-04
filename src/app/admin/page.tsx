@@ -6,7 +6,6 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import dynamic from 'next/dynamic';
 import "./admin-styles.css";
 
-
 // Analytics components
 const DashboardStats = dynamic(
   () => import('./components/DashboardStats'),
