@@ -3,11 +3,19 @@
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../../../firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
+import dynamic from 'next/dynamic';
 import "./admin-styles.css";
 
+
 // Analytics components
-import DashboardStats from "./components/DashboardStats";
-import RegistrationChart from "./components/RegistrationChart";
+const DashboardStats = dynamic(
+  () => import('./components/DashboardStats'),
+  { ssr: false }
+);
+const RegistrationChart = dynamic(
+  () => import('./components/RegistrationChart'),
+  { ssr: false }
+);
 import SchoolDistribution from "./components/SchoolDistribution";
 import StudyLevelChart from "./components/StudyLevelChart";
 

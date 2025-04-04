@@ -1,7 +1,12 @@
 "use client";
 import React from "react";
-import ReactApexChart from "react-apexcharts";
 import '../admin-styles.css';
+
+import dynamic from 'next/dynamic';
+const ReactApexChart = dynamic(
+  () => import('react-apexcharts'),
+  { ssr: false }
+);
 
 interface Registration {
   timestamp?: string | Date;
@@ -46,7 +51,7 @@ const RegistrationChart: React.FC<RegistrationChartProps> = ({ registrations }) 
   // Chart options
   const options = {
     chart: {
-      type: "line" as "line",
+      type: "line" as const,
       toolbar: {
         show: false,
         style: {
@@ -80,7 +85,7 @@ const RegistrationChart: React.FC<RegistrationChartProps> = ({ registrations }) 
       theme: "dark",
     },
     legend: {
-      position: "top" as "top",
+      position: "top" as const,
       labels: { colors: "#D1D5DB" },
     },
   };
