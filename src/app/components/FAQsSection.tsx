@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 
 export default function FAQsSection() {
@@ -29,7 +30,7 @@ export default function FAQsSection() {
       id:5,
       question: "Do I need to have a team?",
       answer:
-        "No, you can participate individually or form a team of 4 during the event.",
+        "Yes, you need to have a team of 2-4 members.",
     },
     {
       id:6,
