@@ -1,7 +1,10 @@
+import FAQsSection from "../components/FAQsSection";
+import './faqs.css';
+
 export default function FAQsPage() {
-	return (
-		<div className="grow">
-			<p>FAQs Page</p>
-		</div>
-	);
+    return (
+        <div className="container">
+            <FAQsSection />
+        </div>
+    );
 }

@@ -1,102 +1,86 @@
 "use client";
-import Link from 'next/link';
 
-export default function Dashboard() {
-	return (
-		<>
-			<style jsx global>{`
-				@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-				
-				.coming-soon-container {
-					min-height: 100vh;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-					padding: 2rem;
-				}
+import React, { useEffect, useState } from "react";
+import QRCode from "react-qr-code";
+import { onAuthStateChanged, User } from "firebase/auth";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  QueryDocumentSnapshot,
+  DocumentData,
+} from "firebase/firestore";
+import "./dashboard.css";
 
-				.coming-soon-title {
-					font-family: 'Press Start 2P', monospace;
-					text-align: center;
-					font-size: 4rem;
-					background: linear-gradient(180deg, 
-						#fff4b8 0%,
-						#ffd773 20%, 
-						#ff9f38 40%,
-						#ff7a1f 60%,
-						#ff4f1f 80%);
-					-webkit-background-clip: text;
-					background-clip: text;
-					color: transparent;
-					filter: drop-shadow(0px 2px 0px #000)
-						 drop-shadow(0px -2px 0px #000)
-						 drop-shadow(2px 0px 0px #000)
-						 drop-shadow(-2px 0px 0px #000)
-						 drop-shadow(4px 4px 0px #661a00);
-					transform: perspective(500px) rotateX(10deg);
-					letter-spacing: 3px;
-					margin-bottom: 3rem;
-				}
+import { auth, db } from "../firebase";
 
-				.retro-button {
-					font-family: 'Press Start 2P', monospace;
-					background: #000;
-					color: #a3e4ff;
-					border: 2px solid #00f7ff;
-					padding: 1rem 2rem;
-					font-size: 1.2rem;
-					cursor: pointer;
-					transition: all 0.3s ease;
-					text-transform: uppercase;
-					box-shadow: 0 0 5px rgba(0, 247, 255, 0.5);
-					text-decoration: none;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					text-align: center;
-				}
+export default function QRCodePage() {
+  const [user, setUser] = useState<User | null>(null);
+  const [documentId, setDocumentId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-				.retro-button:hover {
-					background: #00f7ff;
-					color: #000;
-					transform: translateY(-2px);
-					box-shadow: 0 0 10px rgba(0, 247, 255, 0.7);
-				}
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
 
-				@media (max-width: 768px) {
-					.coming-soon-title {
-						font-size: 2.5rem;
-						letter-spacing: 2px;
-						padding: 10px 0;
-					}
+      if (currentUser) {
+        const q = query(
+          collection(db, "registrations"),
+          where("userId", "==", currentUser.uid)
+        );
 
-					.retro-button {
-						padding: 0.8rem 1.5rem;
-						font-size: 1rem;
-						width: 100%;
-						max-width: 300px;
-					}
-				}
+        const unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
+          if (!snapshot.empty) {
+            const doc: QueryDocumentSnapshot<DocumentData> = snapshot.docs[0];
+            setDocumentId(doc.id);
+          } else {
+            setDocumentId(null);
+          }
+          setLoading(false);
+        });
 
-				@media (max-width: 350px) {
-					.coming-soon-title {
-						font-size: 2rem;
-					}
+        return () => unsubscribeSnapshot();
+      } else {
+        setDocumentId(null);
+        setLoading(false);
+      }
+    });
 
-					.retro-button {
-						padding: 0.8rem 1.5rem;
-						font-size: 0.9rem;
-					}
-				}
-			`}</style>
+    return () => unsubscribeAuth();
+  }, []);
 
-			<div className="coming-soon-container">
-				<h1 className="coming-soon-title">COMING SOON</h1>
-				<Link href="/registration" className="retro-button">
-					Apply Now
-				</Link>
-			</div>
-		</>
-	);
+  if (loading) {
+    return (
+      <div className="container">
+        <p>Loading your QR code...</p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="container">
+        <h2 className="title">Please login to view your QR code</h2>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <h1 className="title">Your Event QR Code</h1>
+      {documentId ? (
+        <>
+          <div className="qr-container">
+            <QRCode value={documentId} size={256} />
+          </div>
+          <p className="description">
+            Scan this QR code at the event desk. It links to your registration ID.
+          </p>
+        </>
+      ) : (
+        <p className="description">You&apos;re logged in, but no registration was found.</p>
+      )}
+    </div>
+  );
 }
