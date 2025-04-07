@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import {
   collection,
   query,
@@ -13,17 +13,23 @@ import {
 } from "firebase/firestore";
 import "./dashboard.css";
 
-import { auth, db } from "../firebase";
+import { auth, db } from "@/lib/firebase";
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/navigation';
 
 export default function QRCodePage() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, loading] = useAuthState(auth);
+  const router = useRouter();
   const [documentId, setDocumentId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    if (!loading && !user) {
+      router.push('/login');
+    }
+  }, [user, loading, router]);
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         const q = query(
           collection(db, "registrations"),
@@ -37,17 +43,13 @@ export default function QRCodePage() {
           } else {
             setDocumentId(null);
           }
-          setLoading(false);
         });
 
         return () => unsubscribeSnapshot();
       } else {
         setDocumentId(null);
-        setLoading(false);
       }
     });
-
-    return () => unsubscribeAuth();
   }, []);
 
   if (loading) {
