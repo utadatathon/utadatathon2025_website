@@ -4,9 +4,10 @@ import Header from "./components/Header";
 import CountdownTimer from "./components/CountdownTimer";
 import GhostTrail from "./components/GhostTrail";
 import DetailsSection from "./components/DetailsSection";
-// import FAQsSection from "./components/FAQsSection";
+import FAQsSection from "./components/FAQsSection";
 import MeetTheTeamSection from "./components/MeetTheTeamSection";
 import SponsorsSection from "./components/SponsorsSection";
+import Map from "./components/Map";
 import Link from 'next/link';
 
 export default function Home() {
@@ -176,9 +177,12 @@ export default function Home() {
 
         <h2>Details</h2>
         <DetailsSection />
+        
+        <h2>Location</h2>
+        <Map />
      
-        {/* <h2>Frequently Asked Questions</h2>
-        <FAQsSection /> */}
+        <h2>Frequently Asked Questions</h2>
+        <FAQsSection />
         <h2>Meet the Team</h2>
         <MeetTheTeamSection />
         <h2>Sponsors</h2>

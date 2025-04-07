@@ -144,6 +144,7 @@ export default function AdminPage() {
       "dietaryRestrictions",
       "countryOfResidence",
       "timestamp",
+      "userEmail"
     ];
 
     // Create header row
