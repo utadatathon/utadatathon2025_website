@@ -35,7 +35,7 @@ export default function SpeakersSection() {
     {
       name: "Dr. Alex Dillhoff",
       title: "Senior Lecturer",
-      description: "How to Train Your Chat Mode",
+      description: "How to Train Your Chat Model",
       image: "/images/speakers/alex.jpeg",
       time: "4:00 PM - 5:30 PM",
       date: "Wednesday, April 9th",
