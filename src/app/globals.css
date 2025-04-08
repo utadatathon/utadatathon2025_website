@@ -508,7 +508,7 @@ canvas {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(217, 215, 215, 0.1);
-  margin: 20px auto;
+  margin: 30px auto;
   max-width: 80%;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
@@ -517,7 +517,7 @@ canvas {
   text-align: center;
   font-weight: 500;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .speakers-section::before {
@@ -539,18 +539,31 @@ canvas {
   font-size: 1.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   position: relative;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .speakers {
   display: flex;
-  padding: 10px;
-  justify-content: space-between;
-  gap: 10px;
-  overflow: hidden;
+  overflow-x: scroll;
+  padding: 20px 10px;
+  gap: 20px;
   position: relative;
-  z-index: 1; 
+  z-index: 1;
+  justify-content: flex-start; 
 }
+
+.speakers::-webkit-scrollbar {
+  display: none;
+}
+
+.speakers::-webkit-scrollbar-track {
+  scrollbar-width: none;
+}
+
+.speakers::-webkit-scrollbar-thumb {
+  -ms-overflow-style: none;
+}
+
 
 .speaker {
   background: linear-gradient(
@@ -559,16 +572,37 @@ canvas {
   );
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 15px;
+  padding-bottom: 20px;
   width: 160px;
+  flex: 0 0 auto; /* Prevent shrinking and growing */
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
-  flex-shrink: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .speaker:hover {
-  transform: scale(1.05);
+  transform: translateY(-5px);
   box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+.speaker::after {
+  content: "Click for details";
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: rgba(51, 51, 255, 0.8);
+  color: white;
+  padding: 5px 0;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.speaker:hover::after {
+  bottom: 0;
 }
 
 .speaker img {
@@ -576,7 +610,7 @@ canvas {
   height: 80px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -592,7 +626,169 @@ canvas {
   font-size: 0.8rem;
 }
 
-/* Slow rotation animation */
+.speaker-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, rgba(25, 25, 25, 0.95), rgba(10, 10, 10, 0.95));
+  border-radius: 15px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh; 
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  position: relative;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: modalAppear 0.4s ease;
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 10;
+}
+
+.close-modal:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg);
+}
+
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.speaker-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.speaker-info img {
+  width: 100px; /* Increased size for better visibility */
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 5px;
+  margin-top: 3px;
+}
+
+.speaker-info h3 {
+  font-size: 1.5rem; /* Increased size */
+  margin-bottom: 0px;
+  color: white;
+}
+
+.speaker-info p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.speaker-info .description {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: left;
+}
+
+.session-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 0, 204, 0.7);
+}
+
+.detail {
+  margin-bottom: 10px;
+}
+
+.detail h4 {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 5px;
+}
+
+.detail p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.qr-code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-code img {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.qr-code p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes rotateBackground {
   0% {
     transform: rotate(0deg);
@@ -601,6 +797,72 @@ canvas {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  .speaker-info img {
+    width: 100px; 
+    height: 100px; 
+    object-fit: cover;
+  }
+  .speaker-info {
+    margin-bottom: 20px;
+  }
+  .modal-content{
+    max-height: 100%;
+  }
+  .speakers-section {
+    max-width: 95%;
+    padding: 15px;
+  }
+  
+  .speakers {
+    padding: 15px 5px;
+  }
+  
+  .speaker {
+    width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  
+  .modal-content {
+    padding: 15px;
+    width: 95%;
+    min-height: 100%;
+  }
+  
+  .speaker-info img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .qr-code img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .speakers {
+    gap: 10px;
+  }
+  
+  .speaker {
+    width: 120px;
+    padding: 10px;
+  }
+  
+  .speaker img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+
+
 /* Authentication Component Styling */
 .auth-container {
   display: flex;
@@ -1019,6 +1281,7 @@ canvas {
   margin-bottom: 20px;
   background: linear-gradient(45deg, #00ff7f, #00bfff);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

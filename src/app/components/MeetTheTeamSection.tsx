@@ -3,13 +3,18 @@ import React from "react";
 export default function MeetTheTeamSection() {
   const teams = [
     {
-      name: "Executive Board",
+      name: "",
       members: [
-        { name: "Rubab Shahzad", role: "Project Director", image: "images/team/rubab.jpg" },
+        { name: "Rubab Shahzad", role: "Director", image: "images/team/rubab.jpg" },
         { name: "Lyndsey Dewitt", role: "Special Events Coordinator", image: "images/team/lyndsey.jpg"  },
+        { name: "Nikitha Chandana", role: "Exec Student Lead", image: "images/team/nikitha.jpg"  }
+      ],
+    },
+    {
+      name: "Student Body",
+      members: [
         { name: "Satya Rallabandi", role: "President", image: "images/team/satya.jpg"  },
         { name: "Samarth Jagtap", role: "Vice-President", image: "images/team/samarth.jpg"  },
-        { name: "Nikitha Chandana", role: "Exec Student Lead", image: "images/team/nikitha.jpg"  }
       ],
     },
     {

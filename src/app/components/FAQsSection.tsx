@@ -13,7 +13,7 @@ export default function FAQsSection() {
       id:2,
       question: "Who can participate?",
       answer:
-        "Anyone interested in data science and AI can participate, regardless of their background or experience.",
+        "Active students 18 and above can participate in the datathon. Anyone interested in data science and AI is welcome, regardless of their background or experience.",
     },
     {
       id:3,

@@ -6,6 +6,7 @@ interface Event {
   activity: string;
   location: string;
   description?: string;
+  speaker?: string;
   track: "mini-event" | "workshop" | "food" | "ceremony" | "hacking" | "extras";
 }
 
@@ -47,20 +48,25 @@ const scheduleData: DaySchedule[] = [
       {
         time: "1:00 PM - 2:00 PM",
         activity: "Workshop #1",
-        location: "",
+        speaker: "Rubab Shahzad",
+        description: "Tableau Workshop",
+        location: "SWSH",
         track: "workshop",
       },
       {
         time: "2:00 PM - 3:00 PM",
         activity: "Workshop #2 (MLH)",
-        location: "",
+        speaker: "Emily Yu",
+        description: "Making better hacks faster with GitHub Copilot",
+        location: "SWSH",
         track: "workshop",
       },
       {
         time: "3:30 PM - 4:30 PM",
-        activity: "Dr. Behzad Workshop",
+        activity: "Workshop #3",
+        speaker: "Dr. Behzad Ghanbarian",
         description: "Data Diversity in Machine Learning: Data-Driven Insights",
-        location: "",
+        location: "SWSH, Room 210",
         track: "workshop",
       },
       {
@@ -72,7 +78,9 @@ const scheduleData: DaySchedule[] = [
       {
         time: "5:00 PM - 6:00 PM",
         activity: "Workshop #4",
-        location: "",
+        speaker: "Samarth Jagtap",
+        description: "AI vs. Pong: Reinforcement in Action!",
+        location: "SWSH, Room 221",
         track: "workshop",
       },
       {
@@ -108,7 +116,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "12:30 AM - 1:30 AM",
         activity: "Late Night Among Us",
-        location: "Cafeteria",
+        location: "",
         track: "mini-event",
       },
       {
@@ -242,6 +250,24 @@ export default function Schedule() {
           color: #fff;
         }
 
+        .event-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-top: 0.5rem;
+          font-size: 0.9rem;
+        }
+
+        .event-location, .event-speaker {
+          display: flex;
+          align-items: center;
+          color: #aaa;
+        }
+
+        .event-location svg, .event-speaker svg {
+          margin-right: 0.4rem;
+        }
+
         .event-description {
           color: #88ffcc;
           margin-top: 0.8rem;
@@ -338,6 +364,29 @@ export default function Schedule() {
                     {event.activity}
                     {event.track === "hacking" && " ⚡"}
                   </div>
+                  
+                  <div className="event-meta">
+                    {event.location && (
+                      <div className="event-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                          <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        {event.location}
+                      </div>
+                    )}
+                    
+                    {event.speaker && (
+                      <div className="event-speaker">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        {event.speaker}
+                      </div>
+                    )}
+                  </div>
+                  
                   {event.description && (
                     <div className="event-description">{event.description}</div>
                   )}
