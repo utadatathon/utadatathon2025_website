@@ -505,11 +505,11 @@ canvas {
 
 /* Speakers Section */
 .speakers-section {
-  padding: 20px;
+  padding: 40px 20px;
   border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(217, 215, 215, 0.1);
+  box-shadow: 0px 4px 15px rgba(217, 215, 215, 0.15);
   margin: 30px auto;
-  max-width: 80%;
+  max-width: 85%;
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   color: white;
@@ -535,57 +535,49 @@ canvas {
 
 .speakers-section h2 {
   color: white;
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+  margin-bottom: 30px;
+  font-size: 2rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   position: relative;
   z-index: 1;
 }
 
-.speakers {
-  display: flex;
-  overflow-x: scroll;
-  padding: 20px 10px;
-  gap: 20px;
+.speakers-container {
   position: relative;
   z-index: 1;
-  justify-content: flex-start; 
+  width: 100%;
 }
 
-.speakers::-webkit-scrollbar {
-  display: none;
+.speakers {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 12px;
+  padding: 20px 10px;
+  justify-content: center;
+  align-items: center;
 }
-
-.speakers::-webkit-scrollbar-track {
-  scrollbar-width: none;
-}
-
-.speakers::-webkit-scrollbar-thumb {
-  -ms-overflow-style: none;
-}
-
 
 .speaker {
-  background: linear-gradient(
-    transparent 10%,
-    rgba(35, 2, 118, 0.526)
-  );
+  background: linear-gradient(transparent 10%, rgba(35, 2, 118, 0.526));
   border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  padding-bottom: 20px;
-  width: 160px;
-  flex: 0 0 auto; /* Prevent shrinking and growing */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  width: 180px;
+  flex: 0 0 auto;
   text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: all 0.3s ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .speaker:hover {
   transform: translateY(-5px);
-  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(transparent 10%, rgba(50, 5, 150, 0.7));
 }
 
 .speaker::after {
@@ -596,8 +588,9 @@ canvas {
   width: 100%;
   background: rgba(51, 51, 255, 0.8);
   color: white;
-  padding: 5px 0;
-  font-size: 0.8rem;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
   transition: all 0.3s ease;
 }
 
@@ -605,25 +598,39 @@ canvas {
   bottom: 0;
 }
 
-.speaker img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
+.speaker-image-container {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  margin-bottom: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(100, 100, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.speaker:hover .speaker-image-container {
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.05);
+}
+
+.speaker-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .speaker h4 {
   color: white;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   font-size: 1rem;
   font-weight: bold;
 }
 
 .speaker p {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
 }
 
 .speaker-modal {
@@ -632,7 +639,7 @@ canvas {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -646,11 +653,11 @@ canvas {
   border-radius: 15px;
   width: 90%;
   max-width: 700px;
-  max-height: 80vh; 
-  overflow-x: hidden;
+  max-height: 80vh;
+  overflow-y: auto;
   overscroll-behavior: contain;
   position: relative;
-  padding: 25px;
+  padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.1);
   animation: modalAppear 0.4s ease;
@@ -663,10 +670,10 @@ canvas {
   background: none;
   border: none;
   color: white;
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -677,14 +684,14 @@ canvas {
 }
 
 .close-modal:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.3);
   transform: rotate(90deg);
 }
 
 .modal-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  gap: 30px;
 }
 
 .speaker-info {
@@ -695,78 +702,86 @@ canvas {
 }
 
 .speaker-info img {
-  width: 100px; /* Increased size for better visibility */
+  width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.3);
-  margin-bottom: 5px;
-  margin-top: 3px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 20px rgba(100, 100, 255, 0.3);
 }
 
 .speaker-info h3 {
-  font-size: 1.5rem; /* Increased size */
-  margin-bottom: 0px;
+  font-size: 1.8rem;
+  margin-bottom: 5px;
   color: white;
 }
 
 .speaker-info p {
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 8px;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .speaker-info .description {
-  font-size: 1rem;
-  line-height: 1.5;
+  font-size: 1.1rem;
+  line-height: 1.6;
   margin-top: 15px;
   color: rgba(255, 255, 255, 0.9);
   text-align: left;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 3px solid rgba(100, 100, 255, 0.7);
 }
 
 .session-details {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   background: rgba(0, 0, 0, 0.3);
-  padding: 15px;
-  border-radius: 8px;
-  border-left: 3px solid rgba(255, 0, 204, 0.7);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid rgba(255, 0, 204, 0.7);
 }
 
 .detail {
-  margin-bottom: 10px;
-}
-
-.detail h4 {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .detail p {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 8px;
 }
 
 .qr-code {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .qr-code img {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-color: white;
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.qr-code img:hover {
+  transform: scale(1.05);
 }
 
 .qr-code p {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 @keyframes modalAppear {
@@ -801,67 +816,103 @@ canvas {
 @media (max-width: 768px) {
   .modal-grid {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 20px;
   }
-  .speaker-info img {
-    width: 100px; 
-    height: 100px; 
-    object-fit: cover;
-  }
+  
   .speaker-info {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
-  .modal-content{
-    max-height: 100%;
-  }
+  
   .speakers-section {
     max-width: 95%;
-    padding: 15px;
+    padding: 30px 15px;
   }
   
   .speakers {
-    padding: 15px 5px;
+    gap: 20px;
+    padding: 10px 5px;
+    flex-direction: column;
   }
   
   .speaker {
-    width: 140px;
+    width: 150px;
+    padding: 15px 10px;
+  }
+  
+  .speaker-image-container {
+    width: 90px;
+    height: 90px;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  .speakers-section h2 {
+    font-size: 1.8rem;
+  }
   
   .modal-content {
-    padding: 15px;
+    padding: 20px 15px;
     width: 95%;
-    min-height: 100%;
   }
   
   .speaker-info img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
   
   .qr-code img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
   }
   
   .speakers {
-    gap: 10px;
+    gap: 15px;
+  }
+  
+  .speaker {
+    width: 130px;
+    padding: 15px 10px;
+  }
+  
+  .speaker-image-container {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .speaker h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+  
+  .speaker p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .speakers-section {
+    padding: 20px 10px;
   }
   
   .speaker {
     width: 120px;
-    padding: 10px;
+    padding: 12px 8px;
   }
   
-  .speaker img {
-    width: 60px;
-    height: 60px;
+  .speaker-image-container {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .speaker h4 {
+    font-size: 0.9rem;
+  }
+  
+  .speaker p {
+    font-size: 0.75rem;
   }
 }
-
-
 
 /* Authentication Component Styling */
 .auth-container {
@@ -1311,6 +1362,171 @@ canvas {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Judges Section */
+.judges-section {
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(217, 215, 215, 0.1);
+  margin: 20px auto;
+  max-width: 80%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: large;
+  text-align: center;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+.judges-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 70%
+  );
+  transform: rotate(0deg);
+  animation: rotateBackground 20s linear infinite;
+  z-index: 0;
+}
+
+.judges-section h2 {
+  color: white;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 1;
+}
+
+.judges {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  padding: 20px 10px;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.judge {
+  background: linear-gradient(transparent 10%, rgba(35, 2, 118, 0.526));
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  flex-shrink: 0;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.judge:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+.judge img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.judge h4 {
+  color: white;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.judge p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .judges {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 5px;
+  }
+
+  .judge {
+    width: 150px;
+    padding: 15px 10px;
+  }
+
+  .judge img {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 576px) {
+  .judge {
+    width: 130px;
+    padding: 15px 10px;
+  }
+
+  .judge img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .judge h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+  }
+
+  .judge p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .judge {
+    width: 120px;
+    padding: 12px 8px;
+  }
+
+  .judge img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .judge h4 {
+    font-size: 0.9rem;
+  }
+
+  .judge p {
+    font-size: 0.75rem;
+  }
+}
+
+
+
+/* Slow rotation animation */
+@keyframes rotateBackground {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 @keyframes pulse {
   0% {
     transform: scale(1);

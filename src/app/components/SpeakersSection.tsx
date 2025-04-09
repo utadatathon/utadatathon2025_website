@@ -78,47 +78,52 @@ export default function SpeakersSection() {
 
   return (
     <div className="speakers-section">
-      <div className="speakers">
-        {speakers.map((speaker, index) => (
-          <div key={index} className="speaker" onClick={() => setSelectedSpeaker(speaker)}>
-            <img 
-              src={speaker.image || "/images/speakers/placeholder.png"} 
-              alt={speaker.name} 
-            />
-            <h4>{speaker.name}</h4>
-            <p>{speaker.title}</p>
-          </div>
-        ))}
+      <div className="speakers-container">
+        <div className="speakers">
+          {speakers.reverse().map((speaker, index) => (
+            <div key={index} className="speaker" onClick={() => setSelectedSpeaker(speaker)}>
+              <div className="speaker-image-container">
+                <img 
+                  src={speaker.image || "/images/speakers/placeholder.png"} 
+                  alt={speaker.name} 
+                  className="speaker-image"
+                />
+              </div>
+              <h4>{speaker.name}</h4>
+              <p>{speaker.title}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Modal */}
       {selectedSpeaker && (
-  <div className="speaker-modal" onClick={() => setSelectedSpeaker(null)}>
-    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-      <button className="close-modal" onClick={() => setSelectedSpeaker(null)}>×</button>
-      <div className="modal-grid">
-        <div className="speaker-info">
-          <img
-            src={selectedSpeaker.image}
-            alt={selectedSpeaker.name}
-          />
-          <h3>{selectedSpeaker.name}</h3>
-          <p>{selectedSpeaker.title}</p>
-          <p className="description">{selectedSpeaker.description}</p>
-        </div>
-        <div className="session-details">
-          <div className="qr-code">
-            <img src={selectedSpeaker.qrCode} alt="QR Code" />
-            <p>Scan for details</p>
+        <div className="speaker-modal" onClick={() => setSelectedSpeaker(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal" onClick={() => setSelectedSpeaker(null)}>×</button>
+            <div className="modal-grid">
+              <div className="speaker-info">
+                <img
+                  src={selectedSpeaker.image}
+                  alt={selectedSpeaker.name}
+                />
+                <h3>{selectedSpeaker.name}</h3>
+                <p>{selectedSpeaker.title}</p>
+                <p className="description">{selectedSpeaker.description}</p>
+              </div>
+              <div className="session-details">
+                <div className="qr-code">
+                  <img src={selectedSpeaker.qrCode} alt="QR Code" />
+                  <p>Scan for details</p>
+                </div>
+                <div className="detail">
+                  <p>{`${selectedSpeaker.date}, ${selectedSpeaker.time}, ${selectedSpeaker.location}`}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="detail">
-            <p>{`${selectedSpeaker.date}, ${selectedSpeaker.time}, ${selectedSpeaker.location}`}</p>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 }
