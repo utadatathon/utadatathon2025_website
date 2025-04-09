@@ -17,7 +17,7 @@ export default function MeetTheTeamSection() {
       name: "Development Team",
       members: [
         { name: "Prathmesh Patil", role: "Developement Lead", image: "images/team/pratham.jpeg", linkedin: "https://www.linkedin.com/in/prathameshpatil31/", github: "https://github.com/1-apex" },
-        { name: "Samarth Jagtap", role: "Development Co-Lead", image: "images/team/samarth.jpg"  },
+        { name: "Samarth Jagtap", role: "Development Co-Lead", image: "images/team/samarth.jpg", github: "https://github.com/thatscrazzyy", linkedin: "https://www.linkedin.com/in/thesamarthjagtap/"   },
         { name: "Inshaad Merchant", role: "Developer", image: "images/team/inshaad.jpg"  },
         { name: "Araohat Kokate", role: "Developer", image: "images/team/araohat.jpg", linkedin: "https://www.linkedin.com/in/araohat-kokate-689a4b222/", github: "https://github.com/araohatkokate"  },
         { name: "Pradeepsinh Chavda", role: "Developer", image: "images/team/pradeep.jpg", linkedin: "http://linkedin.com/in/pradeepsinh-chavda-008ba1161", github:"https://github.com/PRADEEPSINHCHAVDA"  },
