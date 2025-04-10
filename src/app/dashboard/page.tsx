@@ -3,28 +3,30 @@
 import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import { onAuthStateChanged } from "firebase/auth";
-import {
-  collection,
-  query,
-  where,
-  onSnapshot,
-  QueryDocumentSnapshot,
-  DocumentData,
-} from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { auth, db } from "@/lib/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/navigation";
 import "./dashboard.css";
 
-import { auth, db } from "@/lib/firebase";
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/navigation';
+const EVENT_DETAILS = [
+  { id: "event-1", name: "Opening Ceremony", date: "April 12, 2025 | 9:00 AM" },
+  { id: "event-2", name: "Workshop Session", date: "April 12, 2025 | 11:00 AM" },
+  { id: "event-3", name: "Hacking Time", date: "April 12-13, 2025 | 24 Hours" },
+  { id: "event-4", name: "Judging Round", date: "April 13, 2025 | 2:00 PM" },
+  { id: "event-5", name: "Closing Ceremony", date: "April 13, 2025 | 5:00 PM" },
+];
 
 export default function QRCodePage() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
   const [documentId, setDocumentId] = useState<string | null>(null);
+  const [eventsStatus, setEventsStatus] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login');
+      router.push("/login");
     }
   }, [user, loading, router]);
 
@@ -38,16 +40,16 @@ export default function QRCodePage() {
 
         const unsubscribeSnapshot = onSnapshot(q, (snapshot) => {
           if (!snapshot.empty) {
-            const doc: QueryDocumentSnapshot<DocumentData> = snapshot.docs[0];
+            const doc = snapshot.docs[0];
             setDocumentId(doc.id);
+            setEventsStatus(doc.data().events || {});
           } else {
             setDocumentId(null);
+            setEventsStatus({});
           }
         });
 
         return () => unsubscribeSnapshot();
-      } else {
-        setDocumentId(null);
       }
     });
   }, []);
@@ -55,34 +57,58 @@ export default function QRCodePage() {
   if (loading) {
     return (
       <div className="container">
-        <p>Loading your QR code...</p>
-      </div>
-    );
-  }
-
-  if (!user) {
-    return (
-      <div className="container">
-        <h2 className="title">Please login to view your QR code</h2>
+        <p>Loading your dashboard...</p>
       </div>
     );
   }
 
   return (
     <div className="container">
-      <h1 className="title">Your Event QR Code</h1>
-      {documentId ? (
-        <>
-          <div className="qr-container">
-            <QRCode value={documentId} size={256} />
-          </div>
-          <p className="description">
-            Scan this QR code at the event desk. It links to your registration ID.
-          </p>
-        </>
-      ) : (
-        <p className="description">You&apos;re logged in, but no registration was found.</p>
-      )}
+      {/* QR Code Section */}
+      <div className="qr-container">
+        <h1 className="title">Your Event QR Code</h1>
+        {documentId ? (
+          <>
+            <QRCode value={documentId} size={200} className="qr-code" />
+            <p className="description">Present this QR code at event check-ins.</p>
+          </>
+        ) : (
+          <p className="description">Complete your registration to generate a QR code.</p>
+        )}
+      </div>
+
+      {/* Events Attendance Section */}
+      <div className="events-container">
+        <h2 className="title">Event Attendance Status</h2>
+        <div className="events-grid">
+          {EVENT_DETAILS.map((event) => (
+            <div
+              key={event.id}
+              className={`event-card ${
+                eventsStatus[event.id] ? "registered" : "not-registered"
+              }`}
+            >
+              <div className="event-details">
+                <h3 className="event-name">{event.name}</h3>
+                <p className="event-info">{event.date}</p>
+              </div>
+              <div className="event-status">
+                {eventsStatus[event.id] ? (
+                  <>
+                    <CheckCircleIcon className="icon" />
+                    <span>Registered</span>
+                  </>
+                ) : (
+                  <>
+                    <XCircleIcon className="icon" />
+                    <span>Not Registered</span>
+                  </>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
