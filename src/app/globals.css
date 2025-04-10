@@ -2,13 +2,13 @@
 @font-face {
   font-family: "CrazyToon";
   src: url("/fonts/CrazytoonDemoOutline.ttf") format("truetype");
-  font-weight:400;
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: "PolarVortex";
   src: url("/fonts/PolarVortex-raAA.ttf") format("truetype");
-  font-weight:400;
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -340,9 +340,13 @@ canvas {
 /* Meet the Team Section */
 .meet-the-team-section {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.8); 
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; 
 }
 
 .team {
@@ -350,17 +354,17 @@ canvas {
 }
 
 .team h2 {
-  color: rgb(10, 255, 47); 
+  color: rgb(10, 255, 47);
   margin-bottom: 20px;
   font-size: 1.8rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); 
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .members {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; 
-  gap: 20px; 
+  justify-content: center;
+  gap: 40px;
 }
 
 .member {
@@ -375,44 +379,49 @@ canvas {
 }
 
 .member:hover {
-  transform: scale(1.05); 
-  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2); 
+  transform: scale(1.05);
+  box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
 }
 
 .member-image {
-  width: 80px; 
+  width: 80px;
   height: 80px;
-  object-fit: cover; 
-  border-radius: 50%; 
-  margin-bottom: 10px;
-  border: 3px solid rgba(255, 255, 255, 0.5); 
+  object-fit: cover;
+  border-radius: 50%;
+  border-radius: 50%;
+  margin-bottom: 10 px;
+  border: 3 px solid rgba (255, 255, 255, 05);
 }
 
-.member h4 {
+.member h3 {
   color: white;
-  margin-bottom: 5px;
-  font-size: 1rem;
+  margin-bottom: 5 px;
+  font-size: 1 rem;
   font-weight: bold;
 }
 
 .member p {
-  color: rgba(255, 255, 255, 0.8); 
-  font-size: 0.9rem;
+  color: rgba (255, 255, 255, 08);
+  font-size:  0.9rem;
 }
 
-
-@media (max-width: 768px) {
-  .members {
-    flex-direction: column; 
-    align-items: center;
-  }
-
-  .member {
-    width: 100%; 
-    max-width: 300px; 
-  }
+.social-links {
+  display: flex;
+  justify-content:center; 
+  gap: 20px; 
+  margin-bottom: 0px;
 }
 
+.social-icon {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+  color: rgb(25, 129, 255); 
+}
 
 /* Sponsors section */
 .sponsors-section {
@@ -438,7 +447,11 @@ canvas {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 70%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 70%
+  );
   transform: rotate(0deg);
   animation: rotateBackground 20s linear infinite; /* Slow rotation */
   z-index: 0;
@@ -463,10 +476,7 @@ canvas {
 }
 
 .sponsor {
-  background: linear-gradient(
-    transparent 10%,
-    rgba(35, 2, 118, 0.526)
-  );
+  background: linear-gradient(transparent 10%, rgba(35, 2, 118, 0.526));
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -502,7 +512,6 @@ canvas {
   font-size: 0.8rem;
 }
 
-
 /* Speakers Section */
 .speakers-section {
   padding: 40px 20px;
@@ -527,7 +536,11 @@ canvas {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 70%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 70%
+  );
   transform: rotate(0deg);
   animation: rotateBackground 20s linear infinite;
   z-index: 0;
@@ -555,6 +568,12 @@ canvas {
   padding: 20px 10px;
   justify-content: center;
   align-items: center;
+  padding: 10px;
+  gap: 10px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
 }
 
 .speaker {
@@ -1254,7 +1273,8 @@ canvas {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
   }
   50% {
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 0 0 30px rgba(255, 0, 204, 0.3);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
+      0 0 30px rgba(255, 0, 204, 0.3);
   }
   100% {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
@@ -1266,16 +1286,16 @@ canvas {
   .form-container {
     grid-template-columns: 1fr;
   }
-  
+
   .submit-button {
     grid-column: span 1;
   }
-  
+
   .auth-container {
     width: 90%;
     padding: 20px;
   }
-  
+
   .registration-card {
     padding: 20px;
     width: 90%;
