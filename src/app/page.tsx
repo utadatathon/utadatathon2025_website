@@ -9,6 +9,8 @@ import MeetTheTeamSection from "./components/MeetTheTeamSection";
 import SponsorsSection from "./components/SponsorsSection";
 import Map from "./components/Map";
 import Link from 'next/link';
+import SpeakersSection from "./components/SpeakersSection";
+import JudgesSection from "./components/JudgesSection";
 
 export default function Home() {
   return (
@@ -177,10 +179,14 @@ export default function Home() {
 
         <h2>Details</h2>
         <DetailsSection />
-        
+
         <h2>Location</h2>
         <Map />
-     
+        
+        <h2>Speakers</h2>
+        <SpeakersSection/>
+        <h2>Judges</h2>
+        <JudgesSection/>
         <h2>Frequently Asked Questions</h2>
         <FAQsSection />
         <h2>Meet the Team</h2>
