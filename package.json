@@ -11,6 +11,7 @@
     "compress-images": "node scripts/compress.js"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "apexcharts": "^4.5.0",
     "chart.js": "^4.4.8",
     "clsx": "^2.1.1",
