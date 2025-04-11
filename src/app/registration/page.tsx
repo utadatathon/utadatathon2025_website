@@ -108,8 +108,8 @@ export default function Home() {
 
   useEffect(() => {
     const loadCountries = async () => {
-      const module = await import("./countries");
-      setCountries(module.default);
+      const countriesModule = await import("./countries");
+      setCountries(countriesModule.default);
     };
 
     loadCountries();
