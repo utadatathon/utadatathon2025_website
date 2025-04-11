@@ -4,14 +4,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export default function MeetTheTeamSection() {
   const teams = [
     {
-      name: "",
-      members: [
-        { name: "Rubab Shahzad", role: "Director", image: "images/team/rubab.jpg",  github: "https://github.com/rubabshz", linkedin: "https://www.linkedin.com/in/rubab-shahzad/" },
-        { name: "Lyndsey Dewitt", role: "Special Events Coordinator", image: "images/team/lyndsey.jpg", linkedin: "www.linkedin.com/in/lyndsey-dewitt-1a0161214"  },
-        { name: "Nikitha Chandana", role: "Exec Student Lead", image: "images/team/nikitha.jpg"  }
-      ],
-    },
-    {
       name: "Student Body",
       members: [
         {

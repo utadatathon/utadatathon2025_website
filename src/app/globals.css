@@ -601,7 +601,7 @@ canvas {
   width: 100%;
   background: rgba(51, 51, 255, 0.8);
   color: white;
-  padding: 8px 0;
+  padding: 2px 0;
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.3s ease;
