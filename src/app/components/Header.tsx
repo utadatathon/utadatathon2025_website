@@ -24,7 +24,8 @@ const Header = () => {
     { href: "/", name: "Home" },
     { href: "/dashboard", name: "Dashboard" },
     { href: "/schedule", name: "Schedule" },
-    { href: "/faqs", name: "FAQs" }
+    { href: "/faqs", name: "FAQs" },
+    { href: "/prizes", name: "Prizes" }
   ];
 
   useEffect(() => {
