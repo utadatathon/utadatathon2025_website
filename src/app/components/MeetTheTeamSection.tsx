@@ -6,11 +6,16 @@ export default function MeetTheTeamSection() {
     {
       name: "",
       members: [
-        { name: "Rubab Shahzad", role: "Project Director", image: "images/team/rubab.jpg", github: "https://github.com/rubabshz", linkedin: "https://www.linkedin.com/in/rubab-shahzad/" },
-        { name: "Lyndsey Dewitt", role: "Special Events Coordinator", image: "images/team/lyndsey.jpg", linkedin: "www.linkedin.com/in/lyndsey-dewitt-1a0161214" },
-        { name: "Satya Rallabandi", role: "President", image: "images/team/satya.jpg", linkedin: "https://www.linkedin.com/in/satya171rallabandi" },
-        { name: "Samarth Jagtap", role: "Vice-President", image: "images/team/samarth.jpg", github: "https://github.com/thatscrazzyy", linkedin: "https://www.linkedin.com/in/thesamarthjagtap/" },
-        { name: "Nikitha Chandana", role: "Exec Student Lead", image: "images/team/nikitha.jpg", }
+        { name: "Rubab Shahzad", role: "Director", image: "images/team/rubab.jpg",  github: "https://github.com/rubabshz", linkedin: "https://www.linkedin.com/in/rubab-shahzad/" },
+        { name: "Lyndsey Dewitt", role: "Special Events Coordinator", image: "images/team/lyndsey.jpg", linkedin: "www.linkedin.com/in/lyndsey-dewitt-1a0161214"  },
+        { name: "Nikitha Chandana", role: "Exec Student Lead", image: "images/team/nikitha.jpg"  }
+      ],
+    },
+    {
+      name: "Student Body",
+      members: [
+        { name: "Satya Rallabandi", role: "President", image: "images/team/satya.jpg", linkedin: "https://www.linkedin.com/in/satya171rallabandi"  },
+        { name: "Samarth Jagtap", role: "Vice-President", image: "images/team/samarth.jpg",github: "https://github.com/thatscrazzyy", linkedin: "https://www.linkedin.com/in/thesamarthjagtap/"  },
       ],
     },
     {
