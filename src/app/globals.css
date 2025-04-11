@@ -849,6 +849,16 @@ canvas {
   width: 100%;
 }
 
+.form-group select {
+  background-color: rgba(255, 255, 255, 0.1); /* semi-transparent dropdown */
+  color: white;
+}
+
+.form-group select option {
+  background-color: white;
+  color: black;
+}
+
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -862,7 +872,7 @@ canvas {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
@@ -870,6 +880,7 @@ canvas {
 .form-input:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
 .form-input::placeholder {

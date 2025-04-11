@@ -19,6 +19,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "UTA Datathon 2025",
   description: "The official website for UTA Datathon",
+  icons: {
+    icon: './favicon.ico',
+  },
 };
 
 export default function RootLayout({
