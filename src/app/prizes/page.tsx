@@ -9,15 +9,15 @@ export default function PrizesSection() {
         <div className="prize-list">
           <div className="prize-card">
             <h4>KSAT Quest</h4>
-            <p>Monitor</p>
+            <p>Monitor + LED Lights (SACI)</p>
           </div>
           <div className="prize-card">
             <h4>Deepfake Duel: Truth vs Trickery</h4>
-            <p>Google Audio Bluetooth Speaker</p>
+            <p>Google Audio Bluetooth Speaker <br /> + Polaroid Cameras (SCAI)</p>
           </div>
           <div className="prize-card">
             <h4>Model Mash: LLM Arena</h4>
-            <p>Logitech Wireless Keyboard</p>
+            <p>Logitech Wireless Keyboard + 43 inch 4K TV (SCAI)</p>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ export default function PrizesSection() {
           </div>
           <div className="prize-card">
             <h4>Data Doomsday</h4>
-            <p>JBL Bluetooth</p>
+            <p>JBL Bluetooth Speakers <br/> + Apple Airtags (SCAI)</p>
           </div>
           <div className="prize-card">
             <h4>GeoQuest: The Hazard Chronicles</h4>
@@ -43,7 +43,7 @@ export default function PrizesSection() {
           </div>
           <div className="prize-card">
             <h4>EDA Patrol </h4>
-            <p>Amazon Fire TV Stick</p>
+            <p>Amazon Fire TV Stick <br/> + LEGO Set (SCAI)</p>
           </div>
         </div>
       </div>
