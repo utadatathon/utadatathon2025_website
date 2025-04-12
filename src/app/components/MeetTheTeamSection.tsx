@@ -62,11 +62,6 @@ export default function MeetTheTeamSection() {
           linkedin: "https://www.linkedin.com/in/thesamarthjagtap/",
         },
         {
-          name: "Inshaad Merchant",
-          role: "Developer",
-          image: "images/team/inshaad.jpg",
-        },
-        {
           name: "Araohat Kokate",
           role: "Developer",
           image: "images/team/araohat.jpg",

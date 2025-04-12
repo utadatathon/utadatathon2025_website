@@ -115,5 +115,5 @@ export default function SpeakersSection() {
         </div>
       )}
     </div>
-  );
+  )
 }

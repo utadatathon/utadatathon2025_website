@@ -34,6 +34,7 @@ body {
   align-items: center;
   position: relative;
   margin-bottom: 0px;
+  margin-top: 50px;
 }
 
 h1.centered-title {
@@ -1649,4 +1650,17 @@ canvas {
   .prize-card {
     width: 90%;
   }
+}
+
+.note {
+  margin-top: 50px;
+  font-size: 1rem; 
+  font-weight: bold; 
+  color: #2a4d69; 
+  background-color: #d6dcdf; 
+  line-height: 150%;
+  padding: 15px;
+  border-radius: 4px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  text-align: center;
 }
