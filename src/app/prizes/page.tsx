@@ -9,7 +9,7 @@ export default function PrizesSection() {
         <div className="prize-list">
           <div className="prize-card">
             <h4>KSAT Quest</h4>
-            <p>Monitor + LED Lights (SACI)</p>
+            <p>Monitor + LED Lights (SCAI)</p>
           </div>
           <div className="prize-card">
             <h4>Deepfake Duel: Truth vs Trickery</h4>
