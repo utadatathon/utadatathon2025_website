@@ -108,7 +108,7 @@ export default function FAQsSection() {
       answer: (
         <>
           UTA prohibits a list of Chinese apps for university employees
-          following Abbott's order. Read more in the{" "}
+          following Abbott&apos;s order. Read more in the{" "}
           <a
             style={{
               color: "white",
