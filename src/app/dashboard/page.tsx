@@ -116,7 +116,7 @@ export default function QRCodePage() {
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push("/login");
+      router.push("/registration");
     }
   }, [user, loading, router]);
 
