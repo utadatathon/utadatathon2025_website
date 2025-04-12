@@ -30,7 +30,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "10:00 AM - 11:00 AM",
         activity: "Opening Ceremony",
-        location: "",
+        location: "SWSH Room 104/105",
         track: "ceremony",
       },
       {
@@ -50,7 +50,7 @@ const scheduleData: DaySchedule[] = [
         activity: "Workshop #1",
         speaker: "Rubab Shahzad",
         description: "Tableau Workshop",
-        location: "SWSH",
+        location: "SWSH Room 225",
         track: "workshop",
       },
       {
@@ -58,7 +58,7 @@ const scheduleData: DaySchedule[] = [
         activity: "Workshop #2 (MLH)",
         speaker: "Emily Yu",
         description: "Making better hacks faster with GitHub Copilot",
-        location: "SWSH",
+        location: "SWSH Room 225",
         track: "workshop",
       },
       {
@@ -66,7 +66,7 @@ const scheduleData: DaySchedule[] = [
         activity: "Workshop #3",
         speaker: "Dr. Behzad Ghanbarian",
         description: "Data Diversity in Machine Learning: Data-Driven Insights",
-        location: "SWSH, Room 210",
+        location: "SWSH, Room 225",
         track: "workshop",
       },
       {
