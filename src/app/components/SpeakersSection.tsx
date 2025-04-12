@@ -13,7 +13,7 @@ export default function SpeakersSection() {
       qrCode: "/images/qr-workshops/mlh.png"
     },
     {
-      name: "Franklin Rivas",
+      name: "Dr. Franklin Rivas",
       title: "Associate Professor",
       description: "Advances in AI, Data Science and how it impacts society",
       image: "/images/speakers/franklin.jpeg",
