@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export default function MeetTheTeamSection() {
   const teams = [
     {
-      name: "Executive Board",
+      name: "Student Body",
       members: [
         {
           name: "Rubab Shahzad",

@@ -8,7 +8,7 @@ export default function PrizesSection() {
         <h3>Model-Based Challenges</h3>
         <div className="prize-list">
           <div className="prize-card">
-            <h4>1st - KSAT Quest</h4>
+            <h4>KSAT Quest</h4>
             <p>Monitor</p>
           </div>
           <div className="prize-card">
