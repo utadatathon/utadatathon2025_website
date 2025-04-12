@@ -1,16 +1,7 @@
 
 export default function JudgesSection() {
 
-  const judges = [{
-    name: "John Connolly",
-    title: "",
-    image: "/images/judges/john.jpeg"
-  },
-  {
-    name: "Dr. Behzad Ghanbarian",
-    title: "Associate Professor",
-    image: "/images/judges/behzad.jpeg"
-  },
+  const judges = [
   {
     name: "Rubab Shahzad",
     title: "Data Visualization Librarian",
@@ -25,6 +16,16 @@ export default function JudgesSection() {
     name: "Clivin Geju",
     title: "",
     image: "/images/judges/clivin.jpg"
+  },
+  {
+    name: "John Connolly",
+    title: "",
+    image: "/images/judges/john.jpeg"
+  },
+  {
+    name: "Sai Nikhitha",
+    title: "",
+    image: "/images/team/nikitha.jpg"
   },
   {
     name: "Zecil Jain",
@@ -52,9 +53,9 @@ export default function JudgesSection() {
     image: "/images/judges/mei.jpeg"
   },
   {
-    name: "Sai Nikhitha",
-    title: "",
-    image: "/images/team/nikitha.jpg"
+    name: "Dr. Behzad Ghanbarian",
+    title: "Associate Professor",
+    image: "/images/judges/behzad.jpeg"
   },
 ]
 

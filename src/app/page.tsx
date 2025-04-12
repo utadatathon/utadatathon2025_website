@@ -167,7 +167,7 @@ export default function Home() {
             <h1 className="main-title">UTA DATATHON</h1>
             <h2 className="year-title">2025</h2>
             <div className="countdown">
-              <CountdownTimer targetDate="2025-04-12T00:00:00Z" />
+            <CountdownTimer targetDate="2025-04-12T10:00:00-05:00" />
             </div>
             <div className="buttons">
               <Link href="/registration" className="retro-button">Apply Now</Link>
