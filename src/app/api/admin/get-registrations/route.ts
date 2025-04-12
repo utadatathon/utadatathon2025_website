@@ -27,7 +27,7 @@ const adminEmails = [
   'pratham153patil@gmail.com',
   "devratasauthor@gmail.com",
   "aastha6100@gmail.com",
-  // Add your email here
+  "linkwithsujit@gmail.com"
   // Add other admin emails here
 ];
 
