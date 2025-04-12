@@ -36,6 +36,26 @@ export default function JudgesSection() {
     title: "",
     image: "/images/judges/abhi.jpeg"
   },
+  {
+    name: "Samarth Jagtap",
+    title: "",
+    image: "/images/team/samarth.jpg"
+  },
+  {
+    name: "Dr. Franklin Rivas",
+    title: "",
+    image: "/images/speakers/franklin.jpeg"
+  },
+  {
+    name: "Dr. Mei Yang",
+    title: "",
+    image: "/images/judges/mei.jpeg"
+  },
+  {
+    name: "Sai Nikhitha",
+    title: "",
+    image: "/images/team/nikitha.jpg"
+  },
 ]
 
   return (
