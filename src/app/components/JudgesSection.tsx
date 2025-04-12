@@ -1,16 +1,7 @@
 
 export default function JudgesSection() {
 
-  const judges = [{
-    name: "John Connolly",
-    title: "",
-    image: "/images/judges/john.jpeg"
-  },
-  {
-    name: "Dr. Behzad Ghanbarian",
-    title: "Associate Professor",
-    image: "/images/judges/behzad.jpeg"
-  },
+  const judges = [
   {
     name: "Rubab Shahzad",
     title: "Data Visualization Librarian",
@@ -27,6 +18,16 @@ export default function JudgesSection() {
     image: "/images/judges/clivin.jpg"
   },
   {
+    name: "John Connolly",
+    title: "",
+    image: "/images/judges/john.jpeg"
+  },
+  {
+    name: "Sai Nikhitha",
+    title: "",
+    image: "/images/team/nikitha.jpg"
+  },
+  {
     name: "Zecil Jain",
     title: "",
     image: "/images/judges/zecil.jpg"
@@ -35,6 +36,26 @@ export default function JudgesSection() {
     name: "Abhijit Challapalli",
     title: "",
     image: "/images/judges/abhi.jpeg"
+  },
+  {
+    name: "Samarth Jagtap",
+    title: "",
+    image: "/images/team/samarth.jpg"
+  },
+  {
+    name: "Dr. Franklin Rivas",
+    title: "",
+    image: "/images/speakers/franklin.jpeg"
+  },
+  {
+    name: "Dr. Mei Yang",
+    title: "",
+    image: "/images/judges/mei.jpeg"
+  },
+  {
+    name: "Dr. Behzad Ghanbarian",
+    title: "Associate Professor",
+    image: "/images/judges/behzad.jpeg"
   },
 ]
 

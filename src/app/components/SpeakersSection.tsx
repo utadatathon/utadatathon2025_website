@@ -6,14 +6,14 @@ export default function SpeakersSection() {
       name: "Emily Yu",
       title: "Speaker, MLH",
       description: "Making better hacks faster with GitHub Copilot",
-      image: "/images/team/user.png",
+      image: "/images/speakers/emily.jpeg",
       time: "2:00 PM - 3:00 PM",
       date: "Saturday, April 12th",
       location: "SWSH Building",
       qrCode: "/images/qr-workshops/mlh.png"
     },
     {
-      name: "Franklin Rivas",
+      name: "Dr. Franklin Rivas",
       title: "Associate Professor",
       description: "Advances in AI, Data Science and how it impacts society",
       image: "/images/speakers/franklin.jpeg",
@@ -51,16 +51,6 @@ export default function SpeakersSection() {
       date: "Saturday, April 12th",
       location: "SWSH Building",
       qrCode: "/images/qr-workshops/behzad.png"
-    },
-    {
-      name: "Samarth Jagtap",
-      title: "President, SCAI",
-      description: "AI vs. Pong: Reinforcement in Action!",
-      image: "/images/speakers/samarth.jpg",
-      time: "5:00 PM - 6:00 PM",
-      date: "Saturday, April 12th",
-      location: "SWSH Building, Room 221",
-      qrCode: "/images/qr-workshops/samarth.png"
     },
     {
       name: "Rubab Shahzad",

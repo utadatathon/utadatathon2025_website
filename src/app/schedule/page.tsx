@@ -75,14 +75,14 @@ const scheduleData: DaySchedule[] = [
         location: "",
         track: "food",
       },
-      {
-        time: "5:00 PM - 6:00 PM",
-        activity: "Workshop #4",
-        speaker: "Samarth Jagtap",
-        description: "AI vs. Pong: Reinforcement in Action!",
-        location: "SWSH, Room 221",
-        track: "workshop",
-      },
+      // {
+      //   time: "5:00 PM - 6:00 PM",
+      //   activity: "Workshop #4",
+      //   speaker: "Samarth Jagtap",
+      //   description: "AI vs. Pong: Reinforcement in Action!",
+      //   location: "SWSH, Room 221",
+      //   track: "workshop",
+      // },
       {
         time: "6:15 PM - 7:15 PM",
         activity: "Hungry Hungry Hippos",

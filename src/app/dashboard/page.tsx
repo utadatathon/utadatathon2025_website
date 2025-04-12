@@ -17,16 +17,6 @@ const EVENT_DETAILS = [
     date: "April 12, 2025 | 8:00 AM - 10:00 AM"
   },
   {
-    id: "event-2",
-    name: "Opening Ceremony",
-    date: "April 12, 2025 | 10:00 AM - 11:00 AM"
-  },
-  {
-    id: "event-3",
-    name: "Hacking Begins",
-    date: "April 12, 2025 | 11:00 AM"
-  },
-  {
     id: "event-4",
     name: "Lunch",
     date: "April 12, 2025 | 11:30 AM - 1:00 PM"
@@ -52,60 +42,25 @@ const EVENT_DETAILS = [
     date: "April 12, 2025 | 4:30 PM - 5:00 PM"
   },
   {
-    id: "event-9",
-    name: "Workshop #4",
-    date: "April 12, 2025 | 5:00 PM - 6:00 PM"
-  },
-  {
     id: "event-10",
-    name: "Mini-Event: Hungry Hungry Hippos",
-    date: "April 12, 2025 | 6:15 PM - 7:15 PM"
-  },
-  {
-    id: "event-11",
     name: "Dinner",
     date: "April 12, 2025 | 7:30 PM - 8:30 PM"
   },
   {
     id: "event-12",
-    name: "Mini-Event: Scribbl.io",
-    date: "April 12, 2025 | 9:00 PM - 10:00 PM"
-  },
-  {
-    id: "event-13",
     name: "Late Night Coffee",
     date: "April 12, 2025 | 11:00 PM - 11:45 PM"
   },
   {
     id: "event-14",
-    name: "Mini-Event: Late Night Among Us",
-    date: "April 13, 2025 | 12:30 AM - 1:30 AM"
-  },
-  {
-    id: "event-15",
     name: "Breakfast",
     date: "April 13, 2025 | 8:00 AM - 9:00 AM"
   },
   {
     id: "event-16",
-    name: "Hacking Ends & Judging Begins",
-    date: "April 13, 2025 | 11:00 AM"
-  },
-  {
-    id: "event-17",
     name: "Lunch",
     date: "April 13, 2025 | 11:30 AM - 12:15 PM"
   },
-  {
-    id: "event-18",
-    name: "Mini-Event: Bingo",
-    date: "April 13, 2025 | 12:30 PM - 2:00 PM"
-  },
-  {
-    id: "event-19",
-    name: "Closing Ceremony",
-    date: "April 13, 2025 | 3:00 PM - 4:00 PM"
-  }
 ];
 
 export default function QRCodePage() {

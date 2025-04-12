@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export default function MeetTheTeamSection() {
   const teams = [
     {
-      name: "Student Body",
+      name: "",
       members: [
         {
           name: "Rubab Shahzad",
@@ -22,7 +22,7 @@ export default function MeetTheTeamSection() {
       ],
     },
     {
-      name: "Students Executive Board",
+      name: "Executive Board",
       members: [
         {
           name: "Satya Rallabandi",
@@ -38,7 +38,7 @@ export default function MeetTheTeamSection() {
           linkedin: "https://www.linkedin.com/in/thesamarthjagtap/",
         },
         {
-          name: "Nikitha Chandana",
+          name: "Nikhitha Chandana",
           role: "Exec Student Lead",
           image: "images/team/nikitha.jpg",
         },
