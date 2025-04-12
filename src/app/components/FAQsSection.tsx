@@ -62,7 +62,7 @@ export default function FAQsSection() {
       id: 11,
       question: "Where do I park?",
       answer: (
-        <>
+        <div style={{ padding: "10px 0px" }}>
           Parking is available LOT F10, which will be marked in blue on the{" "}
           <a
             style={{
@@ -76,14 +76,14 @@ export default function FAQsSection() {
             Datathon Event Parking Map
           </a>{" "}
           on the day of the event.
-        </>
+        </div>
       ),
     },
     {
       id: 12,
       question: "What if I don't have a parking permit?",
       answer: (
-        <>
+        <div style={{ padding: "10px 0px" }}>
           If you do not hold a UTA parking permit, you will have to park in
           Maverick Garage and pay for your parking on your own. Maverick Garage
           can also be found in the{" "}
@@ -99,29 +99,36 @@ export default function FAQsSection() {
             Datathon Event Parking Map
           </a>
           .
-        </>
+        </div>
       ),
     },
     {
       id: 13,
-      question: "What is the latest news about UTA?",
+      question: "Any restrictions on software use?",
       answer: (
-        <>
-          UTA prohibits a list of Chinese apps for university employees
-          following Abbott&apos;s order. Read more in the{" "}
-          <a
-            style={{
-              color: "white",
-              fontWeight: "bold",
-              textDecoration: "underline",
-            }}
-            href="https://www.theshorthorn.com/news/uta-prohibits-list-of-chinese-apps-for-university-employees-following-abbott-s-order/article_52307acc-e401-11ef-b7ed-a74da5ffc246.html"
-            target="_blank"
-          >
-            full article here
-          </a>
-          .
-        </>
+        <div>
+          <ul className="two-column-list">
+            <li>Alipay</li>
+            <li>ByteDance Ltd.</li>
+            <li>CamScanner</li>
+            <li>DeepSeek</li>
+            <li>Kaspersky</li>
+            <li>Lemon8</li>
+            <li>Moomoo</li>
+            <li>QQ Wallet</li>
+            <li>RedNote</li>
+            <li>SHAREit</li>
+            <li>Tencent Holdings Ltd.</li>
+            <li>Tiger Brokers</li>
+            <li>TikTok</li>
+            <li>VMate</li>
+            <li>WeBull</li>
+            <li>WeChat</li>
+            <li>WeChat Pay</li>
+            <li>WPS Office</li>
+            <li>Any subsidiary or affiliates of entities listed above</li>
+          </ul>
+        </div>
       ),
     },
   ];
@@ -156,7 +163,12 @@ export default function FAQsSection() {
                 activeFAQs.includes(index) ? "active" : ""
               }`}
             >
-              <p>{faq.answer}</p>
+              {/* Render `faq.answer` directly without wrapping it in a <p> */}
+              {typeof faq.answer === "string" ? (
+                <p>{faq.answer}</p>
+              ) : (
+                faq.answer
+              )}
             </div>
           </div>
         ))}
