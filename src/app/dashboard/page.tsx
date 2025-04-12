@@ -17,6 +17,11 @@ const EVENT_DETAILS = [
     date: "April 12, 2025 | 8:00 AM - 10:00 AM"
   },
   {
+    id: "event-2",
+    name: "T-shirts",
+    date: "April 12, 2025 | 11 AM - 11:30 PM"
+  },
+  {
     id: "event-4",
     name: "Lunch",
     date: "April 12, 2025 | 11:30 AM - 1:00 PM"
