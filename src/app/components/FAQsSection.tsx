@@ -59,6 +59,24 @@ export default function FAQsSection() {
       question: "How can I sponsor the event?",
       answer: "Contact us through our website for sponsorship opportunities.",
     },
+    {
+      id:11,
+      question: "Where do I park?",
+      answer: (
+        <>
+          Parking is available LOT F10, which will be marked in blue on the <a style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline' }} href="https://drive.google.com/file/d/1yHSYePflCoSJ_Jh8BY7lT03D7zFP_cbw/view" target="_blank">Datathon Event Parking Map</a> on the day of the event.
+        </>
+      ),
+    },
+    {
+      id:12,
+      question: "What if I don't have a parking permit?",
+      answer: (
+        <>
+          If you do not hold a UTA parking permit, you'll have to park in Maverick Garage and pay for your parking on your own. Maverick Garage can also be found in the <a style={{ color: 'white', fontWeight: 'bold', textDecoration: 'underline' }} className="" href="https://drive.google.com/file/d/1yHSYePflCoSJ_Jh8BY7lT03D7zFP_cbw/view" target="_blank">Datathon Event Parking Map</a>.
+        </>
+      ),
+    },
   ];
 
   const [activeFAQs, setActiveFAQs] = useState<number[]>([]);
