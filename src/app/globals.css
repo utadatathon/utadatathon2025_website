@@ -1566,3 +1566,75 @@ canvas {
     opacity: 1;
   }
 }
+
+/* Prizes */
+.prizes-section {
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(217, 215, 215, 0.15);
+  margin: 30px auto;
+  max-width: 85%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 100px;
+}
+
+.prizes-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.prizes-category h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #00ffcc;
+}
+
+.prize-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.prize-card {
+  background: linear-gradient(transparent 10%, rgba(10, 10, 255, 0.2));
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.prize-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.25);
+}
+
+.prize-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.prize-card p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .prize-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .prize-card {
+    width: 90%;
+  }
+}

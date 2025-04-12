@@ -172,7 +172,7 @@ export default function Home() {
             <div className="buttons">
               <Link href="/registration" className="retro-button">Apply Now</Link>
               <a href="https://discord.gg/YrV6CTMR2k" target="_blank" rel="noopener noreferrer" className="retro-button">Discord</a>
-              <a href="https://devpost.com/your-devpost" target="_blank" rel="noopener noreferrer" className="retro-button">Dev Post</a>
+              <a href="https://uta-datathon-25.devpost.com/" target="_blank" rel="noopener noreferrer" className="retro-button">Dev Post</a>
             </div>
           </div>
         </div>
