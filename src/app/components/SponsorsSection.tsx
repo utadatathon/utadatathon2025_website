@@ -29,6 +29,11 @@ export default function SponsorsSection(): JSX.Element {
       name: "SCAI", 
       logo: "/images/sponsors/scai.png",
       url: "https://www.instagram.com/scai_uta/"
+    },
+    {
+      name: "Student Government", 
+      logo: "/images/sponsors/stud_gov.png",
+      url: "https://www.uta.edu/student-affairs/student-governance"
     }
   ];
 
