@@ -7,7 +7,7 @@ interface Event {
   location: string;
   description?: string;
   speaker?: string;
-  track: "mini-event" | "workshop" | "food" | "ceremony" | "hacking" | "extras";
+  track: "mini-event" | "workshop" | "food" | "ceremony" | "hacking" | "extras" | "rooms";
 }
 
 interface DaySchedule {
@@ -98,7 +98,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "9:00 PM - 10:00 PM",
         activity: "Scribbl.io",
-        location: "",
+        location: "SWSH Room 225",
         track: "mini-event",
       },
       {
@@ -116,7 +116,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "12:30 AM - 1:30 AM",
         activity: "Late Night Among Us",
-        location: "",
+        location: "SWSH Room 225",
         track: "mini-event",
       },
       {
@@ -140,14 +140,44 @@ const scheduleData: DaySchedule[] = [
       {
         time: "12:30 PM - 2:00 PM",
         activity: "Bingo",
-        location: "",
+        location: "SWSH Room 225",
         track: "mini-event",
       },
       {
         time: "3:00 PM - 4:00 PM",
         activity: "Closing Ceremony",
-        location: "",
+        location: "SWSH Room 104/105",
         track: "ceremony",
+      },
+    ],
+  },
+  {
+    day: "Rooms",
+    date: "Code & Chill ",
+    events: [
+      {
+        time: "",
+        activity: "Opening & Closing Ceremony",
+        location: "SWSH Room 104/105",
+        track: "rooms"
+      },
+      {
+        time: "",
+        activity: "Mini Games 🎮",
+        location: "SWSH Room 225",
+        track: "rooms"
+      },
+      {
+        time: "",
+        activity: "Movies & Chill 🎥",
+        location: "SWSH Room 221",
+        track: "rooms"
+      },
+      {
+        time: "",
+        activity: "Code & Relax  🛋️",
+        location: "SWSH Room 428, 429 & 430",
+        track: "rooms"
       },
     ],
   },
@@ -294,6 +324,9 @@ export default function Schedule() {
         [data-track="extras"] {
           border-color: #888;
         }
+        [data-track="rooms"] {
+          border-color: #90caf9; /* Soft lavender */
+        }
 
         @media (max-width: 768px) {
           .schedule-container {
@@ -348,7 +381,8 @@ export default function Schedule() {
                 <div key={i} className="event-card" data-track={event.track}>
                   {event.track !== "hacking" &&
                     event.track !== "extras" &&
-                    event.track !== "ceremony" && (
+                    event.track !== "ceremony" &&
+                    event.track !== "rooms" && (
                       <div
                         className="event-track"
                         style={{
@@ -390,10 +424,15 @@ export default function Schedule() {
                   {event.description && (
                     <div className="event-description">{event.description}</div>
                   )}
+                  
                 </div>
               ))}
+              {day.day == 'Rooms' && 
+                <p className="note">Feel free to use the SWSH building’s lobby, common areas, or any unoccupied rooms to relax, code, or hang out. Just keep it tidy and respect others using the space. </p>}
             </div>
+            
           ))}
+        
       </div>
     </div>
   );
@@ -407,6 +446,7 @@ function getTrackColor(track: string): string {
     workshop: "#00a8ff",
     "mini-event": "#ff6437",
     extras: "#888",
+    rooms: "#90caf9"
   };
   return colors[track] || "#888";
 }
