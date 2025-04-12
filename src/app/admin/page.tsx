@@ -3,16 +3,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { auth } from "../../../firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import "./admin-styles.css";
+import QRComponent from "./QRComponent";
 
 // Analytics components
-const DashboardStats = dynamic(
-  () => import('./components/DashboardStats'),
-  { ssr: false }
-);
+const DashboardStats = dynamic(() => import("./components/DashboardStats"), {
+  ssr: false,
+});
 const RegistrationChart = dynamic(
-  () => import('./components/RegistrationChart'),
+  () => import("./components/RegistrationChart"),
   { ssr: false }
 );
 import SchoolDistribution from "./components/SchoolDistribution";
@@ -144,7 +144,7 @@ export default function AdminPage() {
       "dietaryRestrictions",
       "countryOfResidence",
       "timestamp",
-      "userEmail"
+      "userEmail",
     ];
 
     // Create header row
@@ -633,6 +633,8 @@ export default function AdminPage() {
                   </dl>
                 </section>
               </div>
+              {/* QR Code */}
+              <QRComponent userId = {selectedRegistration.userId as string}/>
             </div>
           </div>
         )}
