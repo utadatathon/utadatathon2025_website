@@ -98,7 +98,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "9:00 PM - 10:00 PM",
         activity: "Scribbl.io",
-        location: "SWSH Room 225",
+        location: "SWSH Room 224",
         track: "mini-event",
       },
       {
@@ -116,7 +116,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "12:30 AM - 1:30 AM",
         activity: "Late Night Among Us",
-        location: "SWSH Room 225",
+        location: "SWSH Room 224",
         track: "mini-event",
       },
       {
@@ -140,7 +140,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "12:30 PM - 2:00 PM",
         activity: "Bingo",
-        location: "SWSH Room 225",
+        location: "SWSH Room 224",
         track: "mini-event",
       },
       {
@@ -164,7 +164,7 @@ const scheduleData: DaySchedule[] = [
       {
         time: "",
         activity: "Mini Games 🎮",
-        location: "SWSH Room 225",
+        location: "SWSH Room 224",
         track: "rooms"
       },
       {

@@ -26,6 +26,7 @@ const Header = () => {
       "pratham153patil@gmail.com",
       "aastha6100@gmail.com",
       "devratasauthor@gmail.com",
+      "linkwithsujit@gmail.com"
     ],
     []
   );

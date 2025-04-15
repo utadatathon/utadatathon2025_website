@@ -38,7 +38,7 @@ const EVENT_DETAILS = [
   },
   {
     id: "event-7",
-    name: "Dr. Behzad Workshop - Data Diversity in ML",
+    name: "Workshop #3",
     date: "April 12, 2025 | 3:30 PM - 4:30 PM"
   },
   {

@@ -48,6 +48,7 @@ export default function AdminPage() {
     "pratham153patil@gmail.com",
     "devratasauthor@gmail.com",
     "aastha6100@gmail.com",
+    "linkwithsujit@gmail.com"
     // Add your email here
     // Add other admin emails here
   ]);
