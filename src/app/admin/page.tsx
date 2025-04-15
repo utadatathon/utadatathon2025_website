@@ -17,6 +17,7 @@ const RegistrationChart = dynamic(
 );
 import SchoolDistribution from "./components/SchoolDistribution";
 import StudyLevelChart from "./components/StudyLevelChart";
+import CheckInDownload from "./components/CheckInDownload";
 
 interface Registration {
   email?: string;
@@ -326,6 +327,11 @@ export default function AdminPage() {
 
               <div className="chart-card">
                 <h3 className="chart-title">Data Export</h3>
+                <div className="export-buttons flex flex-col md:flex-row gap-4">
+                  {/* CheckInDownload Button */}
+                  <CheckInDownload />
+                </div>
+
                 <div className="export-buttons flex flex-col md:flex-row gap-4">
                   {/* Export Emails Button */}
                   <button
@@ -637,7 +643,7 @@ export default function AdminPage() {
                 </section>
               </div>
               {/* QR Code */}
-              <QRComponent userId = {selectedRegistration.userId as string}/>
+              <QRComponent userId={selectedRegistration.userId as string} />
             </div>
           </div>
         )}
