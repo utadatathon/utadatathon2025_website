@@ -37,11 +37,6 @@ export default function JudgesSection() {
     title: "",
     image: "/images/judges/abhi.jpeg"
   },
-  // {
-  //   name: "Samarth Jagtap",
-  //   title: "",
-  //   image: "/images/team/samarth.jpg"
-  // },
   {
     name: "Dr. Franklin Rivas",
     title: "",
