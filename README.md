@@ -1,6 +1,7 @@
-Founder Accreditation: [Rubab Shahzad](www.linkedin.com/in/rubab-shahzad)
-The UTA Datathon was founded by Rubab Shahzad, the Data Visualization Librarian at the University of Texas at Arlington. With a passion for data storytelling and a commitment to fostering interdisciplinary collaboration, Rubab established the Datathon to empower students across various majors to engage in data-driven problem-solving. Her leadership has transformed the event into a dynamic platform that bridges academia and industry, encouraging innovation and teamwork
+# Founder Accreditation: Rubab Shahzad [Linkedin](www.linkedin.com/in/rubab-shahzad) [GitHUb](https://github.com/rubabshz)
 
+The UTA Datathon is founded by Rubab Shahzad, the Data Visualization Librarian at the University of Texas at Arlington. With a passion for data storytelling and a commitment to fostering interdisciplinary collaboration, Rubab established the Datathon to empower students across various majors to engage in data-driven problem-solving. 
+Her leadership has transformed the event into a dynamic platform that bridges academia and industry, encouraging innovation and teamwork.
 
 
 # utadatathon2025_website
